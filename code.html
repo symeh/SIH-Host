@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSAKCET Time Table & Attendance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* --- Smooth Transitions & Animations --- */
+        .smooth-transition {
+            transition: all 0.3s ease-in-out;
+        }
+        .modal {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            visibility: visible;
+        }
+        .modal.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .main-view-transition {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .main-view-transition.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .loader {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #ef4444;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        /* --- UI Element Styles --- */
+        .current-class {
+            background-color: #fee2e2 !important; /* red-100 */
+            border: 2px solid #dc2626; /* red-600 */
+            transform: scale(1.02);
+        }
+        #timetable-container td:not(.current-class):hover {
+            background-color: #f3f4f6;
+        }
+        #timetable-container.editable td {
+            cursor: pointer;
+        }
+        
+        /* Attendance toggle styles */
+        .attendance-toggle {
+            display: inline-flex;
+            border-radius: 9999px;
+            overflow: hidden;
+            border: 1px solid #d1d5db;
+        }
+        .attendance-toggle button {
+            padding: 4px 12px;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+            transition: background-color 0.2s;
+        }
+        .attendance-toggle .present.active {
+            background-color: #22c55e;
+            color: white;
+        }
+        .attendance-toggle .absent.active {
+            background-color: #ef4444;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <!-- Main Application Container -->
+    <div id="app" class="min-h-screen container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8 animate-fade-in">
+            <h1 class="text-3xl md:text-4xl font-bold text-red-800">NSAKCET Time Table & Attendance</h1>
+            <p class="text-gray-600 mt-2">Nawab Shah Alam Khan College of Engineering & Technology</p>
+        </header>
+
+        <!-- Role Selection View -->
+        <div id="role-selection-view" class="animate-fade-in">
+            <h2 class="text-center text-xl md:text-2xl font-semibold mb-6">Who are you?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div id="select-student" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg hover:scale-105 smooth-transition cursor-pointer text-center">
+                    <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <h3 class="text-xl font-bold">Student</h3>
+                    <p class="text-slate-500 mt-1">View schedule & attendance</p>
+                </div>
+                <div id="select-faculty" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg hover:scale-105 smooth-transition cursor-pointer text-center">
+                    <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    <h3 class="text-xl font-bold">Faculty</h3><p class="text-slate-500 mt-1">Login to take attendance</p>
+                </div>
+                <div id="select-hod" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg hover:scale-105 smooth-transition cursor-pointer text-center">
+                    <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    <h3 class="text-xl font-bold">HOD</h3><p class="text-slate-500 mt-1">Manage & view reports</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main View (for timetables and attendance) -->
+        <div id="main-view" class="hidden main-view-transition">
+            <div class="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-md">
+                <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+                    <h2 id="view-title" class="text-2xl font-bold">Dashboard</h2>
+                    <div>
+                         <button id="view-leave-requests-btn" class="hidden bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">View Leaves</button>
+                         <button id="analyze-workload-btn" class="hidden bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">✨ Analyze Workload</button>
+                         <button id="view-attendance-report-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">View Attendance</button>
+                         <button id="manage-faculty-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Faculty</button>
+                         <button id="back-button" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Back</button>
+                    </div>
+                </div>
+                
+                <div id="faculty-actions" class="hidden justify-end mb-4">
+                    <button id="take-leave-btn" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">Take Leave</button>
+                </div>
+
+                <div id="faculty-current-class-view" class="hidden mb-6 p-4 bg-red-100 border-l-4 border-red-500 rounded-r-lg flex flex-wrap justify-center md:justify-between items-center gap-4"></div>
+                
+                <div id="filters" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 items-end"></div>
+                
+                <div id="student-attendance-summary" class="hidden mb-6 p-4 border rounded-lg"></div>
+
+                <div id="timetable-container" class="overflow-x-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="hod-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm"><h3 class="text-2xl font-bold text-center mb-6">HOD Login</h3><form id="hod-login-form"><div class="mb-4"><label for="username" class="block text-sm font-medium text-slate-700">Username</label><input type="text" id="username" placeholder="Enter username" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div><div class="mb-6"><label for="password" class="block text-sm font-medium text-slate-700">Password</label><input type="password" id="password" placeholder="Enter password" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div><p id="login-error" class="text-red-500 text-sm text-center mb-4 hidden"></p><div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Login</button></div></form></div>
+    </div>
+    <div id="faculty-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm"><h3 class="text-2xl font-bold text-center mb-6">Faculty Login</h3><form id="faculty-login-form"><div class="mb-4"><label for="faculty-username" class="block text-sm font-medium text-slate-700">Full Name</label><select id="faculty-username" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></select></div><div class="mb-6"><label for="faculty-password" class="block text-sm font-medium text-slate-700">Password</label><input type="password" id="faculty-password" placeholder="Enter password" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div><p id="faculty-login-error" class="text-red-500 text-sm text-center mb-4 hidden"></p><div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Login</button></div></form></div>
+    </div>
+    <div id="student-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md"><h3 class="text-2xl font-bold text-center mb-6">Student Login</h3><form id="student-login-form"><div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4"><div id="student-dept-select-container"></div><div id="student-year-select-container"></div><div id="student-section-select-container"></div></div><div class="mb-6" id="student-name-select-container" class="hidden"><label for="student-name-select" class="block text-sm font-medium text-slate-700">Your Name</label><select id="student-name-select" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm disabled:bg-slate-100" disabled><option value="">Select your class first...</option></select></div><div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" id="student-login-submit-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition disabled:bg-red-300" disabled>View Dashboard</button></div></form></div>
+    </div>
+    <div id="edit-slot-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md"><h3 id="edit-modal-title" class="text-2xl font-bold text-center mb-6">Update Slot</h3><form id="edit-slot-form"><input type="hidden" id="edit-day"><input type="hidden" id="edit-slot-index"><div class="mb-4"><label for="subject-select" class="block text-sm font-medium text-slate-700">Subject</label><select id="subject-select" class="mt-1 block w-full p-2 border border-slate-300 rounded-md"></select></div><div class="mb-6"><label for="faculty-select-modal" class="block text-sm font-medium text-slate-700">Faculty</label><select id="faculty-select-modal" class="mt-1 block w-full p-2 border border-slate-300 rounded-md"></select></div><div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Update & Save</button></div></form></div>
+    </div>
+    <div id="manage-faculty-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg"><h3 id="manage-faculty-title" class="text-2xl font-bold text-center mb-6">Manage Faculty</h3><div id="faculty-list" class="max-h-64 overflow-y-auto mb-4 border rounded-lg p-3"></div><form id="add-faculty-form" class="flex gap-2 items-center mb-6"><input type="text" id="new-faculty-name" placeholder="Enter new faculty name" required class="flex-grow p-2 border border-slate-300 rounded-md"><button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Add</button></form><p id="faculty-error" class="text-red-500 text-sm text-center mb-4 hidden"></p><div class="text-right"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Done</button></div></div>
+    </div>
+    <div id="attendance-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 p-4 pt-10 overflow-y-auto modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl"><h3 id="attendance-modal-title" class="text-2xl font-bold text-center mb-2">Take Attendance</h3><p id="attendance-modal-subtitle" class="text-center text-slate-500 mb-6"></p><div class="flex justify-between items-center mb-4"><p class="text-sm text-slate-600">Total Students: <span id="student-count"></span></p><button id="mark-all-present-btn" class="bg-green-100 text-green-800 text-sm font-semibold py-1 px-3 rounded-full hover:bg-green-200 smooth-transition">Mark All Present</button></div><form id="attendance-form"><div id="student-list-container" class="max-h-96 overflow-y-auto space-y-2 border rounded-lg p-3"></div><div class="flex items-center justify-between mt-6"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Save Attendance</button></div></form></div>
+    </div>
+    <div id="attendance-report-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 p-4 pt-10 overflow-y-auto modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-4xl"><h3 id="report-modal-title" class="text-2xl font-bold text-center mb-6">Attendance Report</h3><div class="mb-4 flex flex-wrap items-center gap-4"><label for="report-date" class="font-semibold">Select Date:</label><input type="date" id="report-date" class="p-2 border rounded-md"><button id="get-attendance-insights-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">✨ Get Attendance Insights</button></div><div id="report-container" class="overflow-x-auto"></div><div class="text-right mt-6"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button></div></div>
+    </div>
+    <div id="ask-doubt-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
+            <h3 class="text-2xl font-bold text-center mb-6">Ask the AI Tutor</h3>
+            <form id="ask-doubt-form">
+                <div class="mb-4">
+                    <label for="doubt-subject-select" class="block text-sm font-medium text-slate-700">Which subject is your question about?</label>
+                    <select id="doubt-subject-select" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md"></select>
+                </div>
+                <div class="mb-6">
+                    <label for="doubt-textarea" class="block text-sm font-medium text-slate-700">Enter your question</label>
+                    <textarea id="doubt-textarea" rows="4" required placeholder="e.g., Can you explain the difference between TCP and UDP?" class="mt-1 block w-full p-2 border border-slate-300 rounded-md"></textarea>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
+                    <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">✨ Get Explanation</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="take-leave-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
+            <h3 class="text-2xl font-bold text-center mb-6">Request Leave</h3>
+            <form id="take-leave-form">
+                <div class="mb-4">
+                    <label for="leave-date" class="block text-sm font-medium text-slate-700">Date of Leave</label>
+                    <input type="date" id="leave-date" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md">
+                </div>
+                <div class="mb-6">
+                    <label for="leave-reason" class="block text-sm font-medium text-slate-700">Reason for Leave (brief)</label>
+                    <textarea id="leave-reason" rows="3" required placeholder="e.g., Personal emergency, attending a conference, etc." class="mt-1 block w-full p-2 border border-slate-300 rounded-md"></textarea>
+                    <div class="text-right mt-2">
+                        <button type="button" id="draft-leave-reason-btn" class="text-sm bg-purple-100 text-purple-800 font-semibold py-1 px-3 rounded-full hover:bg-purple-200 smooth-transition">
+                            ✨ Draft with AI
+                        </button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
+                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Submit Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="view-leaves-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 p-4 pt-10 overflow-y-auto modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl">
+            <h3 class="text-2xl font-bold text-center mb-6">Faculty Leave Requests</h3>
+            <div id="leave-requests-list" class="max-h-96 overflow-y-auto space-y-3">
+                 <!-- Leave requests will be populated here by JavaScript -->
+            </div>
+            <div class="text-right mt-6">
+                <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gemini AI Modal -->
+    <div id="gemini-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100] p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <h3 id="gemini-modal-title" class="text-2xl font-bold text-center mb-6 text-gray-800">✨ AI Assistant</h3>
+            <div id="gemini-modal-content" class="flex-grow overflow-y-auto pr-2">
+                <!-- Loading state -->
+                <div id="gemini-loading" class="text-center py-8 hidden">
+                    <div class="loader mx-auto mb-4"></div>
+                    <p class="text-slate-600">Generating response...</p>
+                </div>
+                <!-- Result state -->
+                <div id="gemini-result" class="prose max-w-none"></div>
+            </div>
+            <div class="text-right mt-6">
+                <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // --- DATA (Non-DOM) ---
+        let timeTableData = {};
+        const STORAGE_KEY = 'nsakcetTimeTableData_v5'; // Updated version key
+        const timeSlots = ["9:00 - 10:00", "10:00 - 11:00", "11:00 - 12:00", "12:00 - 1:00", "2:00 - 3:00"];
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+        let currentRole = null;
+        let currentFacultyName = null;
+        let currentClassInfoForAttendance = {};
+        const apiKey = "AIzaSyAAzP425t7kW1aXWaBG-3cQKLqIYvqAT40"; // Canvas will provide this
+
+        function toggleModal(modalId, show) {
+            const modal = document.getElementById(modalId);
+            if (show) modal.classList.remove('hidden');
+            else modal.classList.add('hidden');
+        }
+
+        // --- GEMINI API FUNCTIONS ---
+        async function callGeminiAPI(prompt, isJson = false) {
+            const geminiModal = document.getElementById('gemini-modal');
+            const geminiLoading = document.getElementById('gemini-loading');
+            const geminiResult = document.getElementById('gemini-result');
+
+            toggleModal('gemini-modal', true);
+            geminiLoading.classList.remove('hidden');
+            geminiResult.innerHTML = '';
+
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+            };
+             if (isJson) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                };
+            }
+
+            try {
+                let response;
+                let backoff = 1000; // start with 1 second
+                for (let i = 0; i < 5; i++) { // Retry up to 5 times
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        break; // Success
+                    } else if (response.status === 429) { // Throttled
+                        await new Promise(resolve => setTimeout(resolve, backoff));
+                        backoff *= 2; // Exponential backoff
+                    } else {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+                }
+
+                if (!response.ok) {
+                    throw new Error('API request failed after multiple retries.');
+                }
+                
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    return text; // Return raw text, let caller handle it
+                } else {
+                    throw new Error('Invalid response structure from API.');
+                }
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                geminiResult.innerHTML = `<p class="text-red-500">Sorry, an error occurred while contacting the AI assistant. Please try again later.</p><p class="text-sm text-gray-500 mt-2">${error.message}</p>`;
+                return null;
+            } finally {
+                geminiLoading.classList.add('hidden');
+            }
+        }
+        
+        async function getGeminiTextOnly(prompt) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            try {
+                let response;
+                let backoff = 1000;
+                for (let i = 0; i < 5; i++) {
+                    response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (response.ok) break;
+                    if (response.status === 429) { await new Promise(resolve => setTimeout(resolve, backoff)); backoff *= 2; } 
+                    else { throw new Error(`API request failed with status ${response.status}`); }
+                }
+                if (!response.ok) throw new Error('API request failed after multiple retries.');
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) return text;
+                throw new Error('Invalid response structure from API.');
+            } catch (error) {
+                console.error('Gemini Text Only Error:', error);
+                return `Sorry, an error occurred while drafting the message. Please write it manually. Error: ${error.message}`;
+            }
+        }
+
+
+        // --- DATA FUNCTIONS (Non-DOM) ---
+        function saveData() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(timeTableData)); } catch (error) { console.error("Could not save data:", error); }}
+        function loadData() { const savedData = localStorage.getItem(STORAGE_KEY); if (savedData) { timeTableData = JSON.parse(savedData); if(!timeTableData.leaves) timeTableData.leaves = []; } else { timeTableData = getInitialData(); } generateSchedules(); }
+        function getInitialData() {
+            let data = {
+                departments: ["CSE", "ECE", "MECH", "CIVIL"],
+                years: ["I", "II", "III", "IV"],
+                sections: ["A", "B", "C", "D"],
+                subjects: { 
+                    "I": ["Engg. Maths-I", "Physics", "Chemistry", "C Programming", "Engg. Graphics", "Workshop"], 
+                    "II": ["DSP", "Discrete Maths (DM)", "DBMS", "EVS", "ETCE", "Basic Electronics (BE)", "Operations Research (OR)", "DSP LAB", "DBMS LAB", "BE LAB"], 
+                    "III": ["Compiler Design", "Operating Systems", "Computer Networks", "AI", "Software Engg."], 
+                    "IV": ["Machine Learning", "Cyber Security", "Cloud Computing", "Project Work"] 
+                },
+                faculty: { 
+                    "CSE": ["Mr. Mohd Anjum Shadani", "Ms. Imrana Begum", "Ms. Afsha Sultana", "Ms. Humera Begum", "Ms. Saba Fatima", "Ms. Maimoona Arshiya", "Ms. Azeera Shaheen", "Mr. Abdul Muqeet"], 
+                    "ECE": ["Prof. N. Tesla", "Dr. M. Curie", "Prof. A. Bell"], 
+                    "MECH": ["Dr. J. Watt", "Prof. H. Ford", "Dr. R. Diesel"], 
+                    "CIVIL": ["Prof. J. Smeaton", "Dr. E. Roebling", "Prof. F. Khan"] 
+                },
+                students: { 
+                    "CSE": { 
+                        "II": { "A": [
+                                { "id": "161024733030", "name": "MA HANNAN MOHIUDDIN" }, { "id": "161024733031", "name": "MOHAMMED ARMAN AHMED QURESHI" }, { "id": "161024733032", "name": "MIRZA AMAN AHMED BAIG" }, { "id": "161024733033", "name": "MOHAMMED ABDUL ZAIN" }, { "id": "161024733034", "name": "MOHAMMED MOHIUDDIN" }, { "id": "161024733035", "name": "MOHAMMED FIRASAT ALI" }, { "id": "161024733036", "name": "AWAD BIN OSMAN NABHAN" }, { "id": "161024733037", "name": "SYED AQEEL" }, { "id": "161024733038", "name": "MOHAMMED SHEEZAN AKRAM" }, { "id": "161024733039", "name": "MOHAMMED HAMZA FAROOQUI" }, { "id": "161024733040", "name": "MOHAMMAD ABDUL JABBAR FARAZ" }, { "id": "161024733041", "name": "MOHAMMAD AMAAN" }, { "id": "161024733042", "name": "MOHAMMED KAMRAN KAIF" }, { "id": "161024733043", "name": "MOHAMMAD SIKANDER AYAZ" }, { "id": "161024733044", "name": "SYED AYAZ" }, { "id": "161024733045", "name": "MOHAMMED MAJAAZ AHMED" }, { "id": "161024733046", "name": "SYED TOUSEEF AHMED" }, { "id": "161024733047", "name": "MOHAMMED SULEMAN SHARIFF" }, { "id": "161024733048", "name": "MD FURKHAN ULLAH" }, { "id": "161024733049", "name": "SYED ZEESHAN MEHMOOD" }, { "id": "161024733050", "name": "MOHAMMED IBRAHIM" }, { "id": "161024733051", "name": "MOHAMMED RAYAN UDDIN" }, { "id": "161024733052", "name": "MOHAMMED AYAAN ALI AHMED" }, { "id": "161024733053", "name": "MD SOHAIL" }, { "id": "161024733054", "name": "MOHD ABDUL RIYAAN" }, { "id": "161024733055", "name": "MOHAMMED ZAHEER UDDIN" }, { "id": "161024733056", "name": "MOHAMMED QASIM ADNAN" }, { "id": "161024733057", "name": "AJMAL AHMED FAROOQUI" }, { "id": "161024733058", "name": "MOHD IRFAN" }, { "id": "161024733059", "name": "MOHAMMED ABDUL GHANI" }, { "id": "161024733060", "name": "MOHAMMED ANAS" }
+                            ]
+                        }
+                    } 
+                },
+                schedule: {},
+                attendance: {},
+                leaves: []
+            };
+            
+            // Manually set the schedule for CSE II Year Section A
+            data.schedule['CSE'] = data.schedule['CSE'] || {};
+            data.schedule['CSE']['II'] = data.schedule['CSE']['II'] || {};
+            data.schedule['CSE']['II']['A'] = {
+                "Monday": [
+                    { subject: "BE", faculty: "Ms. Maimoona Arshiya" },
+                    { subject: "ETCE", faculty: "Ms. Saba Fatima" },
+                    { subject: "OR", faculty: "Ms. Azeera Shaheen" },
+                    null,
+                    null
+                ],
+                "Tuesday": [
+                    { subject: "BE", faculty: "Ms. Maimoona Arshiya" },
+                    { subject: "DBMS", faculty: "Ms. Afsha Sultana" },
+                    { subject: "DSP", faculty: "Mr. Mohd Anjum Shadani" },
+                    { subject: "DM", faculty: "Ms. Imrana Begum" },
+                    { subject: "DBMS LAB", faculty: "Ms. Afsha Sultana" }
+                ],
+                "Wednesday": [
+                    { subject: "ETCE", faculty: "Ms. Saba Fatima" },
+                    { subject: "DSP", faculty: "Mr. Mohd Anjum Shadani" },
+                    { subject: "DBMS", faculty: "Ms. Afsha Sultana" },
+                    { subject: "DM", faculty: "Ms. Imrana Begum" },
+                    { subject: "DSP LAB", faculty: "Mr. Mohd Anjum Shadani" }
+                ],
+                "Thursday": [
+                    { subject: "OR", faculty: "Ms. Azeera Shaheen" },
+                    { subject: "DM", faculty: "Ms. Imrana Begum" },
+                    { subject: "ETCE", faculty: "Ms. Saba Fatima" },
+                    { subject: "DBMS", faculty: "Ms. Afsha Sultana" },
+                    null
+                ],
+                "Friday": [
+                    { subject: "BE LAB", faculty: "Ms. Maimoona Arshiya" },
+                    { subject: "BE LAB", faculty: "Ms. Maimoona Arshiya" },
+                    { subject: "DSP", faculty: "Mr. Mohd Anjum Shadani" },
+                    { subject: "OR", faculty: "Ms. Azeera Shaheen" },
+                    null
+                ]
+            };
+
+            return data;
+        }
+
+
+        function generateSchedules() {
+            timeTableData.departments.forEach(dept => {
+                timeTableData.schedule[dept] = timeTableData.schedule[dept] || {};
+                const deptFaculty = timeTableData.faculty[dept];
+                timeTableData.years.forEach(year => {
+                    timeTableData.schedule[dept][year] = timeTableData.schedule[dept][year] || {};
+                    const yearSubjects = timeTableData.subjects[year];
+                    timeTableData.sections.forEach(section => {
+                        // Skip CSE II A as it's manually set
+                        if (dept === 'CSE' && year === 'II' && section === 'A') {
+                            return;
+                        }
+                        if (!timeTableData.students[dept]?.[year]?.[section]) {
+                            if (!timeTableData.students[dept]) timeTableData.students[dept] = {};
+                            if (!timeTableData.students[dept][year]) timeTableData.students[dept][year] = {};
+                            timeTableData.students[dept][year][section] = Array.from({ length: 30 }, (_, i) => ({ id: `${dept.slice(0,2)}${year.length}${section}${100+i}`, name: `${dept} Student ${year}-${section}-${i+1}` }));
+                        }
+                        if (!timeTableData.schedule[dept]?.[year]?.[section] || Object.keys(timeTableData.schedule[dept][year][section]).length === 0) {
+                            timeTableData.schedule[dept][year][section] = {};
+                            days.forEach(day => {
+                                timeTableData.schedule[dept][year][section][day] = [];
+                                for (let i = 0; i < 5; i++) {
+                                    const subject = yearSubjects[(i + days.indexOf(day) + timeTableData.sections.indexOf(section)) % yearSubjects.length];
+                                    const faculty = deptFaculty && deptFaculty.length > 0 ? deptFaculty[(i + days.indexOf(day)) % deptFaculty.length] : 'N/A';
+                                    timeTableData.schedule[dept][year][section][day].push({ subject, faculty });
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+            saveData();
+        }
+
+        // --- SCRIPT EXECUTION STARTS HERE ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM ELEMENT VARIABLES (DECLARED AFTER DOM IS READY) ---
+            const roleSelectionView = document.getElementById('role-selection-view');
+            const mainView = document.getElementById('main-view');
+            const viewTitle = document.getElementById('view-title');
+            const filtersContainer = document.getElementById('filters');
+            const timetableContainer = document.getElementById('timetable-container');
+            const studentAttendanceSummary = document.getElementById('student-attendance-summary');
+            const facultyCurrentClassView = document.getElementById('faculty-current-class-view');
+            const backButton = document.getElementById('back-button');
+            const manageFacultyBtn = document.getElementById('manage-faculty-btn');
+            const viewAttendanceReportBtn = document.getElementById('view-attendance-report-btn');
+            const geminiResult = document.getElementById('gemini-result');
+            const facultyActions = document.getElementById('faculty-actions');
+            const viewLeaveRequestsBtn = document.getElementById('view-leave-requests-btn');
+
+            loadData();
+
+            function switchView(view) {
+                if (view === 'main') {
+                    roleSelectionView.classList.add('hidden');
+                    mainView.classList.remove('hidden');
+                } else {
+                    mainView.classList.add('hidden');
+                    roleSelectionView.classList.remove('hidden');
+                }
+            }
+
+            backButton.addEventListener('click', () => {
+                currentRole = null;
+                currentFacultyName = null;
+                facultyCurrentClassView.classList.add('hidden');
+                facultyActions.classList.add('hidden');
+                manageFacultyBtn.classList.add('hidden');
+                viewLeaveRequestsBtn.classList.add('hidden');
+                studentAttendanceSummary.classList.add('hidden');
+                viewAttendanceReportBtn.classList.add('hidden');
+                const aiTutorContainer = mainView.querySelector('.bg-purple-50');
+                if(aiTutorContainer) aiTutorContainer.remove();
+                switchView('roles');
+            });
+            
+            document.getElementById('select-student').addEventListener('click', () => {
+                const deptSelect = createSelect('s-dept', 'Dept', timeTableData.departments, document.getElementById('student-dept-select-container'));
+                const yearSelect = createSelect('s-year', 'Year', timeTableData.years, document.getElementById('student-year-select-container'));
+                const sectionSelect = createSelect('s-section', 'Section', timeTableData.sections, document.getElementById('student-section-select-container'));
+                const nameSelect = document.getElementById('student-name-select');
+                const submitBtn = document.getElementById('student-login-submit-btn');
+
+                function updateStudentList() {
+                    const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value];
+                    if (dept && year && section) {
+                        const students = timeTableData.students[dept]?.[year]?.[section] || [];
+                        const studentOptions = students.map(s => ({ value: s.id, text: s.name }));
+                        updateSelectOptions(nameSelect, studentOptions, 'Select your name...');
+                        nameSelect.disabled = students.length === 0;
+                        document.getElementById('student-name-select-container').classList.remove('hidden');
+                    } else {
+                        updateSelectOptions(nameSelect, [], 'Select class first...', '');
+                        nameSelect.disabled = true;
+                    }
+                    submitBtn.disabled = !nameSelect.value;
+                }
+
+                [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', updateStudentList));
+                nameSelect.addEventListener('change', () => { submitBtn.disabled = !nameSelect.value; });
+                
+                toggleModal('student-login-modal', true);
+            });
+        
+            document.getElementById('select-faculty').addEventListener('click', () => {
+                updateSelectOptions(document.getElementById('faculty-username'), Object.values(timeTableData.faculty).flat().sort(), 'Select your name...', '');
+                toggleModal('faculty-login-modal', true);
+            });
+            document.getElementById('select-hod').addEventListener('click', () => {
+                toggleModal('hod-login-modal', true);
+            });
+
+            document.querySelectorAll('[data-close-modal]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const modal = e.target.closest('.modal');
+                    if(modal) modal.classList.add('hidden');
+                });
+            });
+
+            document.getElementById('hod-login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (e.target.username.value === 'hod' && e.target.password.value === 'HOD123') {
+                    toggleModal('hod-login-modal', false);
+                    setupHODView();
+                } else {
+                    const errorEl = document.getElementById('login-error');
+                    errorEl.textContent = 'Invalid credentials.';
+                    errorEl.classList.remove('hidden');
+                }
+            });
+
+            document.getElementById('faculty-login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const facultyName = e.target['faculty-username'].value;
+                const password = e.target['faculty-password'].value;
+                if (facultyName && password === 'faculty123') {
+                    toggleModal('faculty-login-modal', false);
+                    setupFacultyView(facultyName);
+                } else {
+                    const errorEl = document.getElementById('faculty-login-error');
+                    errorEl.textContent = 'Invalid credentials.';
+                    errorEl.classList.remove('hidden');
+                }
+            });
+
+            document.getElementById('student-login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const dept = document.getElementById('s-dept').value;
+                const year = document.getElementById('s-year').value;
+                const section = document.getElementById('s-section').value;
+                const studentId = document.getElementById('student-name-select').value;
+                if (!studentId) return;
+
+                const studentName = timeTableData.students[dept]?.[year]?.[section]?.find(s => s.id === studentId)?.name || 'Student';
+                
+                toggleModal('student-login-modal', false);
+                setupStudentView({ dept, year, section, id: studentId, name: studentName });
+            });
+            
+            function createSelect(id, label, options, container) { container.innerHTML = `<label for="${id}" class="block text-sm font-medium text-slate-700 mb-1">${label}</label><select id="${id}" class="block w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500"><option value="">Select ${label}...</option>${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select>`; return container.querySelector('select'); }
+            function updateSelectOptions(select, options, placeholder, currentValue = '') { select.innerHTML = `<option value="">${placeholder}</option>${options.map(opt => `<option value="${opt.value || opt}" ${ (opt.value || opt) === currentValue ? 'selected' : ''}>${opt.text || opt}</option>`).join('')}`; }
+            function getTodayDateString() { const today = new Date(); return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`; }
+            function getCurrentTimeInfo() { const now = new Date(); const dayIndex = now.getDay() - 1; const currentDay = days[dayIndex]; const currentTime = now.getHours() + (now.getMinutes() / 60); let currentSlotIndex = -1; if (dayIndex >= 0 && dayIndex < 5) { if (currentTime >= 9 && currentTime < 10) currentSlotIndex = 0; else if (currentTime >= 10 && currentTime < 11) currentSlotIndex = 1; else if (currentTime >= 11 && currentTime < 12) currentSlotIndex = 2; else if (currentTime >= 12 && currentTime < 13) currentSlotIndex = 3; else if (currentTime >= 14 && currentTime < 15) currentSlotIndex = 4; } return { currentDay, currentSlotIndex }; }
+            function renderTimetable(data, highlight = {}) {
+                if (!data) { timetableContainer.innerHTML = `<p class="text-center text-slate-500 py-8">Please make a selection to view the timetable.</p>`; return; }
+                timetableContainer.classList.toggle('editable', currentRole === 'hod');
+                let table = `<table class="w-full min-w-[700px] border-collapse text-center"><thead><tr class="bg-red-100"><th class="p-3 font-semibold border border-slate-300">Time</th>${days.map(day => `<th class="p-3 font-semibold border border-slate-300">${day}</th>`).join('')}</tr></thead><tbody>`;
+                timeSlots.forEach((slot, i) => { table += `<tr class="bg-white"><td class="p-2 font-medium text-slate-600 border border-slate-300">${slot}</td>`; days.forEach(day => { const period = data[day]?.[i]; const content = period ? `<div class="font-semibold">${period.subject}</div><div class="text-sm text-slate-500">${period.faculty}</div>` : '-'; const isCurrent = (day === highlight.day && i === highlight.slotIndex); table += `<td class="p-2 border border-slate-300 smooth-transition ${isCurrent ? 'current-class' : ''}" ${currentRole === 'hod' ? `data-day="${day}" data-slot-index="${i}"` : ''}>${content}</td>`; }); table += `</tr>`; });
+                table += '</tbody></table>';
+                timetableContainer.innerHTML = table;
+                if (currentRole === 'hod') { document.querySelectorAll('#timetable-container td[data-day]').forEach(cell => { cell.addEventListener('click', () => openEditModal(cell.dataset.day, cell.dataset.slotIndex)); }); }
+            }
+            
+            function setupStudentView(studentInfo) {
+                currentRole = 'student';
+                viewTitle.textContent = `Dashboard for ${studentInfo.name}`;
+                filtersContainer.innerHTML = '';
+                timetableContainer.innerHTML = '';
+                switchView('main');
+                const { dept, year, section } = studentInfo;
+
+                const aiTutorContainer = document.createElement('div');
+                aiTutorContainer.className = 'my-6 p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg flex flex-wrap justify-between items-center gap-4';
+                aiTutorContainer.innerHTML = `
+                    <div>
+                        <h4 class="font-bold text-purple-800">Your Personal AI Assistant</h4>
+                        <p class="text-purple-700 text-sm">Stuck on a concept or need help planning your studies? I can help!</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <button id="ask-ai-tutor-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Ask a Doubt</button>
+                        <button id="create-study-plan-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Create Study Plan</button>
+                    </div>
+                `;
+                mainView.querySelector('.max-w-7xl').insertBefore(aiTutorContainer, studentAttendanceSummary);
+                document.getElementById('ask-ai-tutor-btn').addEventListener('click', () => openAskDoubtModal(studentInfo));
+                document.getElementById('create-study-plan-btn').addEventListener('click', () => handleCreateStudyPlan(studentInfo));
+
+                const scheduleForClass = timeTableData.schedule?.[dept]?.[year]?.[section];
+                if (scheduleForClass) {
+                    renderTimetable(scheduleForClass, getCurrentTimeInfo());
+                    displayStudentAttendance(studentInfo);
+                } else {
+                    console.error(`Error: Timetable data not found for ${dept} ${year}-${section}.`);
+                    timetableContainer.innerHTML = `<p class="text-center text-red-600 font-semibold p-8">Could not load the timetable for this class. Please contact the administrator.</p>`;
+                    studentAttendanceSummary.innerHTML = '';
+                    studentAttendanceSummary.classList.add('hidden');
+                }
+            }
+
+            function setupFacultyView(facultyName) { currentRole = 'faculty'; currentFacultyName = facultyName; viewTitle.textContent = `Schedule for ${facultyName}`; facultyActions.classList.remove('hidden'); filtersContainer.innerHTML = ''; timetableContainer.innerHTML = ''; switchView('main'); displayFacultySchedule(facultyName); }
+            
+            function setupHODView() { 
+                currentRole = 'hod'; 
+                viewTitle.textContent = "HOD Dashboard"; 
+                manageFacultyBtn.classList.remove('hidden'); 
+                viewLeaveRequestsBtn.classList.remove('hidden');
+                document.getElementById('analyze-workload-btn').classList.remove('hidden');
+                filtersContainer.innerHTML = ''; 
+                timetableContainer.innerHTML = ''; 
+                switchView('main'); 
+                createHODFilters(); 
+            }
+
+            function createHODFilters() {
+                const deptContainer = document.createElement('div');
+                const yearContainer = document.createElement('div');
+                const sectionContainer = document.createElement('div');
+                const aiButtonContainer = document.createElement('div');
+                aiButtonContainer.innerHTML = `<label class="block text-sm font-medium text-slate-700 mb-1 opacity-0">AI</label><button id="auto-generate-schedule-btn" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition disabled:bg-purple-300" disabled>✨ Auto-Generate</button>`;
+
+                const deptSelect = createSelect('h-dept', 'Department', timeTableData.departments, deptContainer);
+                const yearSelect = createSelect('h-year', 'Year', timeTableData.years, yearContainer);
+                const sectionSelect = createSelect('h-section', 'Section', timeTableData.sections, sectionContainer);
+                filtersContainer.innerHTML = '';
+                filtersContainer.append(deptContainer, yearContainer, sectionContainer, aiButtonContainer);
+
+                const autoGenerateBtn = document.getElementById('auto-generate-schedule-btn');
+                const analyzeWorkloadBtn = document.getElementById('analyze-workload-btn');
+                analyzeWorkloadBtn.disabled = true;
+
+                autoGenerateBtn.addEventListener('click', handleAutoGenerateSchedule);
+                analyzeWorkloadBtn.addEventListener('click', () => {
+                    const dept = deptSelect.value;
+                    if (dept) handleWorkloadAnalysis(dept);
+                });
+                
+                const update = () => { 
+                    const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value]; 
+                    const selectionComplete = dept && year && section; 
+                    viewAttendanceReportBtn.classList.toggle('hidden', !selectionComplete); 
+                    autoGenerateBtn.disabled = !selectionComplete; 
+                    analyzeWorkloadBtn.disabled = !dept;
+                    if (selectionComplete) { renderTimetable(timeTableData.schedule[dept][year][section], getCurrentTimeInfo()); } else { timetableContainer.innerHTML = ''; }
+                };
+                [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', update));
+            }
+            function displayFacultySchedule(facultyName) {
+                const facultySchedule = {}; let currentClassDetails = null; const { currentDay, currentSlotIndex } = getCurrentTimeInfo();
+                days.forEach(day => { facultySchedule[day] = Array(5).fill(null); timeTableData.departments.forEach(dept => { timeTableData.years.forEach(year => { timeTableData.sections.forEach(section => { const daySchedule = timeTableData.schedule[dept]?.[year]?.[section]?.[day]; if (daySchedule) { const period = daySchedule[currentSlotIndex]; if (day === currentDay && period?.faculty === facultyName) { currentClassDetails = { subject: period.subject, dept, year, section, day: currentDay, slotIndex: currentSlotIndex }; } daySchedule.forEach((p, i) => { if (p && p.faculty === facultyName) { facultySchedule[day][i] = { subject: p.subject, faculty: `${dept}-${year}-${section}` }; } }); } }); }); }); });
+                if (currentClassDetails) {
+                    facultyCurrentClassView.innerHTML = `<div class="text-center md:text-left flex-grow"><p class="font-bold">You have a class right now!</p><p>${currentClassDetails.subject} for ${currentClassDetails.dept}-${currentClassDetails.year}-${currentClassDetails.section}</p></div><div class="flex flex-wrap gap-2 justify-center"><button id="create-lesson-plan-btn" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">✨ Create Lesson Plan</button><button id="suggest-topics-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">✨ Suggest Topics</button><button id="generate-quiz-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">✨ Generate Quiz</button><button id="take-attendance-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition animate-pulse">Take Attendance</button></div>`;
+                    document.getElementById('take-attendance-btn').addEventListener('click', () => openAttendanceModal(currentClassDetails));
+                    document.getElementById('create-lesson-plan-btn').addEventListener('click', () => handleCreateLessonPlan(currentClassDetails.subject));
+                    document.getElementById('suggest-topics-btn').addEventListener('click', () => handleSuggestTopics(currentClassDetails.subject));
+                    document.getElementById('generate-quiz-btn').addEventListener('click', () => handleGenerateQuiz(currentClassDetails.subject));
+                } else {
+                    facultyCurrentClassView.innerHTML = `<div class="text-center w-full"><p class="font-bold">No class scheduled at this time.</p><p class="text-sm text-gray-600 mt-1">When your class starts, AI tools and the attendance button will appear here.</p></div>`;
+                }
+                facultyCurrentClassView.classList.remove('hidden');
+                renderTimetable(facultySchedule, { day: currentDay, slotIndex: currentSlotIndex });
+            }
+            function displayStudentAttendance(studentInfo) {
+                const { dept, year, section, id: studentId } = studentInfo; const subjects = timeTableData.subjects[year]; let summaryHTML = `<h3 class="text-xl font-bold mb-4">Your Attendance Summary</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">`;
+                subjects.forEach(subject => { let totalClasses = 0; let attendedClasses = 0; Object.keys(timeTableData.attendance).forEach(date => { Object.keys(timeTableData.attendance[date]).forEach(slotIndex => { const classSchedule = timeTableData.schedule?.[dept]?.[year]?.[section]?.[days[new Date(date).getDay() - 1]]?.[slotIndex]; if (classSchedule?.subject === subject) { const classKey = `${dept}-${year}-${section}`; const record = timeTableData.attendance[date][slotIndex]?.[classKey]; if (record) { totalClasses++; if (record[studentId] === 'present') { attendedClasses++; } } } }); });
+                const percentage = totalClasses > 0 ? ((attendedClasses / totalClasses) * 100).toFixed(1) : "100.0"; const color = percentage >= 75 ? 'text-green-600' : 'text-red-600'; summaryHTML += `<div class="p-3 bg-slate-50 rounded-lg border flex flex-col justify-between"><div class="mb-2"><p class="font-semibold">${subject}</p><p class="text-2xl font-bold ${color}">${percentage}%</p><p class="text-sm text-slate-500">(${attendedClasses}/${totalClasses} classes)</p></div><button class="get-study-tips-btn text-xs bg-purple-100 text-purple-800 font-semibold py-1 px-2 rounded-full hover:bg-purple-200 smooth-transition w-full" data-subject="${subject}">✨ Get Study Tips</button></div>`; });
+                summaryHTML += `</div>`; studentAttendanceSummary.innerHTML = summaryHTML; studentAttendanceSummary.classList.remove('hidden');
+                document.querySelectorAll('.get-study-tips-btn').forEach(btn => btn.addEventListener('click', (e) => handleGetStudyTips(e.target.dataset.subject)));
+            }
+            function openAttendanceModal(classInfo) {
+                currentClassInfoForAttendance = classInfo; const { dept, year, section, subject } = classInfo; const students = timeTableData.students[dept]?.[year]?.[section] || []; document.getElementById('attendance-modal-title').textContent = `Attendance for ${subject}`; document.getElementById('attendance-modal-subtitle').textContent = `Class: ${dept} - ${year} ${section} | Date: ${getTodayDateString()}`; document.getElementById('student-count').textContent = students.length; const studentListContainer = document.getElementById('student-list-container'); studentListContainer.innerHTML = ''; const today = getTodayDateString(); const existingRecord = timeTableData.attendance?.[today]?.[classInfo.slotIndex]?.[`${dept}-${year}-${section}`] || {};
+                students.forEach(student => { const status = existingRecord[student.id] || 'present'; const row = document.createElement('div'); row.className = 'flex justify-between items-center p-2 rounded-lg hover:bg-slate-50'; row.innerHTML = `<div><p class="font-medium">${student.name}</p><p class="text-xs text-slate-500">${student.id}</p></div><div class="attendance-toggle" data-studentid="${student.id}"><button type="button" class="present ${status === 'present' ? 'active' : ''}" data-status="present">P</button><button type="button" class="absent ${status === 'absent' ? 'active' : ''}" data-status="absent">A</button></div>`; studentListContainer.appendChild(row); });
+                toggleModal('attendance-modal', true);
+            }
+            document.getElementById('student-list-container').addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON') { const parent = e.target.parentElement; parent.querySelector('.active').classList.remove('active'); e.target.classList.add('active'); }});
+            document.getElementById('mark-all-present-btn').addEventListener('click', () => { document.querySelectorAll('.attendance-toggle').forEach(toggle => { toggle.querySelector('.absent').classList.remove('active'); toggle.querySelector('.present').classList.add('active'); }); });
+            document.getElementById('attendance-form').addEventListener('submit', (e) => { e.preventDefault(); const { dept, year, section, slotIndex } = currentClassInfoForAttendance; const today = getTodayDateString(); if (!timeTableData.attendance[today]) timeTableData.attendance[today] = {}; if (!timeTableData.attendance[today][slotIndex]) timeTableData.attendance[today][slotIndex] = {}; const classKey = `${dept}-${year}-${section}`; const record = {}; document.querySelectorAll('.attendance-toggle').forEach(toggle => { record[toggle.dataset.studentid] = toggle.querySelector('.active').dataset.status; }); timeTableData.attendance[today][slotIndex][classKey] = record; saveData(); toggleModal('attendance-modal', false); });
+            viewAttendanceReportBtn.addEventListener('click', () => { document.getElementById('report-date').value = getTodayDateString(); renderAttendanceReport(); toggleModal('attendance-report-modal', true); });
+            document.getElementById('report-date').addEventListener('change', renderAttendanceReport);
+            document.getElementById('get-attendance-insights-btn').addEventListener('click', handleGetAttendanceInsights);
+            function renderAttendanceReport() {
+                const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value]; const date = document.getElementById('report-date').value; if(!dept || !year || !section) return;
+                document.getElementById('report-modal-title').textContent = `Attendance Report for ${dept}-${year}-${section} on ${date}`; const students = timeTableData.students[dept]?.[year]?.[section] || []; const container = document.getElementById('report-container'); let table = `<table class="w-full border-collapse text-left"><thead><tr class="bg-slate-200"><th class="p-2 border border-slate-300">Student ID</th><th class="p-2 border border-slate-300">Student Name</th>`;
+                timeSlots.forEach(slot => { table += `<th class="p-2 border border-slate-300 text-center">${slot}</th>`; }); table += `</tr></thead><tbody>`;
+                students.forEach(student => { table += `<tr class="bg-white hover:bg-slate-50"><td class="p-2 border border-slate-300 text-sm">${student.id}</td><td class="p-2 border border-slate-300 font-medium">${student.name}</td>`; timeSlots.forEach((slot, i) => { const record = timeTableData.attendance?.[date]?.[i]?.[`${dept}-${year}-${section}`]?.[student.id]; let status = '-'; if (record === 'present') status = `<span class="font-bold text-green-600">P</span>`; if (record === 'absent') status = `<span class="font-bold text-red-600">A</span>`; table += `<td class="p-2 border border-slate-300 text-center">${status}</td>`; }); table += `</tr>`; });
+                container.innerHTML = table + `</tbody></table>`;
+            }
+            function openEditModal(day, slotIndex) {
+                const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value]; if (!dept || !year || !section) return;
+                const currentSlot = timeTableData.schedule[dept][year][section][day][slotIndex]; document.getElementById('edit-modal-title').textContent = `Update Slot: ${day} (${timeSlots[slotIndex]})`; document.getElementById('edit-day').value = day; document.getElementById('edit-slot-index').value = slotIndex;
+                updateSelectOptions(document.getElementById('subject-select'), timeTableData.subjects[year], 'Select Subject...', currentSlot?.subject);
+                updateSelectOptions(document.getElementById('faculty-select-modal'), timeTableData.faculty[dept], 'Select Faculty...', currentSlot?.faculty);
+                toggleModal('edit-slot-modal', true);
+            }
+            document.getElementById('edit-slot-form').addEventListener('submit', (e) => { e.preventDefault(); const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value]; const day = document.getElementById('edit-day').value; const slotIndex = parseInt(document.getElementById('edit-slot-index').value); timeTableData.schedule[dept][year][section][day][slotIndex] = { subject: document.getElementById('subject-select').value, faculty: document.getElementById('faculty-select-modal').value }; saveData(); toggleModal('edit-slot-modal', false); renderTimetable(timeTableData.schedule[dept][year][section]); });
+            manageFacultyBtn.addEventListener('click', () => { const dept = document.getElementById('h-dept').value; if (!dept) { alert("Please select a Department first."); return; } document.getElementById('manage-faculty-title').textContent = `Manage ${dept} Faculty`; renderFacultyList(dept); toggleModal('manage-faculty-modal', true); });
+            function renderFacultyList(dept) { const container = document.getElementById('faculty-list'); container.innerHTML = ''; const currentFaculty = timeTableData.faculty[dept] || []; if (currentFaculty.length === 0) { container.innerHTML = `<p class="text-slate-500 text-center">No faculty members found.</p>`; } else { currentFaculty.forEach(name => { const div = document.createElement('div'); div.className = 'flex justify-between items-center p-2 border-b'; div.innerHTML = `<span>${name}</span><button data-name="${name}" class="remove-faculty-btn text-red-500 hover:text-red-700 font-semibold text-sm">Remove</button>`; container.appendChild(div); }); } document.querySelectorAll('.remove-faculty-btn').forEach(btn => { btn.addEventListener('click', (e) => removeFaculty(dept, e.target.dataset.name)); }); }
+            function removeFaculty(dept, name) { timeTableData.faculty[dept] = timeTableData.faculty[dept].filter(f => f !== name); saveData(); renderFacultyList(dept); }
+            document.getElementById('add-faculty-form').addEventListener('submit', (e) => { e.preventDefault(); const dept = document.getElementById('h-dept').value; const newNameInput = document.getElementById('new-faculty-name'); const newName = newNameInput.value.trim(); const errorEl = document.getElementById('faculty-error'); if (newName && !(timeTableData.faculty[dept] || []).includes(newName)) { if(!timeTableData.faculty[dept]) timeTableData.faculty[dept] = []; timeTableData.faculty[dept].push(newName); timeTableData.faculty[dept].sort(); saveData(); renderFacultyList(dept); newNameInput.value = ''; errorEl.classList.add('hidden'); } else if ((timeTableData.faculty[dept] || []).includes(newName)) { errorEl.textContent = 'This faculty member already exists.'; errorEl.classList.remove('hidden'); } });
+            function openAskDoubtModal(studentInfo) {
+                const { year } = studentInfo;
+                const subjects = timeTableData.subjects[year] || [];
+                const subjectSelect = document.getElementById('doubt-subject-select');
+                updateSelectOptions(subjectSelect, subjects, 'Select a subject...');
+                document.getElementById('doubt-textarea').value = '';
+                toggleModal('ask-doubt-modal', true);
+            }
+            document.getElementById('ask-doubt-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const subject = document.getElementById('doubt-subject-select').value;
+                const question = document.getElementById('doubt-textarea').value;
+                if (!subject || !question) return;
+                toggleModal('ask-doubt-modal', false);
+                document.getElementById('gemini-modal-title').textContent = `✨ AI Tutor Explains: ${subject}`;
+                const prompt = `You are a friendly and encouraging engineering tutor. An undergraduate student has a question about the subject "${subject}".
+                Student's question: "${question}"
+                Please provide a clear, step-by-step explanation. Use simple language, and if appropriate, give a small example or an analogy to help them understand. Keep the tone supportive.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            });
+
+            // --- LEAVE MANAGEMENT ---
+            document.getElementById('take-leave-btn').addEventListener('click', () => {
+                const leaveDateInput = document.getElementById('leave-date');
+                leaveDateInput.value = getTodayDateString();
+                leaveDateInput.min = getTodayDateString();
+                document.getElementById('leave-reason').value = '';
+                toggleModal('take-leave-modal', true);
+            });
+
+            document.getElementById('draft-leave-reason-btn').addEventListener('click', async (e) => {
+                const reasonTextarea = document.getElementById('leave-reason');
+                const reason = reasonTextarea.value.trim();
+                if (!reason) { alert("Please provide a brief reason first."); return; }
+
+                const draftBtn = e.target;
+                const originalText = draftBtn.innerHTML;
+                draftBtn.innerHTML = `<span class="loader" style="width:16px; height:16px; border-width:2px; border-top-color:#8b5cf6;"></span>`;
+                draftBtn.disabled = true;
+
+                const prompt = `You are a professional assistant. A faculty member, ${currentFacultyName}, needs to write a leave request. Their brief reason is: "${reason}". Please expand this into a polite, professional, one-paragraph message suitable for an email to the Head of Department. Start with "Respected HOD,".`;
+                const result = await getGeminiTextOnly(prompt);
+                reasonTextarea.value = result;
+
+                draftBtn.innerHTML = originalText;
+                draftBtn.disabled = false;
+            });
+            
+            document.getElementById('take-leave-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const leaveDate = document.getElementById('leave-date').value;
+                const leaveReason = document.getElementById('leave-reason').value;
+                
+                timeTableData.leaves.push({ faculty: currentFacultyName, date: leaveDate, reason: leaveReason, status: 'pending' });
+                saveData();
+                toggleModal('take-leave-modal', false);
+                
+                const emailBody = `
+                    <p><strong>To:</strong> Head of Department</p>
+                    <p><strong>From:</strong> ${currentFacultyName}</p>
+                    <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                    <p><strong>Subject:</strong> Leave Request on ${leaveDate}</p>
+                    <hr class="my-4">
+                    <p>${leaveReason.replace(/\n/g, '<br>')}</p>
+                `;
+                
+                document.getElementById('gemini-modal-title').textContent = '✅ Leave Request Submitted';
+                geminiResult.innerHTML = `
+                    <p class="text-lg">Your leave request has been successfully submitted for review.</p>
+                    <p class="text-sm text-slate-600 mt-4 mb-2">A notification email with the following content has been simulated as sent to the HOD:</p>
+                    <div class="p-4 bg-slate-50 border rounded-lg">${emailBody}</div>
+                `;
+                toggleModal('gemini-modal', true);
+            });
+
+            viewLeaveRequestsBtn.addEventListener('click', () => {
+                renderLeaveRequests();
+                toggleModal('view-leaves-modal', true);
+            });
+
+            function renderLeaveRequests() {
+                const container = document.getElementById('leave-requests-list');
+                const leaves = timeTableData.leaves || [];
+                if (leaves.length === 0) {
+                    container.innerHTML = `<p class="text-center text-slate-500 py-4">No leave requests found.</p>`;
+                    return;
+                }
+                container.innerHTML = leaves.map(leave => `
+                    <div class="p-4 border rounded-lg bg-white shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="font-bold text-lg">${leave.faculty}</p>
+                                <p class="text-sm text-slate-600">Requesting Leave on: <span class="font-semibold">${leave.date}</span></p>
+                            </div>
+                            <span class="text-xs font-semibold uppercase px-2 py-1 rounded-full bg-yellow-100 text-yellow-800">${leave.status}</span>
+                        </div>
+                        <p class="mt-3 pt-3 border-t text-slate-700">${leave.reason}</p>
+                    </div>
+                `).join('');
+            }
+
+
+            // --- AI FEATURE HANDLERS ---
+            async function handleAutoGenerateSchedule() {
+                const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value];
+                if (!dept || !year || !section) return;
+                document.getElementById('gemini-modal-title').textContent = `✨ Generating Schedule for ${dept}-${year}-${section}`;
+                const subjects = timeTableData.subjects[year];
+                const faculty = timeTableData.faculty[dept];
+                const prompt = `You are an expert academic scheduler for an engineering college. Generate a 5-day weekly class schedule based on the provided subjects and faculty. Return the output *only* as a valid JSON object with no other text or markdown formatting.
+                Details:
+                - Department: ${dept}, Year: ${year}, Section: ${section}
+                - Days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+                - Time slots per day: 5
+                - Subjects: ${JSON.stringify(subjects)}
+                - Faculty: ${JSON.stringify(faculty)}
+                Constraints:
+                1. Each day must have an array of 5 time slots.
+                2. A slot can be empty (use 'null'). For a filled slot, use an object: {"subject": "...", "faculty": "..."}.
+                3. Distribute subjects evenly. Prioritize core subjects.
+                4. Do not schedule more than two lab sessions (subjects ending with "LAB") on the same day.
+                Your entire response must be a single JSON object where keys are days of the week and values are arrays of 5 elements (either null or a period object).`;
+                const result = await callGeminiAPI(prompt, true);
+                if (result) {
+                    try {
+                        let cleanedResult = result.trim();
+                        const jsonMatch = cleanedResult.match(/\{[\s\S]*\}/);
+                        if (!jsonMatch) { throw new Error("No valid JSON object found in the AI's response."); }
+                        cleanedResult = jsonMatch[0];
+                        const newSchedule = JSON.parse(cleanedResult);
+                        if (!newSchedule || typeof newSchedule !== 'object') { throw new Error("Parsed result is not a JSON object."); }
+                        if (days.every(day => newSchedule[day] && Array.isArray(newSchedule[day]) && newSchedule[day].length === 5)) {
+                            timeTableData.schedule[dept][year][section] = newSchedule;
+                            saveData();
+                            renderTimetable(timeTableData.schedule[dept][year][section], getCurrentTimeInfo());
+                            geminiResult.innerHTML = `<p class="text-green-600 font-semibold">Schedule generated and applied successfully!</p><p>The timetable for ${dept}-${year}-${section} has been updated. You can now close this window.</p>`;
+                        } else { throw new Error("Generated JSON has an invalid structure. It's missing days or the daily schedules don't have 5 slots.");}
+                    } catch (error) {
+                        console.error("Failed to parse or apply generated schedule:", error);
+                        geminiResult.innerHTML = `<div class="text-left">
+                            <p class="text-red-500 font-semibold">The AI generated an invalid schedule. Please try again.</p>
+                            <p class="text-sm text-gray-500 mt-2 mb-4">${error.message}</p>
+                            <p class="text-xs text-gray-400">Raw AI Output:</p>
+                            <pre class="bg-gray-100 p-2 rounded text-xs overflow-x-auto">${result}</pre>
+                        </div>`;
+                    }
+                }
+            }
+
+            async function handleCreateLessonPlan(subject) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Lesson Plan for ${subject}`;
+                const prompt = `You are an experienced engineering professor. Create a detailed 1-hour lesson plan for an undergraduate lecture on the subject: "${subject}".
+                The plan should include:
+                - Learning Objectives (3-4 clear goals).
+                - A 5-minute 'hook' or introduction to grab student interest.
+                - Core Concepts to Cover (a list of topics with estimated time for each, totaling about 40 minutes).
+                - An in-class activity or discussion question (10 minutes).
+                - A 5-minute wrap-up and summary.
+                Format this as a structured plan using Markdown for headings and lists.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    geminiResult.innerHTML = html;
+                }
+            }
+            
+            async function handleCreateStudyPlan(studentInfo) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Personalized Study Plan`;
+                const { dept, year, section } = studentInfo;
+                const subjects = timeTableData.subjects[year] || [];
+                const schedule = timeTableData.schedule[dept]?.[year]?.[section];
+                
+                let scheduleString = "";
+                if(schedule){
+                    days.forEach(day => {
+                        scheduleString += `${day}: `;
+                        const dailySchedule = schedule[day].map((p, i) => p ? `${timeSlots[i]} - ${p.subject}` : null).filter(Boolean);
+                        scheduleString += dailySchedule.join(', ') + ". ";
+                    });
+                }
+
+                const prompt = `You are an expert academic advisor for engineering students. A student in Year "${year}" of "${dept}" needs a personalized weekly study plan.
+                
+                Student's Details:
+                - Subjects: ${subjects.join(', ')}
+                - Current Class Schedule: ${scheduleString}
+
+                Please generate a realistic and encouraging weekly study plan that integrates with their existing classes. The plan should:
+                1.  Schedule specific study blocks for various subjects outside of class hours.
+                2.  Suggest effective study techniques for different types of subjects (e.g., practice problems for math-heavy subjects, concept mapping for theoretical subjects).
+                3.  Incorporate short breaks to avoid burnout.
+                4.  Be organized by day (Monday to Sunday).
+                
+                Format the response clearly using Markdown headings for each day and bullet points for the schedule.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    geminiResult.innerHTML = html;
+                }
+            }
+
+            async function handleSuggestTopics(subject) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Lecture Topics for ${subject}`;
+                const prompt = `I am an engineering professor preparing a one-hour lecture on the subject "${subject}". Suggest 3 to 5 key topics or concepts I could cover in today's class. For each topic, provide a brief, one-sentence description. Format the response clearly with headings for each topic.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+
+            async function handleGetStudyTips(subject) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Study Tips for ${subject}`;
+                const prompt = `I am an engineering student. Provide three concise and actionable study tips for the undergraduate subject "${subject}". Format them as a numbered list with brief explanations.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+            
+            async function handleGetAttendanceInsights() {
+                const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value];
+                const date = document.getElementById('report-date').value;
+                if (!dept || !year || !section || !date) return;
+                document.getElementById('gemini-modal-title').textContent = `✨ Attendance Insights for ${date}`;
+                const attendanceForDay = timeTableData.attendance[date] || {};
+                const classKey = `${dept}-${year}-${section}`;
+                const students = timeTableData.students[dept]?.[year]?.[section] || [];
+                const reportData = [];
+                timeSlots.forEach((slot, i) => {
+                    const classSchedule = timeTableData.schedule?.[dept]?.[year]?.[section]?.[days[new Date(date).getDay() - 1]]?.[i];
+                    if (classSchedule) {
+                        const attendanceRecord = attendanceForDay[i]?.[classKey];
+                        if (attendanceRecord) {
+                            const absentees = students.filter(s => attendanceRecord[s.id] === 'absent').map(s => s.name);
+                            reportData.push({ time: slot, subject: classSchedule.subject, faculty: classSchedule.faculty, present: students.length - absentees.length, absent: absentees.length, absentees: absentees });
+                        }
+                    }
+                });
+                if (reportData.length === 0) {
+                    geminiResult.innerHTML = `<p>No attendance data found for ${dept}-${year}-${section} on ${date}.</p>`;
+                    toggleModal('gemini-modal', true);
+                    return;
+                }
+                const prompt = `As an academic analyst, review the following daily attendance data for the ${dept} ${year}-${section} class on ${date}. Provide a concise summary with actionable insights for the Head of Department.
+                Data: ${JSON.stringify(reportData, null, 2)}
+                Focus on:
+                - Overall attendance rate for the day.
+                - Any specific classes with unusually high absenteeism.
+                - Any students who were absent for multiple classes.
+                - Conclude with a brief, overall assessment.
+                Format the response as a simple report with bullet points.`;
+                const result = await callGeminiAPI(prompt);
+                if(result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+
+            async function handleGenerateQuiz(subject) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Quiz Questions for ${subject}`;
+                const prompt = `You are an expert question paper setter for an engineering college. Generate a 5-question multiple-choice quiz on the undergraduate subject "${subject}".
+                - The questions should be challenging but appropriate for a mid-lecture surprise quiz.
+                - For each question, provide four options (A, B, C, D).
+                - Clearly indicate the correct answer for each question.
+                Format the output cleanly using Markdown for headings and lists.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    geminiResult.innerHTML = html;
+                }
+            }
+
+            async function handleWorkloadAnalysis(dept) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Faculty Workload Analysis for ${dept}`;
+                const workload = {};
+                const facultyList = timeTableData.faculty[dept] || [];
+                facultyList.forEach(f => workload[f] = 0);
+                timeTableData.years.forEach(year => {
+                    timeTableData.sections.forEach(section => {
+                        const schedule = timeTableData.schedule?.[dept]?.[year]?.[section];
+                        if (schedule) {
+                            days.forEach(day => {
+                                schedule[day].forEach(period => {
+                                    if (period && period.faculty && facultyList.includes(period.faculty)) {
+                                        workload[period.faculty]++;
+                                    }
+                                });
+                            });
+                        }
+                    });
+                });
+                const prompt = `You are an academic management analyst for an engineering college. Here is the weekly class count for each faculty member in the ${dept} department:
+                ${JSON.stringify(workload, null, 2)}
+                Please provide a concise analysis of this workload distribution. 
+                1.  Calculate the average number of classes per faculty member.
+                2.  Identify any faculty members who are significantly overloaded (e.g., >150% of average) or underloaded (e.g., <50% of average).
+                3.  Provide a brief summary and suggest if the distribution seems balanced or not.
+                Format the response as a simple, easy-to-read report using a mix of paragraphs and bullet points.`;
+                const result = await callGeminiAPI(prompt);
+                if(result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+
+        });
+    </script>
+</body>
+</html>
+
