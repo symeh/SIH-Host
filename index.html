@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minerva: AI Timetable & Attendance</title>
+    <title>SmartSched: AI Timetable & Attendance</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +11,6 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
-        /* --- Smooth Transitions & Animations --- */
         .smooth-transition {
             transition: all 0.3s ease-in-out;
         }
@@ -33,7 +32,6 @@
             transform: translateY(20px);
             pointer-events: none;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -53,11 +51,9 @@
             animation: spin 1s linear infinite;
             display: inline-block;
         }
-        
-        /* --- UI Element Styles --- */
         .current-class {
-            background-color: #fee2e2 !important; /* red-100 */
-            border: 2px solid #dc2626; /* red-600 */
+            background-color: #fee2e2 !important;
+            border: 2px solid #dc2626;
             transform: scale(1.02);
         }
         #timetable-container td:not(.current-class):hover {
@@ -66,8 +62,6 @@
         #timetable-container.editable td {
             cursor: pointer;
         }
-        
-        /* Attendance toggle styles */
         .attendance-toggle {
             display: inline-flex;
             border-radius: 9999px;
@@ -88,8 +82,6 @@
             background-color: #ef4444;
             color: white;
         }
-
-        /* Landing Page Animations & Colors */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -99,7 +91,6 @@
             opacity: 1;
             transform: translateY(0);
         }
-        
         .feature-card-hover:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
@@ -109,38 +100,25 @@
             --brand-beige: #F5F5DC; 
         }
         #landing-page {
-             background-color: #FAF8F5; /* A soft beige alternative */
+             background-color: #FAF8F5;
         }
         .brand-text { color: var(--brand-red); }
         .brand-bg { background-color: var(--brand-red); }
         .hover\:brand-bg:hover { background-color: #991B1B; }
-        
-        .auth-tab {
-            cursor: pointer;
-            padding: 10px 20px;
-            border-bottom: 3px solid transparent;
-        }
-        .auth-tab.active {
-            border-bottom-color: var(--brand-red);
-            color: var(--brand-red);
-            font-weight: 600;
-        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 antialiased">
-
-    <!-- Landing Page -->
     <div id="landing-page">
         <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
             <div class="container mx-auto px-6 py-3 flex justify-between items-center">
                 <div class="flex items-center space-x-2">
                      <svg class="w-8 h-8 brand-text" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                     <span class="text-xl font-bold brand-text">Minerva</span>
+                     <span class="text-xl font-bold brand-text">SmartSched</span>
                 </div>
                 <div>
                     <a href="#features" class="text-gray-600 hover:brand-text px-3 py-2 rounded-md font-medium smooth-transition">Features</a>
                     <a href="#feedback" class="text-gray-600 hover:brand-text px-3 py-2 rounded-md font-medium smooth-transition">Feedback</a>
-                    <button id="launch-app-btn-nav" class="brand-bg hover:brand-bg text-white font-bold py-2 px-4 rounded-lg ml-4 smooth-transition">Portal Login</button>
+                    <button id="launch-app-btn-nav" class="brand-bg hover:brand-bg text-white font-bold py-2 px-4 rounded-lg ml-4 smooth-transition">Login</button>
                 </div>
             </div>
         </nav>
@@ -169,7 +147,6 @@
                     <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Discover features designed specifically for your role on campus, enhanced with the power of AI.</p>
                 </div>
 
-                <!-- Feature 1: Students -->
                 <div class="flex flex-wrap items-center mb-20 reveal">
                     <div class="w-full md:w-1/2 p-4">
                         <div class="bg-red-100/50 p-2 rounded-lg">
@@ -187,7 +164,6 @@
                     </div>
                 </div>
 
-                <!-- Feature 2: Faculty -->
                 <div class="flex flex-wrap items-center mb-20 flex-row-reverse reveal">
                      <div class="w-full md:w-1/2 p-4">
                         <div class="bg-blue-100/50 p-2 rounded-lg">
@@ -205,7 +181,6 @@
                     </div>
                 </div>
 
-                 <!-- Feature 3: HODs -->
                 <div class="flex flex-wrap items-center reveal">
                     <div class="w-full md:w-1/2 p-4">
                         <div class="bg-green-100/50 p-2 rounded-lg">
@@ -214,7 +189,7 @@
                     </div>
                     <div class="w-full md:w-1/2 p-4">
                         <h3 class="text-3xl font-bold mb-4 text-gray-900">For Administrators</h3>
-                        <p class="text-gray-600 mb-6">Gain a high-level overview of your institution's operations and make data-driven decisions with powerful AI insights.</p>
+                        <p class="text-gray-600 mb-6">Gain a high-level overview of your department's operations and make data-driven decisions with powerful AI insights.</p>
                          <ul class="space-y-3">
                             <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span><strong>Drag & Drop Timetables:</strong> Effortlessly create and modify class schedules for any department.</span></li>
                             <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span><strong>AI Workload Analysis:</strong> ✨ Instantly analyze faculty workloads to ensure fair and balanced distribution of classes.</span></li>
@@ -233,7 +208,7 @@
 
                  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 reveal">
                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                        <p class="text-gray-600 italic">"The AI rescheduling for faculty leaves is a game-changer. What used to take hours of manual coordination now takes a single click. Minerva has significantly improved our department's efficiency."</p>
+                        <p class="text-gray-600 italic">"The AI rescheduling for faculty leaves is a game-changer. What used to take hours of manual coordination now takes a single click. SmartSched has significantly improved our department's efficiency."</p>
                         <p class="mt-4 font-bold text-gray-800">- Dr. Anjali Sharma</p>
                         <p class="text-sm text-gray-500">Head of Department, CSE</p>
                     </div>
@@ -286,20 +261,21 @@
 
         <footer class="bg-gray-800 text-white">
             <div class="container mx-auto px-6 py-6 text-center">
-                <p>&copy; 2024 Minerva Academic Solutions. All Rights Reserved.</p>
+                <p>&copy; 2024 SmartSched Academic Solutions. All Rights Reserved.</p>
             </div>
         </footer>
 
     </div>
 
-    <!-- Main Application Container (Initially Hidden) -->
     <div id="app" class="hidden min-h-screen container mx-auto p-4 md:p-8">
-        <header class="text-center mb-8 animate-fade-in">
-            <h1 class="text-3xl md:text-4xl font-bold text-red-800">Minerva Portal</h1>
-            <p id="portal-subtitle" class="text-gray-600 mt-2">Your Timetable & Attendance Dashboard</p>
+        <header class="text-center mb-8 animate-fade-in relative">
+             <button id="back-to-landing-btn" class="absolute top-0 left-0 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg smooth-transition">
+                &larr; Home
+            </button>
+            <h1 class="text-3xl md:text-4xl font-bold text-red-800">SmartSched Portal</h1>
+            <p class="text-gray-600 mt-2">Your Timetable & Attendance Dashboard</p>
         </header>
 
-        <!-- Role Selection View -->
         <div id="role-selection-view" class="animate-fade-in">
             <h2 class="text-center text-xl md:text-2xl font-semibold mb-6">Who are you?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
@@ -314,12 +290,11 @@
                 </div>
                 <div id="select-hod" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg hover:scale-105 smooth-transition cursor-pointer text-center">
                     <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                    <h3 class="text-xl font-bold">Administrator</h3><p class="text-slate-500 mt-1">Manage & view reports</p>
+                    <h3 class="text-xl font-bold">HOD</h3><p class="text-slate-500 mt-1">Manage & view reports</p>
                 </div>
             </div>
         </div>
 
-        <!-- Main View (for timetables and attendance) -->
         <div id="main-view" class="hidden main-view-transition">
             <div class="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-lg">
                 <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
@@ -332,7 +307,6 @@
                          <button id="manage-time-slots-btn" class="hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Time Slots</button>
                          <button id="manage-students-btn" class="hidden bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Students</button>
                          <button id="manage-faculty-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Faculty</button>
-                         <button id="logout-button" class="hidden bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Logout</button>
                          <button id="back-button" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Back</button>
                     </div>
                 </div>
@@ -353,50 +327,8 @@
         </div>
     </div>
 
-    <!-- Modals -->
-    <div id="university-auth-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
-        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm">
-            <div class="flex border-b mb-6">
-                <div id="login-tab" class="auth-tab active">Login</div>
-                <div id="register-tab" class="auth-tab">Register University</div>
-            </div>
-
-            <div id="login-form-container">
-                <h3 class="text-2xl font-bold text-center mb-6">Administrator Login</h3>
-                <form id="hod-login-form">
-                    <div class="mb-4"><label for="username" class="block text-sm font-medium text-slate-700">Admin Email</label><input type="email" id="username" placeholder="Enter email" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div>
-                    <div class="mb-6"><label for="password" class="block text-sm font-medium text-slate-700">Password</label><input type="password" id="password" placeholder="Enter password" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div>
-                    <p id="login-error" class="text-red-500 text-sm text-center mb-4 hidden"></p>
-                    <div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Login</button></div>
-                </form>
-            </div>
-            
-            <div id="register-form-container" class="hidden">
-                 <h3 class="text-2xl font-bold text-center mb-6">Register University</h3>
-                <form id="register-university-form">
-                    <div class="mb-4"><label for="uni-name" class="block text-sm font-medium text-slate-700">University Name</label><input type="text" id="uni-name" placeholder="Your University's Name" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div>
-                    <div class="mb-4"><label for="register-email" class="block text-sm font-medium text-slate-700">Admin Email</label><input type="email" id="register-email" placeholder="admin@university.edu" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div>
-                    <div class="mb-6"><label for="register-password" class="block text-sm font-medium text-slate-700">Create Password</label><input type="password" id="register-password" placeholder="Min. 6 characters" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div>
-                    <p id="register-error" class="text-red-500 text-sm text-center mb-4 hidden"></p>
-                    <div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Register</button></div>
-                </form>
-            </div>
-        </div>
-    </div>
-     <div id="university-select-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
-        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm">
-            <h3 class="text-2xl font-bold text-center mb-6">Select Your Institution</h3>
-            <div class="mb-4">
-                <label for="university-select" class="block text-sm font-medium text-slate-700">Institution Name</label>
-                <select id="university-select" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm">
-                    <option value="">Loading institutions...</option>
-                </select>
-            </div>
-            <div class="flex items-center justify-between mt-6">
-                <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
-                <button id="university-select-submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition disabled:bg-red-300" disabled>Next</button>
-            </div>
-        </div>
+    <div id="hod-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm"><h3 class="text-2xl font-bold text-center mb-6">HOD Login</h3><form id="hod-login-form"><div class="mb-4"><label for="username" class="block text-sm font-medium text-slate-700">Username</label><input type="text" id="username" placeholder="Enter username" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div><div class="mb-6"><label for="password" class="block text-sm font-medium text-slate-700">Password</label><input type="password" id="password" placeholder="Enter password" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div><p id="login-error" class="text-red-500 text-sm text-center mb-4 hidden"></p><div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Login</button></div></form></div>
     </div>
     <div id="faculty-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-sm"><h3 class="text-2xl font-bold text-center mb-6">Faculty Login</h3><form id="faculty-login-form"><div class="mb-4"><label for="faculty-username" class="block text-sm font-medium text-slate-700">Full Name</label><select id="faculty-username" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></select></div><div class="mb-6"><label for="faculty-password" class="block text-sm font-medium text-slate-700">Password</label><input type="password" id="faculty-password" placeholder="Enter password" required class="mt-1 block w-full p-2 border border-slate-300 rounded-md shadow-sm"></div><p id="faculty-login-error" class="text-red-500 text-sm text-center mb-4 hidden"></p><div class="flex items-center justify-between"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Login</button></div></form></div>
@@ -463,7 +395,6 @@
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl">
             <h3 class="text-2xl font-bold text-center mb-6">Faculty Leave Requests</h3>
             <div id="leave-requests-list" class="max-h-96 overflow-y-auto space-y-3">
-                 <!-- Leave requests will be populated here by JavaScript -->
             </div>
             <div class="text-right mt-6">
                 <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button>
@@ -471,7 +402,6 @@
         </div>
     </div>
     
-    <!-- New Modals -->
     <div id="rejection-reason-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
             <h3 class="text-2xl font-bold text-center mb-6">Rejection Reason</h3>
@@ -554,7 +484,6 @@
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
             <h3 class="text-2xl font-bold text-center mb-6">✨ AI-Powered Attendance</h3>
             <div id="ai-attendance-content">
-                <!-- Content will be injected by JavaScript -->
             </div>
         </div>
     </div>
@@ -565,7 +494,6 @@
             <p class="text-sm text-slate-500 mb-4 text-center">Changes here will apply to all timetables.</p>
             <form id="manage-time-slots-form">
                 <div id="time-slots-inputs" class="space-y-2 mb-6">
-                    <!-- Inputs will be generated here -->
                 </div>
                 <div class="flex items-center justify-between">
                     <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
@@ -580,7 +508,6 @@
             <h3 class="text-2xl font-bold text-center mb-6">✨ AI Generated Timetable Options</h3>
             <p class="text-center text-slate-500 mb-6">The AI has generated a few options. Please review them and select the one that works best.</p>
             <div id="timetable-options-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Timetable options will be populated here -->
             </div>
             <div class="text-center mt-8">
                 <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
@@ -589,17 +516,14 @@
     </div>
 
 
-    <!-- Gemini AI Modal -->
     <div id="gemini-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100] p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
             <h3 id="gemini-modal-title" class="text-2xl font-bold text-center mb-6 text-gray-800">✨ AI Assistant</h3>
             <div id="gemini-modal-content" class="flex-grow overflow-y-auto pr-2">
-                <!-- Loading state -->
                 <div id="gemini-loading" class="text-center py-8 hidden">
                     <div class="loader mx-auto mb-4"></div>
                     <p class="text-slate-600">Generating response...</p>
                 </div>
-                <!-- Result state -->
                 <div id="gemini-result" class="prose max-w-none"></div>
             </div>
             <div id="gemini-modal-actions" class="text-right mt-6">
@@ -610,33 +534,62 @@
 
 
     <script type="module">
-        // --- TODO: BACKEND - This file is now a FRONTEND-ONLY prototype. ---
-        // All database and AI API calls have been replaced with mock functions and static data.
-        // You need to implement the server-side logic and connect it to the functions marked with "TODO: BACKEND".
-
-        // --- MOCK DATABASE AND API SERVICES ---
-        console.warn("APPLICATION RUNNING IN FRONTEND-ONLY MOCK MODE. NO DATA WILL BE SAVED.");
-        
-        const MOCK_DATABASE = {
-            "uni-123": {
-                universityName: "Mock Engineering College",
-                adminEmail: "admin@mock.edu",
-                data: getInitialData("Mock Engineering College", "admin@mock.edu")
-            },
-            "uni-456": {
-                universityName: "Demo Institute of Technology",
-                adminEmail: "admin@demo.edu",
-                data: getInitialData("Demo Institute of Technology", "admin@demo.edu")
-            }
-        };
-
-        // --- DATA (Non-DOM) ---
-        let timeTableData = {};
         const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         let currentRole = null;
         let currentFacultyName = null;
         let currentClassInfoForAttendance = {};
-        let selectedUniversityId = null;
+        const apiKey = "";
+
+        const timeTableData = {
+            departments: ["CSE", "ECE", "MECH", "CIVIL"],
+            years: ["I", "II", "III", "IV"],
+            sections: ["A", "B", "C", "D"],
+            timeSlots: ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-1:00", "2:00-3:00", "3:00-4:00", "4:00-5:00"],
+            subjects: {
+                "I": ["Engg. Maths-I", "Physics", "Chemistry", "C Programming", "Engg. Graphics", "Workshop"],
+                "II": ["DSP", "Discrete Maths (DM)", "DBMS", "EVS", "ETCE", "Basic Electronics (BE)", "Operations Research (OR)", "DSP LAB", "DBMS LAB", "BE LAB"],
+                "III": ["Data Structures", "Python Programming", "Indian Constitution", "Probability and Statistics", "Effective Technical Communication in English", "Basic Electronics", "Finance and Accounting", "Data Structures Lab", "Python Programming Lab", "Basic Electronics Lab", "Library", "SPORTS", "BE LAB/DS LAB", "PP LAB/DS LAB", "BE LAB/PP LAB"],
+                "IV": ["Machine Learning", "Cyber Security", "Cloud Computing", "Project Work"]
+            },
+            faculty: {
+                "CSE": ["Mr. Mohd Anjum Shadani", "Ms. Imrana Begum", "Ms. Afsha Sultana", "Ms. Humera Begum", "Ms. Saba Fatima", "Ms. Maimoona Arshiya", "Ms. Azeera Shaheen", "Mr. Abdul Muqeet", "Ms. Tahera Abid", "Dr. Farheen Sultana", "Mr. Khader", "Dr. Khasim Ali", "Ms. Saba", "Ms. Qudsia", "Ms. Jameel Unisa", "Ms. Qudsia Kamal"],
+                "ECE": ["Prof. N. Tesla", "Dr. M. Curie", "Prof. A. Bell"],
+                "MECH": ["Dr. J. Watt", "Prof. H. Ford", "Dr. R. Diesel"],
+                "CIVIL": ["Prof. J. Smeaton", "Dr. E. Roebling", "Prof. F. Khan"]
+            },
+            students: {
+                "CSE": {
+                    "II": { "A": [
+                            { "id": "161024733030", "name": "MA HANNAN MOHIUDDIN" }, { "id": "161024733031", "name": "MOHAMMED ARMAN AHMED QURESHI" }, { "id": "161024733032", "name": "MIRZA AMAN AHMED BAIG" }, { "id": "161024733033", "name": "MOHAMMED ABDUL ZAIN" }, { "id": "161024733034", "name": "MOHAMMED MOHIUDDIN" }, { "id": "161024733035", "name": "MOHAMMED FIRASAT ALI" }, { "id": "161024733036", "name": "AWAD BIN OSMAN NABHAN" }, { "id": "161024733037", "name": "SYED AQEEL" }, { "id": "161024733038", "name": "MOHAMMED SHEEZAN AKRAM" }, { "id": "161024733039", "name": "MOHAMMED HAMZA FAROOQUI" }, { "id": "161024733040", "name": "MOHAMMAD ABDUL JABBAR FARAZ" }, { "id": "161024733041", "name": "MOHAMMAD AMAAN" }, { "id": "161024733042", "name": "MOHAMMED KAMRAN KAIF" }, { "id": "161024733043", "name": "MOHAMMAD SIKANDER AYAZ" }, { "id": "161024733044", "name": "SYED AYAZ" }, { "id": "161024733045", "name": "MOHAMMED MAJAAZ AHMED" }, { "id": "161024733046", "name": "SYED TOUSEEF AHMED" }, { "id": "161024733047", "name": "MOHAMMED SULEMAN SHARIFF" }, { "id": "161024733048", "name": "MD FURKHAN ULLAH" }, { "id": "161024733049", "name": "SYED ZEESHAN MEHMOOD" }, { "id": "161024733050", "name": "MOHAMMED IBRAHIM" }, { "id": "161024733051", "name": "MOHAMMED RAYAN UDDIN" }, { "id": "161024733052", "name": "MOHAMMED AYAAN ALI AHMED" }, { "id": "161024733053", "name": "MD SOHAIL" }, { "id": "161024733054", "name": "MOHD ABDUL RIYAAN" }, { "id": "161024733055", "name": "MOHAMMED ZAHEER UDDIN" }, { "id": "161024733056", "name": "MOHAMMED QASIM ADNAN" }, { "id": "161024733057", "name": "AJMAL AHMED FAROOQUI" }, { "id": "161024733058", "name": "MOHD IRFAN" }, { "id": "161024733059", "name": "MOHAMMED ABDUL GHANI" }, { "id": "161024733060", "name": "MOHAMMED ANAS" }
+                        ]
+                    },
+                    "III": { "A": Array.from({ length: 30 }, (_, i) => ({ id: `1610237330${30+i}`, name: `CSE III-A Student ${i+1}` })) }
+                }
+            },
+            schedule: {
+                "CSE": {
+                    "II": { "A": {
+                        "Monday": [{ subject: "BE", faculty: "Ms. Maimoona Arshiya" }, { subject: "ETCE", faculty: "Ms. Saba Fatima" }, { subject: "OR", faculty: "Ms. Azeera Shaheen" }, null, null, null, null],
+                        "Tuesday": [{ subject: "BE", faculty: "Ms. Maimoona Arshiya" }, { subject: "DBMS", faculty: "Ms. Afsha Sultana" }, { subject: "DSP", faculty: "Mr. Mohd Anjum Shadani" }, { subject: "DM", faculty: "Ms. Imrana Begum" }, { subject: "DBMS LAB", faculty: "Ms. Afsha Sultana" }, null, null],
+                        "Wednesday": [{ subject: "ETCE", faculty: "Ms. Saba Fatima" }, { subject: "DSP", faculty: "Mr. Mohd Anjum Shadani" }, { subject: "DBMS", faculty: "Ms. Afsha Sultana" }, { subject: "DM", faculty: "Ms. Imrana Begum" }, { subject: "DSP LAB", faculty: "Mr. Mohd Anjum Shadani" }, null, null],
+                        "Thursday": [{ subject: "OR", faculty: "Ms. Azeera Shaheen" }, { subject: "DM", faculty: "Ms. Imrana Begum" }, { subject: "ETCE", faculty: "Ms. Saba Fatima" }, { subject: "DBMS", faculty: "Ms. Afsha Sultana" }, null, null, null],
+                        "Friday": [{ subject: "BE LAB", faculty: "Ms. Maimoona Arshiya" }, { subject: "BE LAB", faculty: "Ms. Maimoona Arshiya" }, { subject: "DSP", faculty: "Mr. Mohd Anjum Shadani" }, { subject: "OR", faculty: "Ms. Azeera Shaheen" }, null, null, null]
+                    }},
+                    "III": { "A": {
+                        "Monday": [{ subject: "Effective Technical Communication in English", faculty: "Ms. Saba" },{ subject: "Basic Electronics", faculty: "Ms. Qudsia" },null,{ subject: "Data Structures", faculty: "Ms. Tahera Abid" },{ subject: "Finance and Accounting", faculty: "Ms. Jameel Unisa" },null,{ subject: "Library", faculty: "Librarian" }],
+                        "Tuesday": [{ subject: "Effective Technical Communication in English", faculty: "Ms. Saba" },{ subject: "Python Programming", faculty: "Dr. Farheen Sultana" },null,{ subject: "Basic Electronics", faculty: "Ms. Qudsia" },{ subject: "BE LAB/DS LAB", faculty: "Ms. Qudsia Kamal / Ms. Tahera Abid" },{ subject: "BE LAB/DS LAB", faculty: "Ms. Qudsia Kamal / Ms. Tahera Abid" },null],
+                        "Wednesday": [{ subject: "Finance and Accounting", faculty: "Ms. Jameel Unisa" },null,{ subject: "Probability and Statistics", faculty: "Dr. Khasim Ali" },null,{ subject: "PP LAB/DS LAB", faculty: "Dr. Farheen Sultana / Ms. Tahera Abid" },{ subject: "PP LAB/DS LAB", faculty: "Dr. Farheen Sultana / Ms. Tahera Abid" },null],
+                        "Thursday": [{ subject: "Finance and Accounting", faculty: "Ms. Jameel Unisa" },{ subject: "Effective Technical Communication in English", faculty: "Ms. Saba" },{ subject: "Probability and Statistics", faculty: "Dr. Khasim Ali" },{ subject: "Python Programming", faculty: "Dr. Farheen Sultana" },{ subject: "BE LAB/PP LAB", faculty: "Ms. Qudsia Kamal / Dr. Farheen Sultana" },{ subject: "BE LAB/PP LAB", faculty: "Ms. Qudsia Kamal / Dr. Farheen Sultana" },null],
+                        "Friday": [{ subject: "Data Structures", faculty: "Ms. Tahera Abid" },{ subject: "Indian Constitution", faculty: "Mr. Khader" },null,{ subject: "Python Programming", faculty: "Dr. Farheen Sultana" },{ subject: "Data Structures", faculty: "Ms. Tahera Abid" },null,{ subject: "SPORTS", faculty: "Sports Head" }]
+                    }}
+                }
+            },
+            attendance: {},
+            leaves: []
+        };
+        
+        const scheduleResponseSchema = { type: 'OBJECT', properties: { 'Monday': { type: 'ARRAY', items: { oneOf: [ { type: 'OBJECT', properties: { subject: { type: 'STRING' }, faculty: { type: 'STRING' } } }, { type: 'NULL' } ] } }, 'Tuesday': { type: 'ARRAY', items: { oneOf: [ { type: 'OBJECT', properties: { subject: { type: 'STRING' }, faculty: { type: 'STRING' } } }, { type: 'NULL' } ] } }, 'Wednesday': { type: 'ARRAY', items: { oneOf: [ { type: 'OBJECT', properties: { subject: { type: 'STRING' }, faculty: { type: 'STRING' } } }, { type: 'NULL' } ] } }, 'Thursday': { type: 'ARRAY', items: { oneOf: [ { type: 'OBJECT', properties: { subject: { type: 'STRING' }, faculty: { type: 'STRING' } } }, { type: 'NULL' } ] } }, 'Friday': { type: 'ARRAY', items: { oneOf: [ { type: 'OBJECT', properties: { subject: { type: 'STRING' }, faculty: { type: 'STRING' } } }, { type: 'NULL' } ] } }, } };
+        const rescheduleResponseSchema = { type: "ARRAY", items: { type: "OBJECT", properties: { action: { type: "STRING" }, originalClass: { type: "OBJECT", properties: { dept: { type: "STRING" }, year: { type: "STRING" }, section: { type: "STRING" }, day: { type: "STRING" }, slotIndex: { type: "NUMBER" } } }, details: { type: "STRING" }, changes: { type: "OBJECT", properties: { newFaculty: { type: "STRING" }, newDay: { type: "STRING" }, newSlotIndex: { type: "NUMBER" } } } } } };
 
         function toggleModal(modalId, show) {
             const modal = document.getElementById(modalId);
@@ -644,126 +597,107 @@
             else modal.classList.add('hidden');
         }
 
-        // --- MOCK GEMINI API FUNCTIONS ---
         async function callGeminiAPI(prompt, schema = null, showModal = true) {
-            // TODO: BACKEND - Replace this mock function with a real API call to the Gemini API.
-            // This function should handle the fetch request, API key, and error handling.
-            // The frontend expects a string response. If a schema is provided, it expects a valid JSON string.
-            console.log("--- FRONTEND MOCK: callGeminiAPI ---");
-            console.log("Prompt:", prompt);
-
             const geminiModal = document.getElementById('gemini-modal');
             const geminiLoading = document.getElementById('gemini-loading');
             const geminiResult = document.getElementById('gemini-result');
             
             if (showModal) {
+                const geminiActions = document.getElementById('gemini-modal-actions');
+                geminiActions.innerHTML = `<button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button>`;
+
                 toggleModal('gemini-modal', true);
                 geminiLoading.classList.remove('hidden');
                 geminiResult.innerHTML = '';
             }
 
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    if (showModal) geminiLoading.classList.add('hidden');
-                    // This is a generic, hardcoded response.
-                    const mockResponse = "This is a **mock response** from the AI assistant. The backend needs to be connected to provide a real answer to the prompt:\n\n" + prompt.substring(0, 200) + "...";
-                    resolve(mockResponse);
-                }, 1500); // Simulate network delay
-            });
+            const baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent';
+            const apiUrl = apiKey ? `${baseUrl}?key=${apiKey}` : baseUrl;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+            };
+             if (schema) {
+                payload.generationConfig = {
+                    responseMimeType: "application/json",
+                    responseSchema: schema,
+                };
+            }
+
+            try {
+                let response;
+                let backoff = 1000;
+                for (let i = 0; i < 5; i++) {
+                    response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        break;
+                    } else if (response.status === 429) {
+                        await new Promise(resolve => setTimeout(resolve, backoff));
+                        backoff *= 2;
+                    } else {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+                }
+
+                if (!response.ok) {
+                    throw new Error('API request failed after multiple retries.');
+                }
+                
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                if (text) {
+                    return text;
+                } else {
+                    throw new Error('Invalid response structure from API.');
+                }
+            } catch (error) {
+                console.error('Gemini API Error:', error);
+                if (showModal) {
+                    if (error.message.includes('401')) {
+                        geminiResult.innerHTML = `<p class="text-red-500 font-bold">Authentication Error</p><p class="text-sm text-gray-600 mt-2">Could not connect to the AI service (Error 401). This might be due to a missing or invalid API key. Please ensure the application is configured correctly in the Canvas environment.</p>`;
+                    } else {
+                        geminiResult.innerHTML = `<p class="text-red-500">Sorry, an error occurred while contacting the AI assistant. Please try again later.</p><p class="text-sm text-gray-500 mt-2">${error.message}</p>`;
+                    }
+                }
+                throw error;
+            } finally {
+                if (showModal) {
+                    geminiLoading.classList.add('hidden');
+                }
+            }
         }
         
         async function getGeminiTextOnly(prompt) {
-             // TODO: BACKEND - This is another entry point for the Gemini API, often used for smaller tasks.
-            console.log("--- FRONTEND MOCK: getGeminiTextOnly ---");
-            console.log("Prompt:", prompt);
-             return new Promise(resolve => {
-                setTimeout(() => {
-                    resolve("This is a mock AI-drafted text. The backend should generate a real one.");
-                }, 1000);
-            });
-        }
-
-
-        // --- DATA FUNCTIONS ---
-        async function saveUniversityData() {
-            // TODO: BACKEND - Implement the logic to save the `timeTableData` object to the database for the currently logged-in administrator.
-            console.log("--- FRONTEND MOCK: saveUniversityData ---");
-            console.log("Data that would be saved:", timeTableData);
-            // In a real scenario, this would make an API call like:
-            // await fetch(`/api/universities/${auth.currentUser.uid}`, { method: 'PUT', body: JSON.stringify(timeTableData) });
-            return;
-        }
-
-        async function loadUniversityData(universityId) {
-            // TODO: BACKEND - Implement logic to fetch all data for a given universityId.
-            // The front-end expects this function to return `true` on success and `false` on failure.
-            // On success, it must populate the global `timeTableData` variable.
-            console.log(`--- FRONTEND MOCK: loadUniversityData for ID: ${universityId} ---`);
-            if (MOCK_DATABASE[universityId]) {
-                const uni = MOCK_DATABASE[universityId];
-                timeTableData = uni.data; 
-                document.getElementById('portal-subtitle').textContent = `${uni.universityName} Portal`;
-                return true;
-            } else {
-                console.error("Mock university not found!");
-                return false;
+            const baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent';
+            const apiUrl = apiKey ? `${baseUrl}?key=${apiKey}` : baseUrl;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+            try {
+                let response;
+                let backoff = 1000;
+                for (let i = 0; i < 5; i++) {
+                    response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                    if (response.ok) break;
+                    if (response.status === 429) { await new Promise(resolve => setTimeout(resolve, backoff)); backoff *= 2; } 
+                    else { throw new Error(`API request failed with status ${response.status}`); }
+                }
+                if (!response.ok) throw new Error('API request failed after multiple retries.');
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (text) return text;
+                throw new Error('Invalid response structure from API.');
+            } catch (error) {
+                console.error('Gemini Text Only Error:', error);
+                return `Sorry, an error occurred while drafting the message. Please write it manually. Error: ${error.message}`;
             }
         }
 
-        function getInitialData(universityName, adminEmail) {
-            // This is a helper function to create a default data structure.
-            // The backend will likely have a more robust way of initializing this.
-            return {
-                universityName: universityName,
-                adminEmail: adminEmail,
-                departments: ["CSE", "ECE", "MECH", "CIVIL"],
-                years: ["I", "II", "III", "IV"],
-                sections: ["A", "B"],
-                timeSlots: ["9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-1:00", "2:00-3:00", "3:00-4:00"],
-                subjects: { 
-                    "I": ["Engg. Maths-I", "Physics", "C Programming", "Engg. Graphics"], 
-                    "II": ["Discrete Maths", "DBMS", "Basic Electronics", "Operations Research"], 
-                    "III": ["Data Structures", "Python Programming", "Probability and Statistics", "Finance and Accounting"], 
-                    "IV": ["Machine Learning", "Cyber Security", "Cloud Computing", "Project Work"] 
-                },
-                faculty: { "CSE": ["Dr. Sharma", "Prof. Verma"], "ECE": ["Dr. Singh"], "MECH": [], "CIVIL": [] },
-                students: {
-                    "CSE": { "IV": { "A": [{id: "161031", name: "Rohan Kumar"}, {id: "161032", name: "Priya Sharma"}] } }
-                }, 
-                schedule: {}, 
-                attendance: {}, 
-                leaves: []
-            };
-        }
-
-        function generateSchedules() {
-            if (!timeTableData.departments) return;
-            timeTableData.departments.forEach(dept => {
-                timeTableData.schedule[dept] = timeTableData.schedule[dept] || {};
-                const deptFaculty = timeTableData.faculty[dept];
-                timeTableData.years.forEach(year => {
-                    timeTableData.schedule[dept][year] = timeTableData.schedule[dept][year] || {};
-                    const yearSubjects = timeTableData.subjects[year];
-                    timeTableData.sections.forEach(section => {
-                        if (!timeTableData.students[dept]?.[year]?.[section]) {
-                            if (!timeTableData.students[dept]) timeTableData.students[dept] = {};
-                            if (!timeTableData.students[dept][year]) timeTableData.students[dept][year] = {};
-                            timeTableData.students[dept][year][section] = [];
-                        }
-                        if (!timeTableData.schedule[dept]?.[year]?.[section] || Object.keys(timeTableData.schedule[dept][year][section]).length === 0) {
-                            timeTableData.schedule[dept][year][section] = {};
-                            days.forEach(day => {
-                                timeTableData.schedule[dept][year][section][day] = Array((timeTableData.timeSlots || []).length).fill(null);
-                            });
-                        }
-                    });
-                });
-            });
-        }
-
-        // --- SCRIPT EXECUTION STARTS HERE ---
         document.addEventListener('DOMContentLoaded', () => {
-            // --- DOM ELEMENT VARIABLES (DECLARED AFTER DOM IS READY) ---
             const landingPage = document.getElementById('landing-page');
             const appContainer = document.getElementById('app');
             const roleSelectionView = document.getElementById('role-selection-view');
@@ -774,7 +708,6 @@
             const studentAttendanceSummary = document.getElementById('student-attendance-summary');
             const facultyCurrentClassView = document.getElementById('faculty-current-class-view');
             const backButton = document.getElementById('back-button');
-            const logoutButton = document.getElementById('logout-button');
             const manageFacultyBtn = document.getElementById('manage-faculty-btn');
             const manageStudentsBtn = document.getElementById('manage-students-btn');
             const manageTimeSlotsBtn = document.getElementById('manage-time-slots-btn');
@@ -785,7 +718,6 @@
             const draftMemoBtn = document.getElementById('draft-memo-btn');
             let draggedElement = null;
 
-            // --- LANDING PAGE LOGIC ---
             const revealElements = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -794,9 +726,7 @@
                     }
                 });
             }, { threshold: 0.1 });
-
             revealElements.forEach(el => observer.observe(el));
-
             const launchApp = () => {
                 landingPage.style.transition = 'opacity 0.5s ease-out';
                 landingPage.style.opacity = '0';
@@ -810,18 +740,28 @@
                     }, 50);
                 }, 500);
             };
-
             document.getElementById('launch-app-btn-nav').addEventListener('click', launchApp);
             document.getElementById('launch-app-btn-hero').addEventListener('click', launchApp);
-            
+            const goBackToLanding = () => {
+                appContainer.style.transition = 'opacity 0.5s ease-out';
+                appContainer.style.opacity = '0';
+                setTimeout(() => {
+                    appContainer.classList.add('hidden');
+                    landingPage.classList.remove('hidden');
+                    landingPage.style.opacity = '0';
+                    setTimeout(() => {
+                        landingPage.style.transition = 'opacity 0.5s ease-in';
+                        landingPage.style.opacity = '1';
+                    }, 50);
+                }, 500);
+            };
+            document.getElementById('back-to-landing-btn').addEventListener('click', goBackToLanding);
             document.getElementById('feedback-form').addEventListener('submit', (e) => {
                 e.preventDefault();
                 e.target.classList.add('hidden');
                 document.getElementById('feedback-success').classList.remove('hidden');
             });
 
-
-            // --- CORE APP LOGIC ---
             function switchView(view) {
                 if (view === 'main') {
                     roleSelectionView.classList.add('hidden');
@@ -829,15 +769,11 @@
                 } else {
                     mainView.classList.add('hidden');
                     roleSelectionView.classList.remove('hidden');
-                    document.getElementById('portal-subtitle').textContent = "Your Timetable & Attendance Dashboard";
                 }
             }
-            
-            function resetToRoleSelection() {
+            backButton.addEventListener('click', () => {
                 currentRole = null;
                 currentFacultyName = null;
-                selectedUniversityId = null;
-                timeTableData = {};
                 facultyCurrentClassView.classList.add('hidden');
                 facultyActions.classList.add('hidden');
                 manageFacultyBtn.classList.add('hidden');
@@ -847,176 +783,66 @@
                 draftMemoBtn.classList.add('hidden');
                 studentAttendanceSummary.classList.add('hidden');
                 viewAttendanceReportBtn.classList.add('hidden');
-                logoutButton.classList.add('hidden');
                 document.getElementById('analyze-workload-btn').classList.add('hidden');
                 const aiTutorContainer = mainView.querySelector('.ai-tutor-container');
                 if(aiTutorContainer) aiTutorContainer.remove();
                 const helper = document.getElementById('hod-helper-text');
                 if (helper) helper.remove();
                 switchView('roles');
-            }
-
-            backButton.addEventListener('click', resetToRoleSelection);
-            
-            logoutButton.addEventListener('click', () => {
-                // TODO: BACKEND - Implement user sign-out logic.
-                console.log("--- FRONTEND MOCK: Logging out ---");
-                resetToRoleSelection();
             });
-            
-            // --- Multi-University Flow ---
-
-            document.getElementById('select-hod').addEventListener('click', () => {
-                toggleModal('university-auth-modal', true);
-            });
-
             document.getElementById('select-student').addEventListener('click', () => {
-                currentRole = 'student';
-                openUniversitySelectModal();
-            });
-        
-            document.getElementById('select-faculty').addEventListener('click', () => {
-                currentRole = 'faculty';
-                openUniversitySelectModal();
-            });
-
-            async function openUniversitySelectModal() {
-                 toggleModal('university-select-modal', true);
-                 const select = document.getElementById('university-select');
-                 const submitBtn = document.getElementById('university-select-submit');
-                 select.innerHTML = '<option value="">Loading institutions...</option>';
-                 submitBtn.disabled = true;
-                 
-                // TODO: BACKEND - Replace this with an API call to get a list of all registered universities.
-                // The API should return an array of objects, e.g., [{ id: "...", name: "..." }]
-                console.log("--- FRONTEND MOCK: Fetching all universities ---");
-                const universities = Object.keys(MOCK_DATABASE).map(id => ({
-                    id: id,
-                    name: MOCK_DATABASE[id].universityName
-                }));
-                 
-                if (universities.length > 0) {
-                    updateSelectOptions(select, universities.map(u => ({value: u.id, text: u.name})), 'Select your institution...');
-                } else {
-                        select.innerHTML = '<option value="">No institutions registered yet.</option>';
-                }
-            }
-
-            document.getElementById('university-select').addEventListener('change', (e) => {
-                document.getElementById('university-select-submit').disabled = !e.target.value;
-            });
-            
-            document.getElementById('university-select-submit').addEventListener('click', async () => {
-                selectedUniversityId = document.getElementById('university-select').value;
-                if (!selectedUniversityId) return;
-
-                toggleModal('university-select-modal', false);
-                const loaded = await loadUniversityData(selectedUniversityId);
-                
-                if (loaded) {
-                    if (currentRole === 'student') {
-                        const deptSelect = createSelect('s-dept', 'Dept', timeTableData.departments, document.getElementById('student-dept-select-container'));
-                        const yearSelect = createSelect('s-year', 'Year', timeTableData.years, document.getElementById('student-year-select-container'));
-                        const sectionSelect = createSelect('s-section', 'Section', timeTableData.sections, document.getElementById('student-section-select-container'));
-                        const nameSelect = document.getElementById('student-name-select');
-                        const submitBtn = document.getElementById('student-login-submit-btn');
-                        
-                        function updateStudentList() {
-                            const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value];
-                            if (dept && year && section) {
-                                const students = timeTableData.students[dept]?.[year]?.[section] || [];
-                                const studentOptions = students.map(s => ({ value: s.id, text: s.name }));
-                                updateSelectOptions(nameSelect, studentOptions, 'Select your name...');
-                                nameSelect.disabled = students.length === 0;
-                                document.getElementById('student-name-select-container').classList.remove('hidden');
-                            } else {
-                                updateSelectOptions(nameSelect, [], 'Select class first...', '');
-                                nameSelect.disabled = true;
-                            }
-                            submitBtn.disabled = !nameSelect.value;
-                        }
-
-                        [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', updateStudentList));
-                        nameSelect.addEventListener('change', () => { submitBtn.disabled = !nameSelect.value; });
-                        updateStudentList();
-                        toggleModal('student-login-modal', true);
-                    } else if (currentRole === 'faculty') {
-                         updateSelectOptions(document.getElementById('faculty-username'), Object.values(timeTableData.faculty).flat().sort(), 'Select your name...', '');
-                         toggleModal('faculty-login-modal', true);
+                const deptSelect = createSelect('s-dept', 'Dept', timeTableData.departments, document.getElementById('student-dept-select-container'));
+                const yearSelect = createSelect('s-year', 'Year', timeTableData.years, document.getElementById('student-year-select-container'));
+                const sectionSelect = createSelect('s-section', 'Section', timeTableData.sections, document.getElementById('student-section-select-container'));
+                const nameSelect = document.getElementById('student-name-select');
+                const submitBtn = document.getElementById('student-login-submit-btn');
+                function updateStudentList() {
+                    const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value];
+                    if (dept && year && section) {
+                        const students = timeTableData.students[dept]?.[year]?.[section] || [];
+                        const studentOptions = students.map(s => ({ value: s.id, text: s.name }));
+                        updateSelectOptions(nameSelect, studentOptions, 'Select your name...');
+                        nameSelect.disabled = students.length === 0;
+                        document.getElementById('student-name-select-container').classList.remove('hidden');
+                    } else {
+                        updateSelectOptions(nameSelect, [], 'Select class first...', '');
+                        nameSelect.disabled = true;
                     }
-                } else {
-                    alert("Could not load data for the selected institution.");
-                    resetToRoleSelection();
+                    submitBtn.disabled = !nameSelect.value;
                 }
+                [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', updateStudentList));
+                nameSelect.addEventListener('change', () => { submitBtn.disabled = !nameSelect.value; });
+                toggleModal('student-login-modal', true);
             });
-
+            document.getElementById('select-faculty').addEventListener('click', () => {
+                updateSelectOptions(document.getElementById('faculty-username'), Object.values(timeTableData.faculty).flat().sort(), 'Select your name...', '');
+                toggleModal('faculty-login-modal', true);
+            });
+            document.getElementById('select-hod').addEventListener('click', () => {
+                toggleModal('hod-login-modal', true);
+            });
             document.querySelectorAll('[data-close-modal]').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const modal = e.target.closest('.modal');
                     if(modal) modal.classList.add('hidden');
                 });
             });
-
-            // --- MOCK AUTHENTICATION ---
-            const loginTab = document.getElementById('login-tab');
-            const registerTab = document.getElementById('register-tab');
-            const loginForm = document.getElementById('login-form-container');
-            const registerForm = document.getElementById('register-form-container');
-            loginTab.addEventListener('click', () => { loginTab.classList.add('active'); registerTab.classList.remove('active'); loginForm.classList.remove('hidden'); registerForm.classList.add('hidden'); });
-            registerTab.addEventListener('click', () => { registerTab.classList.add('active'); loginTab.classList.remove('active'); registerForm.classList.remove('hidden'); loginForm.classList.add('hidden'); });
-
-            document.getElementById('hod-login-form').addEventListener('submit', async (e) => {
+            document.getElementById('hod-login-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                // TODO: BACKEND - Implement administrator login.
-                // It should validate email/password against the database.
-                // On success, return the university data for that admin.
-                console.log("--- FRONTEND MOCK: HOD Login Attempt ---");
-                const email = e.target.username.value;
-                const errorEl = document.getElementById('login-error');
-                
-                // Mocking success for a known admin email
-                const adminEntry = Object.entries(MOCK_DATABASE).find(([id, uni]) => uni.adminEmail === email);
-                if (adminEntry) {
-                     errorEl.classList.add('hidden');
-                     toggleModal('university-auth-modal', false);
-                     await loadUniversityData(adminEntry[0]); // adminEntry[0] is the university ID
-                     setupHODView();
+                if (e.target.username.value === 'hod' && e.target.password.value === 'HOD123') {
+                    toggleModal('hod-login-modal', false);
+                    setupHODView();
                 } else {
-                    errorEl.textContent = "Mock error: Invalid credentials.";
+                    const errorEl = document.getElementById('login-error');
+                    errorEl.textContent = 'Invalid credentials.';
                     errorEl.classList.remove('hidden');
                 }
             });
-            
-            document.getElementById('register-university-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                // TODO: BACKEND - Implement new university registration.
-                // This should create a new user and a new university document in the database.
-                // It should return the newly created university data.
-                console.log("--- FRONTEND MOCK: University Registration Attempt ---");
-                const uniName = e.target['uni-name'].value;
-                const email = e.target['register-email'].value;
-                const errorEl = document.getElementById('register-error');
-                
-                if (Object.values(MOCK_DATABASE).some(uni => uni.adminEmail === email)) {
-                    errorEl.textContent = "Mock error: This email is already registered.";
-                    errorEl.classList.remove('hidden');
-                    return;
-                }
-
-                errorEl.classList.add('hidden');
-                toggleModal('university-auth-modal', false);
-                timeTableData = getInitialData(uniName, email);
-                document.getElementById('portal-subtitle').textContent = `${uniName} Portal`;
-                setupHODView();
-            });
-
             document.getElementById('faculty-login-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                // TODO: BACKEND - Implement faculty password validation.
-                // For now, any password is accepted for the prototype.
                 const facultyName = e.target['faculty-username'].value;
                 const password = e.target['faculty-password'].value;
-                if (facultyName && password) { // Simple check
+                if (facultyName && password === 'faculty123') {
                     toggleModal('faculty-login-modal', false);
                     setupFacultyView(facultyName);
                 } else {
@@ -1025,55 +851,43 @@
                     errorEl.classList.remove('hidden');
                 }
             });
-
             document.getElementById('student-login-form').addEventListener('submit', (e) => {
                 e.preventDefault();
-                 // This is just a selection form, no real login happens here.
                 const dept = document.getElementById('s-dept').value;
                 const year = document.getElementById('s-year').value;
                 const section = document.getElementById('s-section').value;
                 const studentId = document.getElementById('student-name-select').value;
                 if (!studentId) return;
-
                 const studentName = timeTableData.students[dept]?.[year]?.[section]?.find(s => s.id === studentId)?.name || 'Student';
-                
                 toggleModal('student-login-modal', false);
                 setupStudentView({ dept, year, section, id: studentId, name: studentName });
             });
-            
-            // --- UI and View Functions (Mostly Frontend) ---
             function createSelect(id, label, options, container) { container.innerHTML = `<label for="${id}" class="block text-sm font-medium text-slate-700 mb-1">${label}</label><select id="${id}" class="block w-full p-2 border border-slate-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500"><option value="">Select ${label}...</option>${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}</select>`; return container.querySelector('select'); }
             function updateSelectOptions(select, options, placeholder, currentValue = '') { select.innerHTML = `<option value="">${placeholder}</option>${options.map(opt => `<option value="${opt.value || opt}" ${ (opt.value || opt) === currentValue ? 'selected' : ''}>${opt.text || opt}</option>`).join('')}`; }
             function getTodayDateString() { const today = new Date(); return `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`; }
             function getCurrentTimeInfo() {
                 const now = new Date();
-                const dayIndex = now.getDay() - 1; 
+                const dayIndex = now.getDay() - 1;
                 const currentDay = days[dayIndex];
                 const currentTime = now.getHours() + (now.getMinutes() / 60);
                 let currentSlotIndex = -1;
-
-                if (dayIndex >= 0 && dayIndex < 5) { 
-                    (timeTableData.timeSlots || []).forEach((slot, index) => {
-                        const [start, end] = slot.split('-').map(time => {
-                            const [h, m] = time.split(':');
-                            return parseInt(h, 10) + (parseInt(m, 10) / 60);
-                        });
-                        if(currentTime >= start && currentTime < end) {
-                            currentSlotIndex = index;
-                        }
-                    });
+                if (dayIndex >= 0 && dayIndex < 5) {
+                    if (currentTime >= 9 && currentTime < 10) currentSlotIndex = 0;
+                    else if (currentTime >= 10 && currentTime < 11) currentSlotIndex = 1;
+                    else if (currentTime >= 11 && currentTime < 12) currentSlotIndex = 2;
+                    else if (currentTime >= 12 && currentTime < 13) currentSlotIndex = 3;
+                    else if (currentTime >= 14 && currentTime < 15) currentSlotIndex = 4;
+                    else if (currentTime >= 15 && currentTime < 16) currentSlotIndex = 5;
+                    else if (currentTime >= 16 && currentTime < 17) currentSlotIndex = 6;
                 }
-                
                 return { currentDay, currentSlotIndex };
             }
-            
             function renderTimetable(data, highlight = {}) {
                 if (!data) { timetableContainer.innerHTML = `<p class="text-center text-slate-500 py-8">Please make a selection to view the timetable.</p>`; return; }
                 timetableContainer.classList.toggle('editable', currentRole === 'hod');
                 let table = `<table class="w-full min-w-[700px] border-collapse text-center"><thead><tr class="bg-red-100"><th class="p-3 font-semibold border border-slate-300">Time</th>${days.map(day => `<th class="p-3 font-semibold border border-slate-300">${day}</th>`).join('')}</tr></thead><tbody>`;
                 (timeTableData.timeSlots || []).forEach((slot, i) => {
-                    // This logic assumes a continuous schedule and inserts a lunch break visually.
-                    if(i === 4 && (timeTableData.timeSlots || []).length > 4) { 
+                    if(i === 4) {
                         table += `<tr class="bg-slate-100"><td colspan="6" class="p-2 font-bold text-slate-600 border border-slate-300 text-center">L U N C H</td></tr>`;
                     }
                     table += `<tr class="bg-white"><td class="p-2 font-medium text-slate-600 border border-slate-300">${slot}</td>`;
@@ -1117,11 +931,6 @@
                     });
                 }
             }
-
-            // ... (The rest of the UI-related functions from the original file remain largely the same, as they are frontend logic) ...
-            // The functions below are included as they are primarily concerned with manipulating the DOM and handling user events, which is a frontend responsibility.
-            // They now operate on the local `timeTableData` object.
-
             function setupStudentView(studentInfo) {
                 currentRole = 'student';
                 viewTitle.textContent = `Dashboard for ${studentInfo.name}`;
@@ -1129,19 +938,15 @@
                 timetableContainer.innerHTML = '';
                 switchView('main');
                 const { dept, year, section } = studentInfo;
-
                 const aiTutorContainer = document.createElement('div');
                 aiTutorContainer.className = 'ai-tutor-container my-6 p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg flex flex-wrap justify-between items-center gap-4';
-                
                 let buttonsHTML = `
                     <button id="ask-ai-tutor-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Ask a Doubt</button>
                     <button id="create-study-plan-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Create Study Plan</button>
                 `;
-                
                 if (year === 'III' || year === 'IV') {
                     buttonsHTML += `<button id="generate-project-ideas-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Project Ideas</button>`;
                 }
-
                 aiTutorContainer.innerHTML = `
                     <div>
                         <h4 class="font-bold text-purple-800">Your Personal AI Assistant</h4>
@@ -1157,30 +962,25 @@
                 if (document.getElementById('generate-project-ideas-btn')) {
                     document.getElementById('generate-project-ideas-btn').addEventListener('click', () => openProjectIdeaModal(studentInfo));
                 }
-
                 const scheduleForClass = timeTableData.schedule?.[dept]?.[year]?.[section];
                 if (scheduleForClass) {
                     renderTimetable(scheduleForClass, getCurrentTimeInfo());
                     displayStudentAttendance(studentInfo);
                 } else {
-                    console.error(`Error: Timetable data not found for ${dept} ${year}-${section}.`);
                     timetableContainer.innerHTML = `<p class="text-center text-red-600 font-semibold p-8">Could not load the timetable for this class. Please contact the administrator.</p>`;
                     studentAttendanceSummary.innerHTML = '';
                     studentAttendanceSummary.classList.add('hidden');
                 }
             }
-
             function setupFacultyView(facultyName) { currentRole = 'faculty'; currentFacultyName = facultyName; viewTitle.textContent = `Schedule for ${facultyName}`; facultyActions.classList.remove('hidden'); filtersContainer.innerHTML = ''; timetableContainer.innerHTML = ''; switchView('main'); displayFacultySchedule(facultyName); }
-            
             function setupHODView() { 
                 currentRole = 'hod'; 
-                viewTitle.textContent = "Administrator Dashboard"; 
+                viewTitle.textContent = "HOD Dashboard"; 
                 manageFacultyBtn.classList.remove('hidden'); 
                 manageStudentsBtn.classList.remove('hidden');
                 manageTimeSlotsBtn.classList.remove('hidden');
                 viewLeaveRequestsBtn.classList.remove('hidden');
                 draftMemoBtn.classList.remove('hidden');
-                logoutButton.classList.remove('hidden');
                 document.getElementById('analyze-workload-btn').classList.remove('hidden');
                 filtersContainer.innerHTML = ''; 
                 timetableContainer.innerHTML = ''; 
@@ -1192,30 +992,25 @@
                 helperText.innerHTML = `<b>Pro Tip:</b> You can click a class to edit its subject/faculty, or <b>drag and drop</b> a class to a new time or day.`;
                 filtersContainer.parentNode.insertBefore(helperText, timetableContainer);
             }
-
             function createHODFilters() {
                 const deptContainer = document.createElement('div');
                 const yearContainer = document.createElement('div');
                 const sectionContainer = document.createElement('div');
                 const aiButtonContainer = document.createElement('div');
                 aiButtonContainer.innerHTML = `<label class="block text-sm font-medium text-slate-700 mb-1 opacity-0">AI</label><button id="auto-generate-schedule-btn" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition disabled:bg-purple-300" disabled>✨ Auto-Generate</button>`;
-
                 const deptSelect = createSelect('h-dept', 'Department', timeTableData.departments, deptContainer);
                 const yearSelect = createSelect('h-year', 'Year', timeTableData.years, yearContainer);
                 const sectionSelect = createSelect('h-section', 'Section', timeTableData.sections, sectionContainer);
                 filtersContainer.innerHTML = '';
                 filtersContainer.append(deptContainer, yearContainer, sectionContainer, aiButtonContainer);
-
                 const autoGenerateBtn = document.getElementById('auto-generate-schedule-btn');
                 const analyzeWorkloadBtn = document.getElementById('analyze-workload-btn');
                 analyzeWorkloadBtn.disabled = true;
-
                 autoGenerateBtn.addEventListener('click', handleAutoGenerateSchedule);
                 analyzeWorkloadBtn.addEventListener('click', () => {
                     const dept = deptSelect.value;
                     if (dept) handleWorkloadAnalysis(dept);
                 });
-                
                 const update = () => { 
                     const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value]; 
                     const selectionComplete = dept && year && section; 
@@ -1223,10 +1018,7 @@
                     autoGenerateBtn.disabled = !selectionComplete; 
                     analyzeWorkloadBtn.disabled = !dept;
                     draftMemoBtn.disabled = !dept;
-                    if (selectionComplete) { 
-                        if (!timeTableData.schedule[dept]?.[year]?.[section]) generateSchedules();
-                        renderTimetable(timeTableData.schedule[dept][year][section], getCurrentTimeInfo()); 
-                    } else { timetableContainer.innerHTML = ''; }
+                    if (selectionComplete) { renderTimetable(timeTableData.schedule[dept][year][section], getCurrentTimeInfo()); } else { timetableContainer.innerHTML = ''; }
                 };
                 [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', update));
                 update();
@@ -1251,7 +1043,7 @@
             function displayStudentAttendance(studentInfo) {
                 const { dept, year, section, id: studentId } = studentInfo; const subjects = timeTableData.subjects[year]; let summaryHTML = `<h3 class="text-xl font-bold mb-4">Your Attendance Summary</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">`;
                 subjects.forEach(subject => { let totalClasses = 0; let attendedClasses = 0; Object.keys(timeTableData.attendance).forEach(date => { Object.keys(timeTableData.attendance[date]).forEach(slotIndex => { const classSchedule = timeTableData.schedule?.[dept]?.[year]?.[section]?.[days[new Date(date).getDay() - 1]]?.[slotIndex]; if (classSchedule?.subject === subject) { const classKey = `${dept}-${year}-${section}`; const record = timeTableData.attendance[date][slotIndex]?.[classKey]; if (record) { totalClasses++; if (record[studentId] === 'present') { attendedClasses++; } } } }); });
-                const percentage = totalClasses > 0 ? ((attendedClasses / totalClasses) * 100).toFixed(1) : "100.0"; const color = percentage >= 75 ? 'text-green-600' : 'text-red-600'; summaryHTML += `<div class="p-3 bg-white rounded-lg border flex flex-col justify-between shadow-sm hover:shadow-md smooth-transition"><div class="mb-2"><p class="font-semibold">${subject}</p><p class="text-2xl font-bold ${color}">${percentage}%</p><p class="text-sm text-slate-500">(${attendedClasses}/${totalClasses} classes)</p></div><button class="get-study-tips-btn text-xs bg-purple-100 text-purple-800 font-semibold py-1 px-2 rounded-full hover:bg-purple-200 smooth-transition w-full" data-subject="${subject}">✨ Get Study Tips</button></div>`; });
+                const percentage = totalClasses > 0 ? ((attendedClasses / totalClasses) * 100).toFixed(1) : "N/A"; const color = percentage >= 75 ? 'text-green-600' : 'text-red-600'; summaryHTML += `<div class="p-3 bg-white rounded-lg border flex flex-col justify-between shadow-sm hover:shadow-md smooth-transition"><div class="mb-2"><p class="font-semibold">${subject}</p><p class="text-2xl font-bold ${color}">${percentage}%</p><p class="text-sm text-slate-500">(${attendedClasses}/${totalClasses} classes)</p></div><button class="get-study-tips-btn text-xs bg-purple-100 text-purple-800 font-semibold py-1 px-2 rounded-full hover:bg-purple-200 smooth-transition w-full" data-subject="${subject}">✨ Get Study Tips</button></div>`; });
                 summaryHTML += `</div>`; studentAttendanceSummary.innerHTML = summaryHTML; studentAttendanceSummary.classList.remove('hidden');
                 document.querySelectorAll('.get-study-tips-btn').forEach(btn => btn.addEventListener('click', (e) => handleGetStudyTips(e.target.dataset.subject)));
             }
@@ -1262,7 +1054,7 @@
             }
             document.getElementById('student-list-container').addEventListener('click', (e) => { if (e.target.tagName === 'BUTTON') { const parent = e.target.parentElement; parent.querySelector('.active').classList.remove('active'); e.target.classList.add('active'); }});
             document.getElementById('mark-all-present-btn').addEventListener('click', () => { document.querySelectorAll('.attendance-toggle').forEach(toggle => { toggle.querySelector('.absent').classList.remove('active'); toggle.querySelector('.present').classList.add('active'); }); });
-            document.getElementById('attendance-form').addEventListener('submit', (e) => { e.preventDefault(); const { dept, year, section, slotIndex } = currentClassInfoForAttendance; const today = getTodayDateString(); if (!timeTableData.attendance[today]) timeTableData.attendance[today] = {}; if (!timeTableData.attendance[today][slotIndex]) timeTableData.attendance[today][slotIndex] = {}; const classKey = `${dept}-${year}-${section}`; const record = {}; document.querySelectorAll('.attendance-toggle').forEach(toggle => { record[toggle.dataset.studentid] = toggle.querySelector('.active').dataset.status; }); timeTableData.attendance[today][slotIndex][classKey] = record; saveUniversityData(); toggleModal('attendance-modal', false); });
+            document.getElementById('attendance-form').addEventListener('submit', (e) => { e.preventDefault(); toggleModal('attendance-modal', false); });
             viewAttendanceReportBtn.addEventListener('click', () => { document.getElementById('report-date').value = getTodayDateString(); renderAttendanceReport(); toggleModal('attendance-report-modal', true); });
             document.getElementById('report-date').addEventListener('change', renderAttendanceReport);
             document.getElementById('get-attendance-insights-btn').addEventListener('click', handleGetAttendanceInsights);
@@ -1280,11 +1072,10 @@
                 updateSelectOptions(document.getElementById('faculty-select-modal'), timeTableData.faculty[dept], 'Select Faculty...', currentSlot?.faculty);
                 toggleModal('edit-slot-modal', true);
             }
-            document.getElementById('edit-slot-form').addEventListener('submit', (e) => { e.preventDefault(); const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value]; const day = document.getElementById('edit-day').value; const slotIndex = parseInt(document.getElementById('edit-slot-index').value); timeTableData.schedule[dept][year][section][day][slotIndex] = { subject: document.getElementById('subject-select').value, faculty: document.getElementById('faculty-select-modal').value }; saveUniversityData(); toggleModal('edit-slot-modal', false); renderTimetable(timeTableData.schedule[dept][year][section]); });
+            document.getElementById('edit-slot-form').addEventListener('submit', (e) => { e.preventDefault(); toggleModal('edit-slot-modal', false); });
             manageFacultyBtn.addEventListener('click', () => { const dept = document.getElementById('h-dept').value; if (!dept) { alert("Please select a Department first."); return; } document.getElementById('manage-faculty-title').textContent = `Manage ${dept} Faculty`; renderFacultyList(dept); toggleModal('manage-faculty-modal', true); });
-            function renderFacultyList(dept) { const container = document.getElementById('faculty-list'); container.innerHTML = ''; const currentFaculty = timeTableData.faculty[dept] || []; if (currentFaculty.length === 0) { container.innerHTML = `<p class="text-slate-500 text-center">No faculty members found.</p>`; } else { currentFaculty.forEach(name => { const div = document.createElement('div'); div.className = 'flex justify-between items-center p-2 border-b'; div.innerHTML = `<span>${name}</span><button data-name="${name}" class="remove-faculty-btn text-red-500 hover:text-red-700 font-semibold text-sm">Remove</button>`; container.appendChild(div); }); } document.querySelectorAll('.remove-faculty-btn').forEach(btn => { btn.addEventListener('click', (e) => removeFaculty(dept, e.target.dataset.name)); }); }
-            function removeFaculty(dept, name) { timeTableData.faculty[dept] = timeTableData.faculty[dept].filter(f => f !== name); saveUniversityData(); renderFacultyList(dept); }
-            document.getElementById('add-faculty-form').addEventListener('submit', (e) => { e.preventDefault(); const dept = document.getElementById('h-dept').value; const newNameInput = document.getElementById('new-faculty-name'); const newName = newNameInput.value.trim(); const errorEl = document.getElementById('faculty-error'); if (newName && !(timeTableData.faculty[dept] || []).includes(newName)) { if(!timeTableData.faculty[dept]) timeTableData.faculty[dept] = []; timeTableData.faculty[dept].push(newName); timeTableData.faculty[dept].sort(); saveUniversityData(); renderFacultyList(dept); newNameInput.value = ''; errorEl.classList.add('hidden'); } else if ((timeTableData.faculty[dept] || []).includes(newName)) { errorEl.textContent = 'This faculty member already exists.'; errorEl.classList.remove('hidden'); } });
+            function renderFacultyList(dept) { const container = document.getElementById('faculty-list'); container.innerHTML = ''; const currentFaculty = timeTableData.faculty[dept] || []; if (currentFaculty.length === 0) { container.innerHTML = `<p class="text-slate-500 text-center">No faculty members found.</p>`; } else { currentFaculty.forEach(name => { const div = document.createElement('div'); div.className = 'flex justify-between items-center p-2 border-b'; div.innerHTML = `<span>${name}</span><button data-name="${name}" class="remove-faculty-btn text-red-500 hover:text-red-700 font-semibold text-sm">Remove</button>`; container.appendChild(div); }); } document.querySelectorAll('.remove-faculty-btn').forEach(btn => { btn.addEventListener('click', (e) => renderFacultyList(dept)); }); }
+            document.getElementById('add-faculty-form').addEventListener('submit', (e) => { e.preventDefault(); });
             function openAskDoubtModal(studentInfo) {
                 const { year } = studentInfo;
                 const subjects = timeTableData.subjects[year] || [];
@@ -1306,83 +1097,396 @@
                 const result = await callGeminiAPI(prompt);
                 if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
             });
-            document.getElementById('take-leave-btn').addEventListener('click', () => { const leaveDateInput = document.getElementById('leave-date'); leaveDateInput.value = getTodayDateString(); leaveDateInput.min = getTodayDateString(); document.getElementById('leave-reason').value = ''; toggleModal('take-leave-modal', true); });
+
+            document.getElementById('take-leave-btn').addEventListener('click', () => {
+                const leaveDateInput = document.getElementById('leave-date');
+                leaveDateInput.value = getTodayDateString();
+                leaveDateInput.min = getTodayDateString();
+                document.getElementById('leave-reason').value = '';
+                toggleModal('take-leave-modal', true);
+            });
             document.getElementById('my-leave-status-btn').addEventListener('click', () => { renderFacultyLeaveStatus(); toggleModal('view-leaves-modal', true); });
             document.getElementById('draft-leave-reason-btn').addEventListener('click', async (e) => { const reasonTextarea = document.getElementById('leave-reason'); const reason = reasonTextarea.value.trim(); if (!reason) { alert("Please provide a brief reason first."); return; } const draftBtn = e.target; const originalText = draftBtn.innerHTML; draftBtn.innerHTML = `<span class="loader" style="width:16px; height:16px; border-width:2px; border-top-color:#8b5cf6;"></span>`; draftBtn.disabled = true; const prompt = `You are a professional assistant. A faculty member, ${currentFacultyName}, needs to write a leave request. Their brief reason is: "${reason}". Please expand this into a polite, professional, one-paragraph message suitable for an email to the Head of Department. Start with "Respected HOD,".`; const result = await getGeminiTextOnly(prompt); reasonTextarea.value = result; draftBtn.innerHTML = originalText; draftBtn.disabled = false; });
-            document.getElementById('take-leave-form').addEventListener('submit', async (e) => { e.preventDefault(); const leaveDate = document.getElementById('leave-date').value; const leaveReason = document.getElementById('leave-reason').value; timeTableData.leaves.push({ faculty: currentFacultyName, date: leaveDate, reason: leaveReason, status: 'pending', rejectionReason: '' }); saveUniversityData(); toggleModal('take-leave-modal', false); document.getElementById('gemini-modal-title').textContent = '✅ Leave Request Submitted'; const confirmationHTML = `<p class="text-lg">Your leave request has been successfully submitted for review.</p>`; geminiResult.innerHTML = confirmationHTML; toggleModal('gemini-modal', true); });
+            document.getElementById('take-leave-form').addEventListener('submit', async (e) => { 
+                e.preventDefault(); 
+                toggleModal('take-leave-modal', false); 
+                document.getElementById('gemini-modal-title').textContent = '✅ Leave Request Submitted';
+                geminiResult.innerHTML = `<p class="text-lg">Your leave request has been submitted to the HOD for approval.</p><p class="text-sm mt-2">This is a front-end demonstration. In a real application, this would be saved to a database.</p>`;
+                toggleModal('gemini-modal', true);
+            });
             viewLeaveRequestsBtn.addEventListener('click', () => { renderLeaveRequests(); toggleModal('view-leaves-modal', true); });
             function getStatusStyles(status) { switch (status) { case 'approved': return { bg: 'bg-green-100', text: 'text-green-800' }; case 'rejected': return { bg: 'bg-red-100', text: 'text-red-800' }; case 'pending': default: return { bg: 'bg-yellow-100', text: 'text-yellow-800' }; } }
-            function handleLeaveAction(event) { const index = event.target.dataset.leaveIndex; const action = event.target.dataset.action; if (index !== undefined && timeTableData.leaves[index]) { if (action === 'approved') { timeTableData.leaves[index].status = 'approved'; } else if (action === 'rejected') { document.getElementById('rejection-leave-index').value = index; document.getElementById('rejection-reason-textarea').value = ''; toggleModal('rejection-reason-modal', true); return; } saveUniversityData(); renderLeaveRequests(); } }
-            document.getElementById('rejection-reason-form').addEventListener('submit', (e) => { e.preventDefault(); const index = document.getElementById('rejection-leave-index').value; const reason = document.getElementById('rejection-reason-textarea').value; if (index !== '' && reason.trim() !== '') { timeTableData.leaves[index].status = 'rejected'; timeTableData.leaves[index].rejectionReason = reason; saveUniversityData(); toggleModal('rejection-reason-modal', false); renderLeaveRequests(); } else { alert('Please provide a reason for rejection.'); } });
+            function handleLeaveAction(event) {
+                const action = event.target.dataset.action;
+                if (action === 'approved') {
+                    alert('Leave approval would be handled by the backend.');
+                } else if (action === 'rejected') {
+                    toggleModal('rejection-reason-modal', true);
+                }
+            }
+            document.getElementById('rejection-reason-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                toggleModal('rejection-reason-modal', false);
+                renderLeaveRequests();
+            });
             function renderFacultyLeaveStatus() {
                 const container = document.getElementById('leave-requests-list');
                 document.getElementById('view-leaves-modal').querySelector('h3').textContent = 'My Leave Requests';
-                const myLeaves = (timeTableData.leaves || []).filter(leave => leave.faculty === currentFacultyName);
-                if (myLeaves.length === 0) { container.innerHTML = `<p class="text-center text-slate-500 py-4">You have not requested any leaves.</p>`; return; }
-                container.innerHTML = myLeaves.map(leave => { const statusStyles = getStatusStyles(leave.status); const rejectionInfo = (leave.status === 'rejected' && leave.rejectionReason) ? `<div class="mt-3 pt-3 border-t bg-red-50 p-3 rounded-b-lg"><p class="text-sm font-semibold text-red-800">Reason for Rejection:</p><p class="text-sm text-red-700">${leave.rejectionReason}</p></div>` : ''; return `<div class="border rounded-lg bg-white shadow-sm"><div class="p-4"><div class="flex justify-between items-start"><div><p class="font-bold text-lg">${leave.faculty}</p><p class="text-sm text-slate-600">Requested Leave on: <span class="font-semibold">${leave.date}</span></p></div><span class="text-xs font-semibold uppercase px-2 py-1 rounded-full ${statusStyles.bg} ${statusStyles.text}">${leave.status}</span></div><p class="mt-3 pt-3 border-t text-slate-700">${leave.reason}</p></div>${rejectionInfo}</div>` }).join('');
+                container.innerHTML = `<p class="text-center text-slate-500 py-4">Leave status would be loaded from a database.</p>`;
             }
             function renderLeaveRequests() {
                 const container = document.getElementById('leave-requests-list');
                 document.getElementById('view-leaves-modal').querySelector('h3').textContent = 'Faculty Leave Requests';
-                const leaves = timeTableData.leaves || [];
-                if (leaves.length === 0) { container.innerHTML = `<p class="text-center text-slate-500 py-4">No leave requests found.</p>`; return; }
-                container.innerHTML = leaves.map((leave, index) => { const statusStyles = getStatusStyles(leave.status); const actionButtons = leave.status === 'pending' ? `<div class="flex gap-2"><button data-leave-index="${index}" data-action="approved" class="approve-leave-btn text-sm bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-3 rounded-full smooth-transition">Approve</button><button data-leave-index="${index}" data-action="rejected" class="reject-leave-btn text-sm bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-3 rounded-full smooth-transition">Reject</button></div>` : ''; return `<div class="p-4 border rounded-lg bg-white shadow-sm"><div class="flex flex-wrap justify-between items-start gap-2"><div><p class="font-bold text-lg">${leave.faculty}</p><p class="text-sm text-slate-600">Requesting Leave on: <span class="font-semibold">${leave.date}</span></p></div><div class="flex items-center gap-4"><span class="text-xs font-semibold uppercase px-2 py-1 rounded-full ${statusStyles.bg} ${statusStyles.text}">${leave.status}</span>${actionButtons}</div></div><p class="mt-3 pt-3 border-t text-slate-700">${leave.reason}</p></div>`; }).join('');
-                document.querySelectorAll('.approve-leave-btn, .reject-leave-btn').forEach(btn => { btn.addEventListener('click', handleLeaveAction); });
+                container.innerHTML = `<p class="text-center text-slate-500 py-4">Leave requests would be loaded from a database.</p>`;
             }
             manageStudentsBtn.addEventListener('click', () => { setupStudentManagementModal(); toggleModal('manage-students-modal', true); });
             function setupStudentManagementModal() {
-                const deptContainer = document.getElementById('ms-dept-select-container'); const yearContainer = document.getElementById('ms-year-select-container'); const sectionContainer = document.getElementById('ms-section-select-container'); const deptSelect = createSelect('ms-dept', 'Department', timeTableData.departments, deptContainer); const yearSelect = createSelect('ms-year', 'Year', timeTableData.years, yearContainer); const sectionSelect = createSelect('ms-section', 'Section', timeTableData.sections, sectionContainer); const contentDiv = document.getElementById('student-management-content'); function updateStudentList() { const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value]; if (dept && year && section) { contentDiv.classList.remove('hidden'); renderStudentManagementList(dept, year, section); } else { contentDiv.classList.add('hidden'); } }
+                const deptContainer = document.getElementById('ms-dept-select-container');
+                const yearContainer = document.getElementById('ms-year-select-container');
+                const sectionContainer = document.getElementById('ms-section-select-container');
+                const deptSelect = createSelect('ms-dept', 'Department', timeTableData.departments, deptContainer);
+                const yearSelect = createSelect('ms-year', 'Year', timeTableData.years, yearContainer);
+                const sectionSelect = createSelect('ms-section', 'Section', timeTableData.sections, sectionContainer);
+                const contentDiv = document.getElementById('student-management-content');
+                function updateStudentList() {
+                    const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value];
+                    if (dept && year && section) { contentDiv.classList.remove('hidden'); renderStudentManagementList(dept, year, section); } else { contentDiv.classList.add('hidden'); }
+                }
                 [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', updateStudentList));
-                document.getElementById('add-student-form').onsubmit = (e) => { e.preventDefault(); const [dept, year, section] = [deptSelect.value, yearSelect.value, sectionSelect.value]; const newId = document.getElementById('new-student-id').value.trim(); const newName = document.getElementById('new-student-name').value.trim(); handleAddStudent(dept, year, section, newId, newName); };
+                document.getElementById('add-student-form').onsubmit = (e) => { e.preventDefault(); };
                 updateStudentList();
             }
             function renderStudentManagementList(dept, year, section) {
-                const container = document.getElementById('student-management-list'); const students = timeTableData.students[dept]?.[year]?.[section] || []; if (students.length === 0) { container.innerHTML = '<p class="text-slate-500 text-center">No students found for this class.</p>'; return; }
+                const container = document.getElementById('student-management-list');
+                const students = timeTableData.students[dept]?.[year]?.[section] || [];
+                if (students.length === 0) { container.innerHTML = '<p class="text-slate-500 text-center">No students found for this class.</p>'; return; }
                 container.innerHTML = students.map(student => `<div class="flex justify-between items-center p-2 border-b"><div><span class="font-medium">${student.name}</span><span class="text-sm text-slate-500 ml-2">(${student.id})</span></div><button data-id="${student.id}" class="remove-student-btn text-red-500 hover:text-red-700 font-semibold text-sm">Remove</button></div>`).join('');
-                document.querySelectorAll('.remove-student-btn').forEach(btn => { btn.addEventListener('click', (e) => { const studentId = e.target.dataset.id; handleRemoveStudent(dept, year, section, studentId); }); });
+                document.querySelectorAll('.remove-student-btn').forEach(btn => { btn.addEventListener('click', (e) => { renderStudentManagementList(dept, year, section); }); });
             }
-            function handleRemoveStudent(dept, year, section, studentId) { const students = timeTableData.students[dept]?.[year]?.[section]; if (students) { timeTableData.students[dept][year][section] = students.filter(s => s.id !== studentId); saveUniversityData(); renderStudentManagementList(dept, year, section); } }
-            function handleAddStudent(dept, year, section, newId, newName) {
-                const errorEl = document.getElementById('student-add-error'); if (!newId || !newName) { errorEl.textContent = 'Both Student ID and Name are required.'; errorEl.classList.remove('hidden'); return; }
-                if (!timeTableData.students[dept]) timeTableData.students[dept] = {}; if (!timeTableData.students[dept][year]) timeTableData.students[dept][year] = {}; if (!timeTableData.students[dept][year][section]) timeTableData.students[dept][year][section] = [];
-                const students = timeTableData.students[dept][year][section]; if (students.some(s => s.id === newId)) { errorEl.textContent = 'A student with this ID already exists in this class.'; errorEl.classList.remove('hidden'); } else { errorEl.classList.add('hidden'); students.push({ id: newId, name: newName }); students.sort((a, b) => a.name.localeCompare(b.name)); saveUniversityData(); renderStudentManagementList(dept, year, section); document.getElementById('add-student-form').reset(); }
-            }
+            
             function openAIAttendanceModal(classInfo) {
-                currentClassInfoForAttendance = classInfo; const contentContainer = document.getElementById('ai-attendance-content'); contentContainer.innerHTML = `<div class="text-center"><div class="w-full h-48 bg-slate-800 rounded-lg flex items-center justify-center mb-4"><p class="text-slate-400">Simulating Classroom Camera Feed...</p></div><p class="text-slate-600 mb-6">Press "Start AI Scan" to begin automatic attendance.</p><button id="start-ai-scan-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg smooth-transition">Start AI Scan</button></div>`;
+                currentClassInfoForAttendance = classInfo;
+                const contentContainer = document.getElementById('ai-attendance-content');
+                contentContainer.innerHTML = `
+                    <div class="text-center">
+                        <div class="w-full h-48 bg-slate-800 rounded-lg flex items-center justify-center mb-4">
+                            <p class="text-slate-400">Simulating Classroom Camera Feed...</p>
+                        </div>
+                        <p class="text-slate-600 mb-6">Press "Start AI Scan" to begin automatic attendance.</p>
+                        <button id="start-ai-scan-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg smooth-transition">Start AI Scan</button>
+                    </div>`;
                 document.getElementById('start-ai-scan-btn').addEventListener('click', runAIAttendanceScan);
                 toggleModal('ai-attendance-modal', true);
             }
             function runAIAttendanceScan() {
-                const contentContainer = document.getElementById('ai-attendance-content'); const messages = ["Accessing classroom camera...", "Detecting faces in the frame...", "Comparing faces against the class roster...", "Cross-referencing with student database..."]; let messageIndex = 0; contentContainer.innerHTML = `<div class="text-center"><div class="loader mx-auto mb-4"></div><p id="ai-status-message" class="text-slate-600 font-semibold">${messages[0]}</p></div>`; const statusMessage = document.getElementById('ai-status-message'); const interval = setInterval(() => { messageIndex++; if (messageIndex < messages.length) { statusMessage.textContent = messages[messageIndex]; } else { clearInterval(interval); displayAIAttendanceResults(); } }, 1000);
+                const contentContainer = document.getElementById('ai-attendance-content');
+                const messages = ["Accessing classroom camera...", "Detecting faces in the frame...", "Comparing faces against the class roster...", "Cross-referencing with student database..."];
+                let messageIndex = 0;
+                contentContainer.innerHTML = `<div class="text-center"><div class="loader mx-auto mb-4"></div><p id="ai-status-message" class="text-slate-600 font-semibold">${messages[0]}</p></div>`;
+                const statusMessage = document.getElementById('ai-status-message');
+                const interval = setInterval(() => {
+                    messageIndex++;
+                    if (messageIndex < messages.length) {
+                        statusMessage.textContent = messages[messageIndex];
+                    } else {
+                        clearInterval(interval);
+                        displayAIAttendanceResults();
+                    }
+                }, 1000);
             }
             function displayAIAttendanceResults() {
-                const { dept, year, section } = currentClassInfoForAttendance; const students = timeTableData.students[dept]?.[year]?.[section] || []; const totalStudents = students.length; const shuffled = [...students].sort(() => 0.5 - Math.random()); const absentCount = Math.floor(Math.random() * 3); const absentStudents = shuffled.slice(0, absentCount); const presentCount = totalStudents - absentCount; const attendanceRecord = {}; students.forEach(s => { if (absentStudents.some(as => as.id === s.id)) { attendanceRecord[s.id] = 'absent'; } else { attendanceRecord[s.id] = 'present'; } });
-                const contentContainer = document.getElementById('ai-attendance-content'); let absentListHTML = absentStudents.length > 0 ? `<p class="text-sm font-semibold mt-4 mb-2">The following students were not detected:</p><ul class="text-left text-sm text-red-600 list-disc list-inside">${absentStudents.map(s => `<li>${s.name}</li>`).join('')}</ul>` : `<p class="text-sm text-green-600 mt-4">All students were detected.</p>`;
-                contentContainer.innerHTML = `<div class="text-center"><h4 class="text-xl font-bold mb-2">Scan Complete!</h4><p><span class="font-bold text-2xl text-green-600">${presentCount}</span> / ${totalStudents} students marked as <span class="font-semibold text-green-600">Present</span>.</p><p><span class="font-bold text-2xl text-red-600">${absentCount}</span> student(s) marked as <span class="font-semibold text-red-600">Absent</span>.</p><div class="my-4 p-3 bg-slate-50 rounded-lg">${absentListHTML}</div><div class="flex flex-col sm:flex-row gap-2 mt-6"><button id="ai-review-btn" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Review & Edit Manually</button><button id="ai-confirm-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Confirm & Save</button></div></div>`;
-                document.getElementById('ai-confirm-btn').addEventListener('click', () => { const { dept, year, section, slotIndex } = currentClassInfoForAttendance; const today = getTodayDateString(); if (!timeTableData.attendance[today]) timeTableData.attendance[today] = {}; if (!timeTableData.attendance[today][slotIndex]) timeTableData.attendance[today][slotIndex] = {}; const classKey = `${dept}-${year}-${section}`; timeTableData.attendance[today][slotIndex][classKey] = attendanceRecord; saveUniversityData(); toggleModal('ai-attendance-modal', false); });
+                const { dept, year, section } = currentClassInfoForAttendance;
+                const students = timeTableData.students[dept]?.[year]?.[section] || [];
+                const totalStudents = students.length;
+                const shuffled = [...students].sort(() => 0.5 - Math.random());
+                const absentCount = Math.floor(Math.random() * 3);
+                const absentStudents = shuffled.slice(0, absentCount);
+                const presentCount = totalStudents - absentCount;
+                const attendanceRecord = {};
+                students.forEach(s => {
+                    if (absentStudents.some(as => as.id === s.id)) {
+                        attendanceRecord[s.id] = 'absent';
+                    } else {
+                        attendanceRecord[s.id] = 'present';
+                    }
+                });
+                const contentContainer = document.getElementById('ai-attendance-content');
+                let absentListHTML = absentStudents.length > 0 ?
+                    `<p class="text-sm font-semibold mt-4 mb-2">The following students were not detected:</p>
+                     <ul class="text-left text-sm text-red-600 list-disc list-inside">${absentStudents.map(s => `<li>${s.name}</li>`).join('')}</ul>` :
+                    `<p class="text-sm text-green-600 mt-4">All students were detected.</p>`;
+                contentContainer.innerHTML = `
+                    <div class="text-center">
+                        <h4 class="text-xl font-bold mb-2">Scan Complete!</h4>
+                        <p><span class="font-bold text-2xl text-green-600">${presentCount}</span> / ${totalStudents} students marked as <span class="font-semibold text-green-600">Present</span>.</p>
+                        <p><span class="font-bold text-2xl text-red-600">${absentCount}</span> student(s) marked as <span class="font-semibold text-red-600">Absent</span>.</p>
+                        <div class="my-4 p-3 bg-slate-50 rounded-lg">${absentListHTML}</div>
+                        <div class="flex flex-col sm:flex-row gap-2 mt-6">
+                            <button id="ai-review-btn" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Review & Edit Manually</button>
+                            <button id="ai-confirm-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Confirm & Save</button>
+                        </div>
+                    </div>`;
+                document.getElementById('ai-confirm-btn').addEventListener('click', () => { toggleModal('ai-attendance-modal', false); });
                 document.getElementById('ai-review-btn').addEventListener('click', () => { toggleModal('ai-attendance-modal', false); openAttendanceModal(currentClassInfoForAttendance, attendanceRecord); });
             }
-            draftMemoBtn.addEventListener('click', () => { const dept = document.getElementById('h-dept')?.value; if (!dept) { alert("Please select a department first."); return; } toggleModal('draft-memo-modal', true); });
-            document.getElementById('draft-memo-form').addEventListener('submit', async (e) => { e.preventDefault(); const topic = document.getElementById('memo-topic-input').value; const dept = document.getElementById('h-dept').value; toggleModal('draft-memo-modal', false); document.getElementById('gemini-modal-title').textContent = `✨ Memo Draft: ${topic}`; const prompt = `You are an administrative assistant for a Head of Department (HOD) in an engineering college. Draft a formal and professional memo for the HOD of the "${dept}" department. The topic of the memo is: "${topic}". The memo should be addressed to all faculty members of the department. Include placeholders like [Date], [Time], [Venue] if applicable. Ensure the tone is formal and clear. Format the response using Markdown for structure, including a subject line, a clear body, and a closing.`; const result = await callGeminiAPI(prompt); if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); } });
-            function openProjectIdeaModal(studentInfo) { const { year } = studentInfo; const subjects = timeTableData.subjects[year] || []; updateSelectOptions(document.getElementById('project-subject-select'), subjects, 'Select a subject...'); toggleModal('project-idea-modal', true); }
-            document.getElementById('project-idea-form').addEventListener('submit', async (e) => { e.preventDefault(); const subject = document.getElementById('project-subject-select').value; toggleModal('project-idea-modal', false); document.getElementById('gemini-modal-title').textContent = `✨ Project Ideas for ${subject}`; const prompt = `I am a final year undergraduate engineering student. Please generate 3-4 innovative project ideas related to the subject "${subject}". For each idea, provide: 1. A catchy project title. 2. A brief one-paragraph description of the project. 3. A list of key technologies or concepts that would be used. Format the response using Markdown, with a clear heading for each project idea.`; const result = await callGeminiAPI(prompt); if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); } });
-            async function handleAutoGenerateSchedule() { /* ... This would call the mock AI API ... */ }
-            function renderTimetablePreview(scheduleData) { /* ... UI only ... */ return ''; }
-            function displayTimetableOptions(schedules, classInfo) { /* ... UI only ... */ }
-            async function handleCreateStudyPlan(studentInfo) { /* ... This would call the mock AI API ... */ }
-            async function handleGetStudyTips(subject) { /* ... This would call the mock AI API ... */ }
-            async function handleGetAttendanceInsights() { /* ... This would call the mock AI API ... */ }
-            async function handleWorkloadAnalysis(dept) { /* ... This would call the mock AI API ... */ }
-            function handleDragStart(e) { draggedElement = e.target; const sourceDay = e.target.dataset.day; const sourceSlotIndex = e.target.dataset.slotIndex; e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', JSON.stringify({ sourceDay, sourceSlotIndex })); setTimeout(() => { e.target.style.opacity = '0.5'; }, 0); }
+            draftMemoBtn.addEventListener('click', () => {
+                const dept = document.getElementById('h-dept')?.value;
+                if (!dept) {
+                    alert("Please select a department first.");
+                    return;
+                }
+                toggleModal('draft-memo-modal', true);
+            });
+            document.getElementById('draft-memo-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const topic = document.getElementById('memo-topic-input').value;
+                const dept = document.getElementById('h-dept').value;
+                toggleModal('draft-memo-modal', false);
+                document.getElementById('gemini-modal-title').textContent = `✨ Memo Draft: ${topic}`;
+                const prompt = `You are an administrative assistant for a Head of Department (HOD) in an engineering college.
+                Draft a formal and professional memo for the HOD of the "${dept}" department.
+                The topic of the memo is: "${topic}".
+                The memo should be addressed to all faculty members of the department. Include placeholders like [Date], [Time], [Venue] if applicable. Ensure the tone is formal and clear.
+                Format the response using Markdown for structure, including a subject line, a clear body, and a closing.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    geminiResult.innerHTML = result.replace(/\n/g, '<br>');
+                }
+            });
+            function openProjectIdeaModal(studentInfo) {
+                const { year } = studentInfo;
+                const subjects = timeTableData.subjects[year] || [];
+                updateSelectOptions(document.getElementById('project-subject-select'), subjects, 'Select a subject...');
+                toggleModal('project-idea-modal', true);
+            }
+            document.getElementById('project-idea-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const subject = document.getElementById('project-subject-select').value;
+                toggleModal('project-idea-modal', false);
+                document.getElementById('gemini-modal-title').textContent = `✨ Project Ideas for ${subject}`;
+                const prompt = `I am a final year undergraduate engineering student. Please generate 3-4 innovative project ideas related to the subject "${subject}".
+                For each idea, provide:
+                1. A catchy project title.
+                2. A brief one-paragraph description of the project.
+                3. A list of key technologies or concepts that would be used.
+                Format the response using Markdown, with a clear heading for each project idea.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    geminiResult.innerHTML = result.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                }
+            });
+            async function handleAutoGenerateSchedule() {
+                const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value];
+                if (!dept || !year || !section) return;
+                document.getElementById('gemini-modal-title').textContent = `✨ Generating Schedule Options for ${dept}-${year}-${section}`;
+                toggleModal('gemini-modal', true);
+                document.getElementById('gemini-loading').classList.remove('hidden');
+                document.getElementById('gemini-result').innerHTML = `<p class="text-center">Generating 3 unique timetable options... This may take a moment.</p>`;
+                const subjects = timeTableData.subjects[year];
+                const faculty = timeTableData.faculty[dept];
+                const basePrompt = `You are an expert academic scheduler for an engineering college. Generate a 5-day weekly class schedule. Return the output *only* as a valid JSON object with no other text or markdown formatting.
+                Details:
+                - Department: ${dept}, Year: ${year}, Section: ${section}
+                - Days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+                - Time slots per day: ${(timeTableData.timeSlots || []).length}
+                - Subjects: ${JSON.stringify(subjects)}
+                - Faculty: ${JSON.stringify(faculty)}
+                Constraints: 1. Each day must have an array of ${(timeTableData.timeSlots || []).length} time slots. 2. A slot can be empty (use 'null'). For a filled slot, use an object: {"subject": "...", "faculty": "..."}. 3. Distribute subjects evenly. 4. Do not schedule more than two lab sessions (subjects ending with "LAB") on the same day. Your entire response must be a single JSON object.`;
+                const prompts = [ basePrompt + " Prioritize putting lab sessions in the afternoon.", basePrompt + " Try to avoid scheduling the same subject twice on the same day, if possible.", basePrompt + " Aim for a balanced distribution, avoiding clustering difficult subjects together." ];
+                const promises = prompts.map(p => callGeminiAPI(p, scheduleResponseSchema, false));
+                try {
+                    const results = await Promise.allSettled(promises);
+                    const validSchedules = [];
+                    results.forEach((res, index) => {
+                        if (res.status === 'fulfilled' && res.value) {
+                            try {
+                                let cleanedResult = res.value.trim();
+                                const jsonMatch = cleanedResult.match(/\{[\s\S]*\}/);
+                                if (!jsonMatch) { throw new Error(`Option ${index + 1}: No valid JSON object found.`); }
+                                const schedule = JSON.parse(jsonMatch[0]);
+                                if (days.every(day => schedule[day] && Array.isArray(schedule[day]) && schedule[day].length === (timeTableData.timeSlots || []).length)) {
+                                    validSchedules.push(schedule);
+                                }
+                            } catch (e) { console.error(`Error parsing schedule option ${index + 1}:`, e); }
+                        }
+                    });
+                    toggleModal('gemini-modal', false);
+                    if (validSchedules.length > 0) {
+                        displayTimetableOptions(validSchedules, { dept, year, section });
+                    } else {
+                        document.getElementById('gemini-loading').classList.add('hidden');
+                        geminiResult.innerHTML = `<p class="text-red-500 font-semibold">Sorry, the AI failed to generate any valid schedules. Please try again.</p>`;
+                        toggleModal('gemini-modal', true);
+                    }
+                } catch (error) {
+                    toggleModal('gemini-modal', false);
+                    document.getElementById('gemini-loading').classList.add('hidden');
+                    geminiResult.innerHTML = `<p class="text-red-500 font-semibold">An error occurred while generating schedules. ${error.message}</p>`;
+                    toggleModal('gemini-modal', true);
+                }
+            }
+            function renderTimetablePreview(scheduleData) {
+                let table = `<table class="w-full text-xs border-collapse text-center"><thead><tr class="bg-slate-100"><th class="p-1 border">Time</th>${days.map(d => `<th class="p-1 border">${d.substring(0,3)}</th>`).join('')}</tr></thead><tbody>`;
+                (timeTableData.timeSlots || []).forEach((slot, i) => {
+                    table += `<tr class="bg-white"><td class="p-1 border font-medium text-slate-600">${slot.split(' ')[0]}</td>`;
+                    days.forEach(day => {
+                        const period = scheduleData[day]?.[i];
+                        const content = period ? `<div class="font-semibold" title="${period.subject}">${period.subject.split(' ').map(w=>w[0]).join('') || period.subject}</div><div class="text-slate-500" title="${period.faculty}">${period.faculty.split(' ')[1]}</div>` : '-';
+                        table += `<td class="p-1 border h-12">${content}</td>`;
+                    });
+                    table += `</tr>`;
+                });
+                table += '</tbody></table>';
+                return table;
+            }
+            function displayTimetableOptions(schedules, classInfo) {
+                const container = document.getElementById('timetable-options-container');
+                container.innerHTML = '';
+                schedules.forEach((schedule, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'p-4 border rounded-xl bg-white shadow-sm flex flex-col';
+                    card.innerHTML = `
+                        <h4 class="font-bold text-lg text-center mb-3">Option ${index + 1}</h4>
+                        <div class="overflow-x-auto flex-grow">${renderTimetablePreview(schedule)}</div>
+                        <button data-schedule-index="${index}" class="select-timetable-btn mt-4 w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Select this Timetable</button>
+                    `;
+                    container.appendChild(card);
+                });
+                window.generatedSchedules = schedules; 
+                document.querySelectorAll('.select-timetable-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const index = e.target.dataset.scheduleIndex;
+                        const selectedSchedule = window.generatedSchedules[index];
+                        timeTableData.schedule[classInfo.dept][classInfo.year][classInfo.section] = selectedSchedule;
+                        renderTimetable(selectedSchedule, getCurrentTimeInfo());
+                        delete window.generatedSchedules;
+                        toggleModal('timetable-options-modal', false);
+                    });
+                });
+                toggleModal('timetable-options-modal', true);
+            }
+            async function handleCreateStudyPlan(studentInfo) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Personalized Study Plan`;
+                const { dept, year, section } = studentInfo;
+                const subjects = timeTableData.subjects[year] || [];
+                const schedule = timeTableData.schedule[dept]?.[year]?.[section];
+                let scheduleString = "";
+                if(schedule){
+                    days.forEach(day => {
+                        scheduleString += `${day}: `;
+                        const dailySchedule = schedule[day].map((p, i) => p ? `${(timeTableData.timeSlots || [])[i]} - ${p.subject}` : null).filter(Boolean);
+                        scheduleString += dailySchedule.join(', ') + ". ";
+                    });
+                }
+                const prompt = `You are an expert academic advisor for engineering students. A student in Year "${year}" of "${dept}" needs a personalized weekly study plan.
+                Student's Details:
+                - Subjects: ${subjects.join(', ')}
+                - Current Class Schedule: ${scheduleString}
+                Please generate a realistic and encouraging weekly study plan that integrates with their existing classes. The plan should:
+                1.  Schedule specific study blocks for various subjects outside of class hours.
+                2.  Suggest effective study techniques for different types of subjects (e.g., practice problems for math-heavy subjects, concept mapping for theoretical subjects).
+                3.  Incorporate short breaks to avoid burnout.
+                4.  Be organized by day (Monday to Sunday).
+                Format the response clearly using Markdown headings for each day and bullet points for the schedule.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    geminiResult.innerHTML = html;
+                }
+            }
+            async function handleGetStudyTips(subject) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Study Tips for ${subject}`;
+                const prompt = `I am an engineering student. Provide three concise and actionable study tips for the undergraduate subject "${subject}". Format them as a numbered list with brief explanations.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+            async function handleGetAttendanceInsights() {
+                const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value];
+                const date = document.getElementById('report-date').value;
+                if (!dept || !year || !section || !date) return;
+                document.getElementById('gemini-modal-title').textContent = `✨ Attendance Insights for ${date}`;
+                const attendanceForDay = timeTableData.attendance[date] || {};
+                const classKey = `${dept}-${year}-${section}`;
+                const students = timeTableData.students[dept]?.[year]?.[section] || [];
+                const reportData = [];
+                (timeTableData.timeSlots || []).forEach((slot, i) => {
+                    const classSchedule = timeTableData.schedule?.[dept]?.[year]?.[section]?.[days[new Date(date).getDay() - 1]]?.[i];
+                    if (classSchedule) {
+                        const attendanceRecord = attendanceForDay[i]?.[classKey];
+                        if (attendanceRecord) {
+                            const absentees = students.filter(s => attendanceRecord[s.id] === 'absent').map(s => s.name);
+                            reportData.push({ time: slot, subject: classSchedule.subject, faculty: classSchedule.faculty, present: students.length - absentees.length, absent: absentees.length, absentees: absentees });
+                        }
+                    }
+                });
+                if (reportData.length === 0) {
+                    geminiResult.innerHTML = `<p>No attendance data found for ${dept}-${year}-${section} on ${date}.</p>`;
+                    toggleModal('gemini-modal', true);
+                    return;
+                }
+                const prompt = `As an academic analyst, review the following daily attendance data for the ${dept} ${year}-${section} class on ${date}. Provide a concise summary with actionable insights for the Head of Department.
+                Data: ${JSON.stringify(reportData, null, 2)}
+                Focus on:
+                - Overall attendance rate for the day.
+                - Any specific classes with unusually high absenteeism.
+                - Any students who were absent for multiple classes.
+                - Conclude with a brief, overall assessment.
+                Format the response as a simple report with bullet points.`;
+                const result = await callGeminiAPI(prompt);
+                if(result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+            async function handleWorkloadAnalysis(dept) {
+                document.getElementById('gemini-modal-title').textContent = `✨ Faculty Workload Analysis for ${dept}`;
+                const workload = {};
+                const facultyList = timeTableData.faculty[dept] || [];
+                facultyList.forEach(f => workload[f] = 0);
+                timeTableData.years.forEach(year => {
+                    timeTableData.sections.forEach(section => {
+                        const schedule = timeTableData.schedule?.[dept]?.[year]?.[section];
+                        if (schedule) {
+                            days.forEach(day => {
+                                schedule[day].forEach(period => {
+                                    if (period && period.faculty && facultyList.includes(period.faculty)) {
+                                        workload[period.faculty]++;
+                                    }
+                                });
+                            });
+                        }
+                    });
+                });
+                const prompt = `You are an academic management analyst for an engineering college. Here is the weekly class count for each faculty member in the ${dept} department:
+                ${JSON.stringify(workload, null, 2)}
+                Please provide a concise analysis of this workload distribution. 
+                1.  Calculate the average number of classes per faculty member.
+                2.  Identify any faculty members who are significantly overloaded (e.g., >150% of average) or underloaded (e.g., <50% of average).
+                3.  Provide a brief summary and suggest if the distribution seems balanced or not.
+                Format the response as a simple, easy-to-read report using a mix of paragraphs and bullet points.`;
+                const result = await callGeminiAPI(prompt);
+                if(result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+            }
+            function handleDragStart(e) {
+                draggedElement = e.target;
+                const sourceDay = e.target.dataset.day;
+                const sourceSlotIndex = e.target.dataset.slotIndex;
+                e.dataTransfer.effectAllowed = 'move';
+                e.dataTransfer.setData('text/plain', JSON.stringify({ sourceDay, sourceSlotIndex }));
+                setTimeout(() => { e.target.style.opacity = '0.5'; }, 0);
+            }
             function handleDragOver(e) { e.preventDefault(); return false; }
             function handleDragEnter(e) { const targetCell = e.target.closest('td[data-day]'); if (targetCell && targetCell !== draggedElement) { targetCell.classList.add('bg-red-100'); } }
             function handleDragLeave(e) { const targetCell = e.target.closest('td[data-day]'); if (targetCell) { targetCell.classList.remove('bg-red-100'); } }
-            function handleDrop(e) { e.stopPropagation(); if (draggedElement) { draggedElement.style.opacity = '1'; const dropTarget = e.target.closest('td[data-day]'); dropTarget.classList.remove('bg-red-100'); if (draggedElement !== dropTarget) { const data = JSON.parse(e.dataTransfer.getData('text/plain')); const sourceDay = data.sourceDay; const sourceSlotIndex = parseInt(data.sourceSlotIndex); const targetDay = dropTarget.dataset.day; const targetSlotIndex = parseInt(dropTarget.dataset.slotIndex); const dept = document.getElementById('h-dept').value; const year = document.getElementById('h-year').value; const section = document.getElementById('h-section').value; if (dept && year && section) { const schedule = timeTableData.schedule[dept][year][section]; const sourceData = schedule[sourceDay][sourceSlotIndex]; const targetData = schedule[targetDay][targetSlotIndex]; schedule[sourceDay][sourceSlotIndex] = targetData; schedule[targetDay][targetSlotIndex] = sourceData; saveUniversityData(); renderTimetable(schedule, getCurrentTimeInfo()); } } } draggedElement = null; return false; }
-            manageTimeSlotsBtn.addEventListener('click', () => { const container = document.getElementById('time-slots-inputs'); container.innerHTML = ''; (timeTableData.timeSlots || []).forEach((slot, index) => { const div = document.createElement('div'); div.innerHTML = `<label for="ts-input-${index}" class="block text-sm font-medium text-slate-700">Slot ${index + 1}</label><input type="text" id="ts-input-${index}" value="${slot}" class="mt-1 block w-full p-2 border border-slate-300 rounded-md">`; container.appendChild(div); }); toggleModal('manage-time-slots-modal', true); });
-            document.getElementById('manage-time-slots-form').addEventListener('submit', (e) => { e.preventDefault(); const newTimeSlots = []; const inputs = document.querySelectorAll('#time-slots-inputs input'); inputs.forEach(input => { newTimeSlots.push(input.value); }); timeTableData.timeSlots = newTimeSlots; saveUniversityData(); toggleModal('manage-time-slots-modal', false); const dept = document.getElementById('h-dept').value; const year = document.getElementById('h-year').value; const section = document.getElementById('h-section').value; if (dept && year && section) { renderTimetable(timeTableData.schedule[dept][year][section], getCurrentTimeInfo()); } });
-            async function initiateAIRescheduling(leave, leaveIndex) { /* ... This would call the mock AI API ... */ }
-            function displayAIRescheduleConfirmation(changes, leaveIndex) { /* ... UI only ... */ }
-            function applyAIChanges(changes, leaveIndex) { /* ... UI only ... */ }
+            function handleDrop(e) { e.stopPropagation(); if (draggedElement) { draggedElement.style.opacity = '1'; const dropTarget = e.target.closest('td[data-day]'); dropTarget.classList.remove('bg-red-100'); } draggedElement = null; return false; }
+            manageTimeSlotsBtn.addEventListener('click', () => {
+                const container = document.getElementById('time-slots-inputs');
+                container.innerHTML = '';
+                (timeTableData.timeSlots || []).forEach((slot, index) => {
+                    const div = document.createElement('div');
+                    div.innerHTML = `<label for="ts-input-${index}" class="block text-sm font-medium text-slate-700">Slot ${index + 1}</label><input type="text" id="ts-input-${index}" value="${slot}" class="mt-1 block w-full p-2 border border-slate-300 rounded-md">`;
+                    container.appendChild(div);
+                });
+                toggleModal('manage-time-slots-modal', true);
+            });
+            document.getElementById('manage-time-slots-form').addEventListener('submit', (e) => { e.preventDefault(); toggleModal('manage-time-slots-modal', false); });
         });
     </script>
 </body>
