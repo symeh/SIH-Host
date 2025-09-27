@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -90,6 +90,24 @@
         }
 
         /* Landing Page Animations & Colors */
+        .header-gradient {
+            background-image: linear-gradient(to bottom, white, #FAF8F5);
+        }
+        
+        .testimonial-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        #feedback-form input:focus, #feedback-form textarea:focus {
+            outline: none;
+            border-color: var(--brand-red);
+            box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
+        }
+        
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -128,7 +146,7 @@
     <div id="landing-page">
         <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
             <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-2 smooth-transition hover:opacity-80 cursor-pointer">
                      <svg class="w-8 h-8 brand-text" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                      <span class="text-xl font-bold brand-text">SmartSched</span>
                 </div>
@@ -140,7 +158,7 @@
             </div>
         </nav>
 
-        <header class="bg-white">
+        <header class="header-gradient">
             <div class="container mx-auto px-6 py-16 md:py-24 text-center">
                 <div class="animate-fade-in">
                     <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
@@ -150,7 +168,7 @@
                     <p class="mt-6 max-w-2xl mx-auto text-lg text-gray-600">
                         A unified platform for students, faculty, and administrators to streamline academic life with powerful, intuitive tools.
                     </p>
-                    <button id="launch-app-btn-hero" class="mt-8 brand-bg hover:brand-bg text-white font-bold py-3 px-8 rounded-full text-lg smooth-transition transform hover:scale-105 shadow-lg">
+                    <button id="launch-app-btn-hero" class="mt-8 brand-bg hover:brand-bg text-white font-bold py-3 px-8 rounded-full text-lg smooth-transition transform hover:scale-105 shadow-lg hover:shadow-xl">
                         Get Started
                     </button>
                 </div>
@@ -167,7 +185,7 @@
                 <!-- Feature 1: Students -->
                 <div class="flex flex-wrap items-center mb-20 reveal">
                     <div class="w-full md:w-1/2 p-4">
-                        <div class="bg-red-100/50 p-2 rounded-lg">
+                        <div class="bg-red-100/50 p-2 rounded-lg feature-card-hover smooth-transition">
                             <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2071&auto=format&fit=crop" alt="A student using a laptop to manage their schedule" class="rounded-lg shadow-xl w-full h-[400px] object-cover">
                         </div>
                     </div>
@@ -175,9 +193,9 @@
                         <h3 class="text-3xl font-bold mb-4 text-gray-900">For Students</h3>
                         <p class="text-gray-600 mb-6">Stay organized and on top of your academic journey. This platform provides all the tools you need to succeed in one simple interface.</p>
                         <ul class="space-y-3">
-                            <li class="flex items-start"><span class="brand-text mr-3 mt-1">✔</span><span><strong>Live Timetable Access:</strong> View your daily and weekly class schedule anytime, anywhere.</span></li>
-                            <li class="flex items-start"><span class="brand-text mr-3 mt-1">✔</span><span><strong>Attendance Tracking:</strong> Monitor your attendance percentage for each subject in real-time.</span></li>
-                            <li class="flex items-start"><span class="brand-text mr-3 mt-1">✔</span><span><strong>AI-Powered Tutor:</strong> ✨ Get instant help with difficult concepts, generate study plans, and brainstorm project ideas.</span></li>
+                            <li class="flex items-start"><span class="brand-text mr-3 mt-1">âœ”</span><span><strong>Live Timetable Access:</strong> View your daily and weekly class schedule anytime, anywhere.</span></li>
+                            <li class="flex items-start"><span class="brand-text mr-3 mt-1">âœ”</span><span><strong>Attendance Tracking:</strong> Monitor your attendance percentage for each subject in real-time.</span></li>
+                            <li class="flex items-start"><span class="brand-text mr-3 mt-1">âœ”</span><span><strong>AI-Powered Tutor:</strong> âœ¨ Get instant help with difficult concepts, generate study plans, and brainstorm project ideas.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -185,7 +203,7 @@
                 <!-- Feature 2: Faculty -->
                 <div class="flex flex-wrap items-center mb-20 flex-row-reverse reveal">
                      <div class="w-full md:w-1/2 p-4">
-                        <div class="bg-blue-100/50 p-2 rounded-lg">
+                        <div class="bg-blue-100/50 p-2 rounded-lg feature-card-hover smooth-transition">
                            <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop" alt="A faculty member teaching in a classroom" class="rounded-lg shadow-xl w-full h-[400px] object-cover">
                         </div>
                     </div>
@@ -193,9 +211,10 @@
                         <h3 class="text-3xl font-bold mb-4 text-gray-900">For Faculty</h3>
                         <p class="text-gray-600 mb-6">Focus on teaching, not paperwork. Our tools simplify your administrative tasks so you can dedicate more time to your students.</p>
                         <ul class="space-y-3">
-                             <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✔</span><span><strong>Consolidated Schedule:</strong> See all your assigned classes for the week in a single, clear view.</span></li>
-                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✔</span><span><strong>Effortless Attendance:</strong> Take attendance with a few clicks or use the ✨ AI Camera Scan for instant, automated marking.</span></li>
-                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✔</span><span><strong>Smart Leave Management:</strong> ✨ Submit leave requests with AI-drafted reasons and get suggestions for potential substitutes.</span></li>
+                             <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">âœ”</span><span><strong>Consolidated Schedule:</strong> See all your assigned classes for the week in a single, clear view.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">âœ”</span><span><strong>Effortless Attendance:</strong> Quickly take attendance for your classes with a simple, digital interface.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">âœ”</span><span><strong>AI Teaching Assistant:</strong> âœ¨ Instantly generate lesson plans, create pop quizzes, or get topic suggestions for your next class.</span></li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">âœ”</span><span><strong>Smart Leave Management:</strong> âœ¨ Submit leave requests with AI-drafted reasons and get suggestions for potential substitutes.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -203,7 +222,7 @@
                  <!-- Feature 3: HODs -->
                 <div class="flex flex-wrap items-center reveal">
                     <div class="w-full md:w-1/2 p-4">
-                        <div class="bg-green-100/50 p-2 rounded-lg">
+                        <div class="bg-green-100/50 p-2 rounded-lg feature-card-hover smooth-transition">
                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop" alt="An administrator analyzing data on a screen" class="rounded-lg shadow-xl w-full h-[400px] object-cover">
                         </div>
                     </div>
@@ -211,38 +230,122 @@
                         <h3 class="text-3xl font-bold mb-4 text-gray-900">For Administrators</h3>
                         <p class="text-gray-600 mb-6">Gain a high-level overview of your department's operations and make data-driven decisions with powerful AI insights.</p>
                          <ul class="space-y-3">
-                            <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span><strong>Drag & Drop Timetables:</strong> Effortlessly create and modify class schedules for any department.</span></li>
-                            <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span><strong>AI Workload Analysis:</strong> ✨ Instantly analyze faculty workloads to ensure fair and balanced distribution of classes.</span></li>
-                            <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">✔</span><span><strong>Automated Rescheduling:</strong> ✨ Approve faculty leaves and let the AI automatically find substitutes or reschedule classes to avoid disruption.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">âœ”</span><span><strong>Drag & Drop Timetables:</strong> Effortlessly create and modify class schedules for any department.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">âœ”</span><span><strong>AI Workload Analysis:</strong> âœ¨ Instantly analyze faculty workloads to ensure fair and balanced distribution of classes.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 mr-3 mt-1">âœ”</span><span><strong>Automated Rescheduling:</strong> âœ¨ Approve faculty leaves and let the AI automatically find substitutes or reschedule classes to avoid disruption.</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="feedback" class="py-20 bg-white">
+        <section id="responsive-mockup" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Works on Any Device</h2>
+                    <p class="mt-4 text-gray-600 max-w-2xl mx-auto">Access your dashboard seamlessly whether you're on your laptop in the library or on your phone between classes.</p>
+                </div>
+
+                <div class="relative flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 w-full">
+                    <!-- Laptop Mockup -->
+                    <div class="flex flex-col items-center reveal">
+                        <div class="shadow-2xl">
+                            <div class="w-[600px] md:w-[800px] h-[375px] md:h-[500px] rounded-2xl bg-[#1f2937] p-3 md:p-4 border-2 md:border-4 border-[#4b5563]">
+                                <div class="bg-white w-full h-full rounded-md md:rounded-lg overflow-hidden">
+                                    <div class="h-full w-full overflow-y-auto bg-gray-50 text-gray-800 p-4 md:p-6 text-sm md:text-base">
+                                        <!-- Laptop Dashboard Content -->
+                                        <div class="flex justify-between items-center mb-4">
+                                            <h1 class="text-xl md:text-3xl font-bold brand-text">Dashboard</h1>
+                                            <p class="text-gray-600 text-xs md:text-base">Welcome, Rohan Verma</p>
+                                        </div>
+                                        <div class="my-4 p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg flex justify-between items-center gap-4">
+                                            <div>
+                                                <h4 class="font-bold text-purple-800">Your Personal AI Assistant</h4>
+                                                <p class="text-purple-700 text-xs md:text-sm">Need help? I can generate study plans, explain concepts, and more!</p>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button class="bg-purple-500 text-white font-bold py-2 px-3 rounded-lg text-xs">âœ¨ Ask a Doubt</button>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 class="text-lg md:text-xl font-bold mb-3">Attendance Summary</h3>
+                                            <div class="grid grid-cols-4 gap-3">
+                                                <div class="p-3 bg-white rounded-lg border shadow-sm"><p class="font-semibold">Data Structures</p><p class="text-xl md:text-2xl font-bold text-green-600">85%</p></div>
+                                                <div class="p-3 bg-white rounded-lg border shadow-sm"><p class="font-semibold">Python</p><p class="text-xl md:text-2xl font-bold text-green-600">95%</p></div>
+                                                <div class="p-3 bg-white rounded-lg border shadow-sm"><p class="font-semibold">Electronics</p><p class="text-xl md:text-2xl font-bold text-red-600">71%</p></div>
+                                                <div class="p-3 bg-white rounded-lg border shadow-sm"><p class="font-semibold">Statistics</p><p class="text-xl md:text-2xl font-bold text-green-600">90%</p></div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-4">
+                                            <h3 class="text-lg md:text-xl font-bold mb-3">Today's Schedule: Thursday</h3>
+                                            <table class="w-full text-center border-collapse">
+                                                <thead><tr class="bg-red-100"><th class="p-2 font-semibold border">9-10</th><th class="p-2 font-semibold border">10-11</th><th class="p-2 font-semibold border">11-12</th><th class="p-2 font-semibold border">12-1</th><th class="p-2 font-semibold border bg-slate-200">LUNCH</th><th class="p-2 font-semibold border">2-3</th></tr></thead>
+                                                <tbody><tr><td class="p-2 border current-class"><div class="font-semibold">Finance</div><div class="text-xs text-slate-500">Ms. Jameel U.</div></td><td class="p-2 border"><div class="font-semibold">ETCE</div><div class="text-xs text-slate-500">Ms. Saba</div></td><td class="p-2 border"><div class="font-semibold">Statistics</div><div class="text-xs text-slate-500">Dr. Khasim A.</div></td><td class="p-2 border"><div class="font-semibold">Python</div><div class="text-xs text-slate-500">Dr. Farheen S.</div></td><td class="p-2 border bg-slate-100">-</td><td class="p-2 border"><div class="font-semibold">BE LAB</div><div class="text-xs text-slate-500">Ms. Qudsia K.</div></td></tr></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Smartphone Mockup -->
+                    <div class="flex flex-col items-center reveal">
+                        <div class="shadow-2xl">
+                            <div class="w-[300px] h-[600px] rounded-[40px] bg-[#1f2937] p-3 border-2 border-[#4b5563]">
+                                <div class="bg-white w-full h-full rounded-[30px] overflow-hidden relative">
+                                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#1f2937] rounded-b-xl z-10"></div>
+                                    <div class="h-full w-full overflow-y-auto bg-gray-50 text-gray-800 p-4 pt-8">
+                                        <div class="text-center mb-4"><h1 class="text-2xl font-bold brand-text">Dashboard</h1><p class="text-gray-600 text-sm">Rohan Verma</p></div>
+                                        <div class="my-4 p-3 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg"><h4 class="font-bold text-purple-800 text-sm">Personal AI Assistant</h4><button class="bg-purple-500 text-white font-bold py-2 px-3 rounded-lg text-xs w-full mt-2">âœ¨ Ask a Doubt</button></div>
+                                        <div>
+                                            <h3 class="text-lg font-bold mb-3">Attendance</h3>
+                                            <div class="grid grid-cols-2 gap-3">
+                                                <div class="p-2 bg-white rounded-lg border shadow-sm text-center"><p class="font-semibold text-sm">Data Structures</p><p class="text-xl font-bold text-green-600">85%</p></div>
+                                                <div class="p-2 bg-white rounded-lg border shadow-sm text-center"><p class="font-semibold text-sm">Python</p><p class="text-xl font-bold text-green-600">95%</p></div>
+                                                <div class="p-2 bg-white rounded-lg border shadow-sm text-center"><p class="font-semibold text-sm">Electronics</p><p class="text-xl font-bold text-red-600">71%</p></div>
+                                                <div class="p-2 bg-white rounded-lg border shadow-sm text-center"><p class="font-semibold text-sm">Statistics</p><p class="text-xl font-bold text-green-600">90%</p></div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-6">
+                                            <h3 class="text-lg font-bold mb-3">Today's Schedule</h3>
+                                            <div class="space-y-2">
+                                                <div class="p-2 rounded-lg border bg-white current-class flex justify-between items-center"><span class="font-semibold text-sm">9-10: Finance</span><span class="text-xs text-slate-500">Ms. Jameel U.</span></div>
+                                                <div class="p-2 rounded-lg border bg-white flex justify-between items-center"><span class="font-semibold text-sm">10-11: ETCE</span><span class="text-xs text-slate-500">Ms. Saba</span></div>
+                                                <div class="p-2 rounded-lg border bg-white flex justify-between items-center"><span class="font-semibold text-sm">11-12: Statistics</span><span class="text-xs text-slate-500">Dr. Khasim A.</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="feedback" class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-12 reveal">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">What Our Users Are Saying</h2>
+                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900">What Our Users Are Saying</h2>
                  </div>
 
                  <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16 reveal">
-                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 testimonial-card">
                         <p class="text-gray-600 italic">"The AI rescheduling for faculty leaves is a game-changer. What used to take hours of manual coordination now takes a single click. SmartSched has significantly improved our department's efficiency."</p>
                         <p class="mt-4 font-bold text-gray-800">- Dr. Anjali Sharma</p>
                         <p class="text-sm text-gray-500">Head of Department, CSE</p>
                     </div>
-                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 testimonial-card">
                         <p class="text-gray-600 italic">"As a student, having my entire schedule and real-time attendance in one place is incredibly helpful. The AI tutor feature has also been amazing for clarifying tough concepts before exams."</p>
                         <p class="mt-4 font-bold text-gray-800">- Rohan Verma</p>
                         <p class="text-sm text-gray-500">III Year Student, ECE</p>
                     </div>
-                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
-                        <p class="text-gray-600 italic">"Taking attendance used to be a tedious start to every lecture. The AI Camera scan is surprisingly fast and accurate. It gives me back valuable teaching time at the start of each class."</p>
+                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 testimonial-card">
+                        <p class="text-gray-600 italic">"The AI quiz generator is a fantastic tool. It helps me create quick, relevant questions to check student understanding, saving me a lot of prep time."</p>
                         <p class="mt-4 font-bold text-gray-800">- Prof. Sameer Khan</p>
                         <p class="text-sm text-gray-500">Faculty, Mechanical Engg.</p>
                     </div>
-                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                     <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 testimonial-card">
                         <p class="text-gray-600 italic">"I love that I can just drag and drop classes to make adjustments to the timetable. The AI-generated schedule options gave us a fantastic, balanced starting point this semester."</p>
                         <p class="mt-4 font-bold text-gray-800">- Dr. Priya Nair</p>
                         <p class="text-sm text-gray-500">Head of Department, Civil Engg.</p>
@@ -259,16 +362,16 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                             <div>
                                 <label for="feedback-name" class="block text-sm font-medium text-gray-700">Name</label>
-                                <input type="text" id="feedback-name" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm">
+                                <input type="text" id="feedback-name" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm smooth-transition">
                             </div>
                              <div>
                                 <label for="feedback-email" class="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="email" id="feedback-email" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm">
+                                <input type="email" id="feedback-email" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm smooth-transition">
                             </div>
                         </div>
                          <div class="mb-6">
                             <label for="feedback-message" class="block text-sm font-medium text-gray-700">Message</label>
-                            <textarea id="feedback-message" rows="5" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm"></textarea>
+                            <textarea id="feedback-message" rows="5" required class="mt-1 block w-full p-3 border border-gray-300 rounded-md shadow-sm smooth-transition"></textarea>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="brand-bg hover:brand-bg text-white font-bold py-3 px-8 rounded-full text-lg smooth-transition">Submit Feedback</button>
@@ -299,7 +402,7 @@
 
         <!-- Role Selection View -->
         <div id="role-selection-view" class="animate-fade-in">
-            <h2 class="text-center text-xl md:text-2xl font-semibold mb-6">Who are you?</h2>
+            <h2 class="text-center text-xl md:text-2xl font-semifbold mb-6">Who are you?</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
                 <div id="select-student" class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg hover:scale-105 smooth-transition cursor-pointer text-center">
                     <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
@@ -320,15 +423,16 @@
         <!-- Main View (for timetables and attendance) -->
         <div id="main-view" class="hidden main-view-transition">
             <div class="max-w-7xl mx-auto bg-white p-6 rounded-xl shadow-lg">
-                <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
-                    <h2 id="view-title" class="text-2xl font-bold">Dashboard</h2>
-                    <div>
-                         <button id="view-leave-requests-btn" class="hidden bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">View Leaves</button>
-                         <button id="analyze-workload-btn" class="hidden bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">✨ Analyze Workload</button>
-                         <button id="view-attendance-report-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">View Attendance</button>
-                         <button id="manage-time-slots-btn" class="hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Time Slots</button>
-                         <button id="manage-students-btn" class="hidden bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Students</button>
-                         <button id="manage-faculty-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition mr-2">Manage Faculty</button>
+                <div class="flex flex-col items-start md:flex-row md:justify-between md:items-center mb-6 gap-4">
+                    <h2 id="view-title" class="text-2xl font-bold w-full md:w-auto">Dashboard</h2>
+                    <div class="flex flex-wrap gap-2 justify-start w-full md:w-auto">
+                         <button id="draft-memo-btn" class="hidden bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">âœ¨ Draft Memo</button>
+                         <button id="view-leave-requests-btn" class="hidden bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">View Leaves</button>
+                         <button id="analyze-workload-btn" class="hidden bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">âœ¨ Analyze Workload</button>
+                         <button id="view-attendance-report-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">View Attendance</button>
+                         <button id="manage-time-slots-btn" class="hidden bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">Manage Time Slots</button>
+                         <button id="manage-students-btn" class="hidden bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">Manage Students</button>
+                         <button id="manage-faculty-btn" class="hidden bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">Manage Faculty</button>
                          <button id="back-button" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Back</button>
                     </div>
                 </div>
@@ -369,7 +473,7 @@
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl"><h3 id="attendance-modal-title" class="text-2xl font-bold text-center mb-2">Take Attendance</h3><p id="attendance-modal-subtitle" class="text-center text-slate-500 mb-6"></p><div class="flex justify-between items-center mb-4"><p class="text-sm text-slate-600">Total Students: <span id="student-count"></span></p><button id="mark-all-present-btn" class="bg-green-100 text-green-800 text-sm font-semibold py-1 px-3 rounded-full hover:bg-green-200 smooth-transition">Mark All Present</button></div><form id="attendance-form"><div id="student-list-container" class="max-h-96 overflow-y-auto space-y-2 border rounded-lg p-3"></div><div class="flex items-center justify-between mt-6"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button><button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Save Attendance</button></div></form></div>
     </div>
     <div id="attendance-report-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 p-4 pt-10 overflow-y-auto modal">
-        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-4xl"><h3 id="report-modal-title" class="text-2xl font-bold text-center mb-6">Attendance Report</h3><div class="mb-4 flex flex-wrap items-center gap-4"><label for="report-date" class="font-semibold">Select Date:</label><input type="date" id="report-date" class="p-2 border rounded-md"><button id="get-attendance-insights-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">✨ Get Attendance Insights</button></div><div id="report-container" class="overflow-x-auto"></div><div class="text-right mt-6"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button></div></div>
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-4xl"><h3 id="report-modal-title" class="text-2xl font-bold text-center mb-6">Attendance Report</h3><div class="mb-4 flex flex-wrap items-center gap-4"><label for="report-date" class="font-semibold">Select Date:</label><input type="date" id="report-date" class="p-2 border rounded-md"><button id="get-attendance-insights-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">âœ¨ Get Attendance Insights</button></div><div id="report-container" class="overflow-x-auto"></div><div class="text-right mt-6"><button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Close</button></div></div>
     </div>
     <div id="ask-doubt-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
@@ -385,7 +489,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                     <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
-                    <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">✨ Get Explanation</button>
+                    <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">âœ¨ Get Explanation</button>
                 </div>
             </form>
         </div>
@@ -403,7 +507,7 @@
                     <textarea id="leave-reason" rows="3" required placeholder="e.g., Personal emergency, attending a conference, etc." class="mt-1 block w-full p-2 border border-slate-300 rounded-md"></textarea>
                     <div class="text-right mt-2">
                         <button type="button" id="draft-leave-reason-btn" class="text-sm bg-purple-100 text-purple-800 font-semibold py-1 px-3 rounded-full hover:bg-purple-200 smooth-transition">
-                            ✨ Draft with AI
+                            âœ¨ Draft with AI
                         </button>
                     </div>
                 </div>
@@ -475,7 +579,7 @@
     
     <div id="project-idea-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
-            <h3 class="text-2xl font-bold text-center mb-6">✨ Project Idea Generator</h3>
+            <h3 class="text-2xl font-bold text-center mb-6">âœ¨ Project Idea Generator</h3>
             <form id="project-idea-form">
                 <div class="mb-6">
                     <label for="project-subject-select" class="block text-sm font-medium text-slate-700">Select a subject for project ideas</label>
@@ -489,15 +593,22 @@
         </div>
     </div>
 
-    <div id="ai-attendance-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
+    <div id="draft-memo-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg">
-            <h3 class="text-2xl font-bold text-center mb-6">✨ AI-Powered Attendance</h3>
-            <div id="ai-attendance-content">
-                <!-- Content will be injected by JavaScript -->
-            </div>
+            <h3 class="text-2xl font-bold text-center mb-6">âœ¨ Draft Department Memo</h3>
+            <form id="draft-memo-form">
+                <div class="mb-6">
+                    <label for="memo-topic-input" class="block text-sm font-medium text-slate-700">What is the topic of the memo?</label>
+                    <input type="text" id="memo-topic-input" required placeholder="e.g., 'Meeting about new curriculum'" class="mt-1 block w-full p-2 border border-slate-300 rounded-md">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button type="button" data-close-modal class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Cancel</button>
+                    <button type="submit" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Draft Memo</button>
+                </div>
+            </form>
         </div>
     </div>
-    
+
     <div id="manage-time-slots-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-md">
             <h3 class="text-2xl font-bold text-center mb-6">Manage Time Slots</h3>
@@ -516,7 +627,7 @@
 
     <div id="timetable-options-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start z-50 p-4 pt-10 overflow-y-auto modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-6xl">
-            <h3 class="text-2xl font-bold text-center mb-6">✨ AI Generated Timetable Options</h3>
+            <h3 class="text-2xl font-bold text-center mb-6">âœ¨ AI Generated Timetable Options</h3>
             <p class="text-center text-slate-500 mb-6">The AI has generated a few options. Please review them and select the one that works best.</p>
             <div id="timetable-options-container" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <!-- Timetable options will be populated here -->
@@ -531,7 +642,7 @@
     <!-- Gemini AI Modal -->
     <div id="gemini-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[100] p-4 modal">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <h3 id="gemini-modal-title" class="text-2xl font-bold text-center mb-6 text-gray-800">✨ AI Assistant</h3>
+            <h3 id="gemini-modal-title" class="text-2xl font-bold text-center mb-6 text-gray-800">âœ¨ AI Assistant</h3>
             <div id="gemini-modal-content" class="flex-grow overflow-y-auto pr-2">
                 <!-- Loading state -->
                 <div id="gemini-loading" class="text-center py-8 hidden">
@@ -878,6 +989,7 @@
             const geminiResult = document.getElementById('gemini-result');
             const facultyActions = document.getElementById('faculty-actions');
             const viewLeaveRequestsBtn = document.getElementById('view-leave-requests-btn');
+            const draftMemoBtn = document.getElementById('draft-memo-btn');
             let draggedElement = null;
 
             // --- LANDING PAGE LOGIC ---
@@ -989,6 +1101,7 @@
                 manageStudentsBtn.classList.add('hidden');
                 manageTimeSlotsBtn.classList.add('hidden');
                 viewLeaveRequestsBtn.classList.add('hidden');
+                draftMemoBtn.classList.add('hidden');
                 studentAttendanceSummary.classList.add('hidden');
                 viewAttendanceReportBtn.classList.add('hidden');
                 document.getElementById('analyze-workload-btn').classList.add('hidden');
@@ -1173,12 +1286,12 @@
                 aiTutorContainer.className = 'ai-tutor-container my-6 p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-lg flex flex-wrap justify-between items-center gap-4';
                 
                 let buttonsHTML = `
-                    <button id="ask-ai-tutor-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Ask a Doubt</button>
-                    <button id="create-study-plan-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Create Study Plan</button>
+                    <button id="ask-ai-tutor-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">âœ¨ Ask a Doubt</button>
+                    <button id="create-study-plan-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">âœ¨ Create Study Plan</button>
                 `;
                 
                 if (year === 'III' || year === 'IV') {
-                    buttonsHTML += `<button id="generate-project-ideas-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">✨ Project Ideas</button>`;
+                    buttonsHTML += `<button id="generate-project-ideas-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition whitespace-nowrap">âœ¨ Project Ideas</button>`;
                 }
 
                 aiTutorContainer.innerHTML = `
@@ -1218,6 +1331,7 @@
                 manageStudentsBtn.classList.remove('hidden');
                 manageTimeSlotsBtn.classList.remove('hidden');
                 viewLeaveRequestsBtn.classList.remove('hidden');
+                draftMemoBtn.classList.remove('hidden');
                 document.getElementById('analyze-workload-btn').classList.remove('hidden');
                 filtersContainer.innerHTML = ''; 
                 timetableContainer.innerHTML = ''; 
@@ -1235,7 +1349,7 @@
                 const yearContainer = document.createElement('div');
                 const sectionContainer = document.createElement('div');
                 const aiButtonContainer = document.createElement('div');
-                aiButtonContainer.innerHTML = `<label class="block text-sm font-medium text-slate-700 mb-1 opacity-0">AI</label><button id="auto-generate-schedule-btn" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition disabled:bg-purple-300" disabled>✨ Auto-Generate</button>`;
+                aiButtonContainer.innerHTML = `<label class="block text-sm font-medium text-slate-700 mb-1 opacity-0">AI</label><button id="auto-generate-schedule-btn" class="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition disabled:bg-purple-300" disabled>âœ¨ Auto-Generate</button>`;
 
                 const deptSelect = createSelect('h-dept', 'Department', timeTableData.departments, deptContainer);
                 const yearSelect = createSelect('h-year', 'Year', timeTableData.years, yearContainer);
@@ -1259,6 +1373,7 @@
                     viewAttendanceReportBtn.classList.toggle('hidden', !selectionComplete); 
                     autoGenerateBtn.disabled = !selectionComplete; 
                     analyzeWorkloadBtn.disabled = !dept;
+                    draftMemoBtn.disabled = !dept;
                     if (selectionComplete) { renderTimetable(timeTableData.schedule[dept][year][section], getCurrentTimeInfo()); } else { timetableContainer.innerHTML = ''; }
                 };
                 [deptSelect, yearSelect, sectionSelect].forEach(sel => sel.addEventListener('change', update));
@@ -1270,11 +1385,15 @@
                 if (currentClassDetails) {
                     facultyCurrentClassView.innerHTML = `<div class="text-center md:text-left flex-grow"><p class="font-bold">You have a class right now!</p><p>${currentClassDetails.subject} for ${currentClassDetails.dept}-${currentClassDetails.year}-${currentClassDetails.section}</p></div>
                     <div class="flex flex-wrap gap-2 justify-center">
-                        <button id="ai-attendance-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition animate-pulse">✨ Take Attendance with AI Camera</button>
-                        <button id="manual-attendance-btn" class="bg-slate-500 hover:bg-slate-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">Take Attendance Manually</button>
+                        <button id="take-attendance-btn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Take Attendance</button>
+                        <button id="lesson-plan-btn" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">âœ¨ Lesson Plan</button>
+                        <button id="generate-quiz-btn" class="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">âœ¨ Generate Quiz</button>
+                        <button id="suggest-topics-btn" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg smooth-transition">âœ¨ Suggest Topics</button>
                     </div>`;
-                    document.getElementById('ai-attendance-btn').addEventListener('click', () => openAIAttendanceModal(currentClassDetails));
-                    document.getElementById('manual-attendance-btn').addEventListener('click', () => openAttendanceModal(currentClassDetails));
+                    document.getElementById('take-attendance-btn').addEventListener('click', () => openAttendanceModal(currentClassDetails));
+                    document.getElementById('lesson-plan-btn').addEventListener('click', () => handleCreateLessonPlan(currentClassDetails.subject));
+                    document.getElementById('generate-quiz-btn').addEventListener('click', () => handleGenerateQuiz(currentClassDetails.subject));
+                    document.getElementById('suggest-topics-btn').addEventListener('click', () => handleSuggestTopics(currentClassDetails.subject));
                 } else {
                     facultyCurrentClassView.innerHTML = `<div class="text-center w-full"><p class="font-bold">No class scheduled at this time.</p><p class="text-sm text-gray-600 mt-1">When your class starts, the attendance buttons will appear here.</p></div>`;
                 }
@@ -1284,7 +1403,7 @@
             function displayStudentAttendance(studentInfo) {
                 const { dept, year, section, id: studentId } = studentInfo; const subjects = timeTableData.subjects[year]; let summaryHTML = `<h3 class="text-xl font-bold mb-4">Your Attendance Summary</h3><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">`;
                 subjects.forEach(subject => { let totalClasses = 0; let attendedClasses = 0; Object.keys(timeTableData.attendance).forEach(date => { Object.keys(timeTableData.attendance[date]).forEach(slotIndex => { const classSchedule = timeTableData.schedule?.[dept]?.[year]?.[section]?.[days[new Date(date).getDay() - 1]]?.[slotIndex]; if (classSchedule?.subject === subject) { const classKey = `${dept}-${year}-${section}`; const record = timeTableData.attendance[date][slotIndex]?.[classKey]; if (record) { totalClasses++; if (record[studentId] === 'present') { attendedClasses++; } } } }); });
-                const percentage = totalClasses > 0 ? ((attendedClasses / totalClasses) * 100).toFixed(1) : "100.0"; const color = percentage >= 75 ? 'text-green-600' : 'text-red-600'; summaryHTML += `<div class="p-3 bg-white rounded-lg border flex flex-col justify-between shadow-sm hover:shadow-md smooth-transition"><div class="mb-2"><p class="font-semibold">${subject}</p><p class="text-2xl font-bold ${color}">${percentage}%</p><p class="text-sm text-slate-500">(${attendedClasses}/${totalClasses} classes)</p></div><button class="get-study-tips-btn text-xs bg-purple-100 text-purple-800 font-semibold py-1 px-2 rounded-full hover:bg-purple-200 smooth-transition w-full" data-subject="${subject}">✨ Get Study Tips</button></div>`; });
+                const percentage = totalClasses > 0 ? ((attendedClasses / totalClasses) * 100).toFixed(1) : "100.0"; const color = percentage >= 75 ? 'text-green-600' : 'text-red-600'; summaryHTML += `<div class="p-3 bg-white rounded-lg border flex flex-col justify-between shadow-sm hover:shadow-md smooth-transition"><div class="mb-2"><p class="font-semibold">${subject}</p><p class="text-2xl font-bold ${color}">${percentage}%</p><p class="text-sm text-slate-500">(${attendedClasses}/${totalClasses} classes)</p></div><button class="get-study-tips-btn text-xs bg-purple-100 text-purple-800 font-semibold py-1 px-2 rounded-full hover:bg-purple-200 smooth-transition w-full" data-subject="${subject}">âœ¨ Get Study Tips</button></div>`; });
                 summaryHTML += `</div>`; studentAttendanceSummary.innerHTML = summaryHTML; studentAttendanceSummary.classList.remove('hidden');
                 document.querySelectorAll('.get-study-tips-btn').forEach(btn => btn.addEventListener('click', (e) => handleGetStudyTips(e.target.dataset.subject)));
             }
@@ -1332,7 +1451,7 @@
                 const question = document.getElementById('doubt-textarea').value;
                 if (!subject || !question) return;
                 toggleModal('ask-doubt-modal', false);
-                document.getElementById('gemini-modal-title').textContent = `✨ AI Tutor Explains: ${subject}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ AI Tutor Explains: ${subject}`;
                 const prompt = `You are a friendly and encouraging engineering tutor. An undergraduate student has a question about the subject "${subject}".
                 Student's question: "${question}"
                 Please provide a clear, step-by-step explanation. Use simple language, and if appropriate, give a small example or an analogy to help them understand. Keep the tone supportive.`;
@@ -1358,7 +1477,7 @@
                 saveData(); 
                 toggleModal('take-leave-modal', false); 
                 
-                document.getElementById('gemini-modal-title').textContent = '✅ Leave Request Submitted';
+                document.getElementById('gemini-modal-title').textContent = 'âœ… Leave Request Submitted';
                 const confirmationHTML = `<p class="text-lg">Your leave request has been successfully submitted for review.</p>`;
                 geminiResult.innerHTML = confirmationHTML + `<div id="substitute-suggestion" class="mt-4 pt-4 border-t"><div class="loader mx-auto"></div><p class="text-center text-slate-500 mt-2">Checking for potential substitute arrangements...</p></div>`;
                 toggleModal('gemini-modal', true);
@@ -1473,104 +1592,32 @@
                 if (students.some(s => s.id === newId)) { errorEl.textContent = 'A student with this ID already exists in this class.'; errorEl.classList.remove('hidden'); } else { errorEl.classList.add('hidden'); students.push({ id: newId, name: newName }); students.sort((a, b) => a.name.localeCompare(b.name)); saveData(); renderStudentManagementList(dept, year, section); document.getElementById('add-student-form').reset(); }
             }
             
-            // --- AI ATTENDANCE ---
-            function openAIAttendanceModal(classInfo) {
-                currentClassInfoForAttendance = classInfo;
-                const contentContainer = document.getElementById('ai-attendance-content');
-                
-                contentContainer.innerHTML = `
-                    <div class="text-center">
-                        <div class="w-full h-48 bg-slate-800 rounded-lg flex items-center justify-center mb-4">
-                            <p class="text-slate-400">Simulating Classroom Camera Feed...</p>
-                        </div>
-                        <p class="text-slate-600 mb-6">Press "Start AI Scan" to begin automatic attendance.</p>
-                        <button id="start-ai-scan-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg smooth-transition">Start AI Scan</button>
-                    </div>`;
-
-                document.getElementById('start-ai-scan-btn').addEventListener('click', runAIAttendanceScan);
-                toggleModal('ai-attendance-modal', true);
-            }
-
-            function runAIAttendanceScan() {
-                const contentContainer = document.getElementById('ai-attendance-content');
-                const messages = [
-                    "Accessing classroom camera...",
-                    "Detecting faces in the frame...",
-                    "Comparing faces against the class roster...",
-                    "Cross-referencing with student database..."
-                ];
-                let messageIndex = 0;
-
-                contentContainer.innerHTML = `<div class="text-center"><div class="loader mx-auto mb-4"></div><p id="ai-status-message" class="text-slate-600 font-semibold">${messages[0]}</p></div>`;
-                const statusMessage = document.getElementById('ai-status-message');
-
-                const interval = setInterval(() => {
-                    messageIndex++;
-                    if (messageIndex < messages.length) {
-                        statusMessage.textContent = messages[messageIndex];
-                    } else {
-                        clearInterval(interval);
-                        displayAIAttendanceResults();
-                    }
-                }, 1000);
-            }
-            
-            function displayAIAttendanceResults() {
-                const { dept, year, section } = currentClassInfoForAttendance;
-                const students = timeTableData.students[dept]?.[year]?.[section] || [];
-                const totalStudents = students.length;
-                
-                // Simulate some students being absent
-                const shuffled = [...students].sort(() => 0.5 - Math.random());
-                const absentCount = Math.floor(Math.random() * 3); // 0, 1, or 2 absent students
-                const absentStudents = shuffled.slice(0, absentCount);
-                const presentCount = totalStudents - absentCount;
-                
-                const attendanceRecord = {};
-                students.forEach(s => {
-                    if (absentStudents.some(as => as.id === s.id)) {
-                        attendanceRecord[s.id] = 'absent';
-                    } else {
-                        attendanceRecord[s.id] = 'present';
-                    }
-                });
-
-                const contentContainer = document.getElementById('ai-attendance-content');
-                let absentListHTML = absentStudents.length > 0 ?
-                    `<p class="text-sm font-semibold mt-4 mb-2">The following students were not detected:</p>
-                     <ul class="text-left text-sm text-red-600 list-disc list-inside">${absentStudents.map(s => `<li>${s.name}</li>`).join('')}</ul>` :
-                    `<p class="text-sm text-green-600 mt-4">All students were detected.</p>`;
-                
-                contentContainer.innerHTML = `
-                    <div class="text-center">
-                        <h4 class="text-xl font-bold mb-2">Scan Complete!</h4>
-                        <p><span class="font-bold text-2xl text-green-600">${presentCount}</span> / ${totalStudents} students marked as <span class="font-semibold text-green-600">Present</span>.</p>
-                        <p><span class="font-bold text-2xl text-red-600">${absentCount}</span> student(s) marked as <span class="font-semibold text-red-600">Absent</span>.</p>
-                        <div class="my-4 p-3 bg-slate-50 rounded-lg">${absentListHTML}</div>
-                        <div class="flex flex-col sm:flex-row gap-2 mt-6">
-                            <button id="ai-review-btn" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-semibold py-2 px-4 rounded-lg smooth-transition">Review & Edit Manually</button>
-                            <button id="ai-confirm-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg smooth-transition">Confirm & Save</button>
-                        </div>
-                    </div>`;
-
-                document.getElementById('ai-confirm-btn').addEventListener('click', () => {
-                    const { dept, year, section, slotIndex } = currentClassInfoForAttendance;
-                    const today = getTodayDateString();
-                    if (!timeTableData.attendance[today]) timeTableData.attendance[today] = {};
-                    if (!timeTableData.attendance[today][slotIndex]) timeTableData.attendance[today][slotIndex] = {};
-                    const classKey = `${dept}-${year}-${section}`;
-                    timeTableData.attendance[today][slotIndex][classKey] = attendanceRecord;
-                    saveData();
-                    toggleModal('ai-attendance-modal', false);
-                });
-
-                document.getElementById('ai-review-btn').addEventListener('click', () => {
-                    toggleModal('ai-attendance-modal', false);
-                    openAttendanceModal(currentClassInfoForAttendance, attendanceRecord);
-                });
-            }
-
             // --- AI & HOD MANAGEMENT FEATURE HANDLERS ---
+            draftMemoBtn.addEventListener('click', () => {
+                const dept = document.getElementById('h-dept')?.value;
+                if (!dept) {
+                    alert("Please select a department first.");
+                    return;
+                }
+                toggleModal('draft-memo-modal', true);
+            });
+            document.getElementById('draft-memo-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const topic = document.getElementById('memo-topic-input').value;
+                const dept = document.getElementById('h-dept').value;
+                toggleModal('draft-memo-modal', false);
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Memo Draft: ${topic}`;
+                const prompt = `You are an administrative assistant for a Head of Department (HOD) in an engineering college.
+                Draft a formal and professional memo for the HOD of the "${dept}" department.
+                The topic of the memo is: "${topic}".
+                The memo should be addressed to all faculty members of the department. Include placeholders like [Date], [Time], [Venue] if applicable. Ensure the tone is formal and clear.
+                Format the response using Markdown for structure, including a subject line, a clear body, and a closing.`;
+                const result = await callGeminiAPI(prompt);
+                if (result) {
+                    geminiResult.innerHTML = result.replace(/\n/g, '<br>');
+                }
+            });
+
             function openProjectIdeaModal(studentInfo) {
                 const { year } = studentInfo;
                 const subjects = timeTableData.subjects[year] || [];
@@ -1581,7 +1628,7 @@
                 e.preventDefault();
                 const subject = document.getElementById('project-subject-select').value;
                 toggleModal('project-idea-modal', false);
-                document.getElementById('gemini-modal-title').textContent = `✨ Project Ideas for ${subject}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Project Ideas for ${subject}`;
                 const prompt = `I am a final year undergraduate engineering student. Please generate 3-4 innovative project ideas related to the subject "${subject}".
                 For each idea, provide:
                 1. A catchy project title.
@@ -1598,7 +1645,7 @@
                 const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value];
                 if (!dept || !year || !section) return;
 
-                document.getElementById('gemini-modal-title').textContent = `✨ Generating Schedule Options for ${dept}-${year}-${section}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Generating Schedule Options for ${dept}-${year}-${section}`;
                 toggleModal('gemini-modal', true);
                 document.getElementById('gemini-loading').classList.remove('hidden');
                 document.getElementById('gemini-result').innerHTML = `<p class="text-center">Generating 3 unique timetable options... This may take a moment.</p>`;
@@ -1707,7 +1754,7 @@
             }
 
             async function handleCreateLessonPlan(subject) {
-                document.getElementById('gemini-modal-title').textContent = `✨ Lesson Plan for ${subject}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Lesson Plan for ${subject}`;
                 const prompt = `You are an experienced engineering professor. Create a detailed 1-hour lesson plan for an undergraduate lecture on the subject: "${subject}".
                 The plan should include:
                 - Learning Objectives (3-4 clear goals).
@@ -1718,13 +1765,13 @@
                 Format this as a structured plan using Markdown for headings and lists.`;
                 const result = await callGeminiAPI(prompt);
                 if (result) {
-                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    let html = result.replace(/\n\*/g, '<br>â€¢').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
                     geminiResult.innerHTML = html;
                 }
             }
             
             async function handleCreateStudyPlan(studentInfo) {
-                document.getElementById('gemini-modal-title').textContent = `✨ Personalized Study Plan`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Personalized Study Plan`;
                 const { dept, year, section } = studentInfo;
                 const subjects = timeTableData.subjects[year] || [];
                 const schedule = timeTableData.schedule[dept]?.[year]?.[section];
@@ -1753,7 +1800,7 @@
                 Format the response clearly using Markdown headings for each day and bullet points for the schedule.`;
                 const result = await callGeminiAPI(prompt);
                 if (result) {
-                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    let html = result.replace(/\n\*/g, '<br>â€¢').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
                     geminiResult.innerHTML = html;
                 }
             }
@@ -1842,24 +1889,24 @@
 
 
             async function handleSuggestTopics(subject) {
-                document.getElementById('gemini-modal-title').textContent = `✨ Lecture Topics for ${subject}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Lecture Topics for ${subject}`;
                 const prompt = `I am an engineering professor preparing a one-hour lecture on the subject "${subject}". Suggest 3 to 5 key topics or concepts I could cover in today's class. For each topic, provide a brief, one-sentence description. Format the response clearly with headings for each topic.`;
                 const result = await callGeminiAPI(prompt);
                 if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
             }
 
             async function handleGetStudyTips(subject) {
-                document.getElementById('gemini-modal-title').textContent = `✨ Study Tips for ${subject}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Study Tips for ${subject}`;
                 const prompt = `I am an engineering student. Provide three concise and actionable study tips for the undergraduate subject "${subject}". Format them as a numbered list with brief explanations.`;
                 const result = await callGeminiAPI(prompt);
-                if (result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
+                if(result) { geminiResult.innerHTML = result.replace(/\n/g, '<br>'); }
             }
-            
+
             async function handleGetAttendanceInsights() {
                 const [dept, year, section] = [document.getElementById('h-dept').value, document.getElementById('h-year').value, document.getElementById('h-section').value];
                 const date = document.getElementById('report-date').value;
                 if (!dept || !year || !section || !date) return;
-                document.getElementById('gemini-modal-title').textContent = `✨ Attendance Insights for ${date}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Attendance Insights for ${date}`;
                 const attendanceForDay = timeTableData.attendance[date] || {};
                 const classKey = `${dept}-${year}-${section}`;
                 const students = timeTableData.students[dept]?.[year]?.[section] || [];
@@ -1892,7 +1939,7 @@
             }
 
             async function handleGenerateQuiz(subject) {
-                document.getElementById('gemini-modal-title').textContent = `✨ Quiz Questions for ${subject}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Quiz Questions for ${subject}`;
                 const prompt = `You are an expert question paper setter for an engineering college. Generate a 5-question multiple-choice quiz on the undergraduate subject "${subject}".
                 - The questions should be challenging but appropriate for a mid-lecture surprise quiz.
                 - For each question, provide four options (A, B, C, D).
@@ -1900,13 +1947,13 @@
                 Format the output cleanly using Markdown for headings and lists.`;
                 const result = await callGeminiAPI(prompt);
                 if (result) {
-                    let html = result.replace(/\n\*/g, '<br>•').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
+                    let html = result.replace(/\n\*/g, '<br>â€¢').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>');
                     geminiResult.innerHTML = html;
                 }
             }
 
             async function handleWorkloadAnalysis(dept) {
-                document.getElementById('gemini-modal-title').textContent = `✨ Faculty Workload Analysis for ${dept}`;
+                document.getElementById('gemini-modal-title').textContent = `âœ¨ Faculty Workload Analysis for ${dept}`;
                 const workload = {};
                 const facultyList = timeTableData.faculty[dept] || [];
                 facultyList.forEach(f => workload[f] = 0);
@@ -2006,7 +2053,7 @@
 
             // --- NEW: AI RESCHEDULING FOR LEAVES ---
             async function initiateAIRescheduling(leave, leaveIndex) {
-                 document.getElementById('gemini-modal-title').textContent = `✨ AI Rescheduling for ${leave.faculty}`;
+                 document.getElementById('gemini-modal-title').textContent = `âœ¨ AI Rescheduling for ${leave.faculty}`;
                  toggleModal('gemini-modal', true);
                  document.getElementById('gemini-loading').classList.remove('hidden');
                  document.getElementById('gemini-result').innerHTML = `<p class="text-center">Analyzing schedules and faculty workload to find the best solution...</p>`;
@@ -2185,7 +2232,7 @@
 
                     html += `
                     <div class="p-3 bg-slate-100 rounded-lg border border-slate-200">
-                        <p class="text-sm text-center text-white bg-blue-600 font-medium p-2 rounded-md mb-3">✨ AI Justification: ${details}</p>
+                        <p class="text-sm text-center text-white bg-blue-600 font-medium p-2 rounded-md mb-3">âœ¨ AI Justification: ${details}</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                             <div class="md:col-span-1">
                                 <p class="text-sm font-bold text-center mb-1 text-slate-600">BEFORE</p>
@@ -2249,5 +2296,3 @@
     </script>
 </body>
 </html>
-          
-
